@@ -3,11 +3,106 @@
 @tailwind utilities;
 
 @layer base {
+  :root {
+    --background: 210 40% 98%;
+    --foreground: 222 47% 11%;
+
+    --card: 0 0% 100%;
+    --card-foreground: 222 47% 11%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 222 47% 11%;
+
+    --primary: 222 61% 20%;
+    --primary-foreground: 210 40% 98%;
+
+    --secondary: 210 40% 96%;
+    --secondary-foreground: 222 47% 11%;
+
+    --muted: 210 40% 96%;
+    --muted-foreground: 215 16% 47%;
+
+    --accent: 174 100% 38%;
+    --accent-foreground: 210 40% 98%;
+
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 210 40% 98%;
+
+    --border: 214 32% 91%;
+    --input: 214 32% 91%;
+    --ring: 222 47% 11%;
+
+    --radius: 0.5rem;
+  }
+
   * {
     @apply border-border;
   }
 
   body {
-    @apply font-sans antialiased bg-background text-foreground;
+    @apply bg-background text-foreground;
+    font-family: 'Inter', sans-serif;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: 'Montserrat', sans-serif;
+  }
+  
+  .font-heading {
+    font-family: 'Montserrat', sans-serif;
+  }
+}
+
+@layer components {
+  .transition-all {
+    transition: all 0.3s ease;
+  }
+  
+  .text-accent {
+    color: hsl(var(--accent));
+  }
+  
+  .bg-accent {
+    background-color: hsl(var(--accent));
+  }
+  
+  .bg-accent-light {
+    background-color: hsl(var(--accent) / 0.8);
+  }
+  
+  .bg-accent-dark {
+    background-color: hsl(174 100% 30%);
+  }
+  
+  .hover\:bg-accent-dark:hover {
+    background-color: hsl(174 100% 30%);
+  }
+  
+  .border-accent {
+    border-color: hsl(var(--accent));
+  }
+  
+  .hover\:border-accent:hover {
+    border-color: hsl(var(--accent));
+  }
+  
+  .hover\:text-accent:hover {
+    color: hsl(var(--accent));
+  }
+  
+  .text-primary {
+    color: hsl(var(--primary));
+  }
+  
+  .bg-primary {
+    background-color: hsl(var(--primary));
+  }
+  
+  .bg-primary-light {
+    background-color: hsl(222 61% 25%);
+  }
+  
+  .bg-primary-dark {
+    background-color: hsl(222 61% 15%);
   }
 }
