@@ -37,163 +37,174 @@ const Navbar = () => {
   };
   
   return (
-    <div className={`navbar sticky top-0 z-50 transition-all duration-300 ${
+    <nav className={`sticky top-0 z-50 transition-all duration-300 ${
       scrolled ? 'glass-navbar' : 'bg-transparent'
     }`}>
-      <div className="max-w-7xl mx-auto px-4 w-full">
-        <div className="navbar-start">
-          <div className="dropdown lg:hidden">
-            <div tabIndex={0} role="button" className="btn btn-ghost btn-circle" onClick={toggleMobileMenu}>
-              <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h16M4 18h16" />
-              </svg>
-            </div>
-            {mobileMenuOpen && (
-              <ul tabIndex={0} className="menu menu-sm dropdown-content mt-3 z-[1] p-2 glass-card rounded-box w-52 shadow-xl">
-                <li>
-                  <Link href="/" onClick={() => setMobileMenuOpen(false)} className={isActive('/') ? 'text-accent font-medium' : ''}>
-                    Home
-                  </Link>
-                </li>
-                <li>
-                  <Link href="/cars" onClick={() => setMobileMenuOpen(false)} className={isActive('/cars') ? 'text-accent font-medium' : ''}>
-                    Cars
-                  </Link>
-                </li>
-                <li>
-                  <Link href="/drivers" onClick={() => setMobileMenuOpen(false)} className={isActive('/drivers') ? 'text-accent font-medium' : ''}>
-                    Drivers
-                  </Link>
-                </li>
-                <li><a href="#about" onClick={() => setMobileMenuOpen(false)}>About</a></li>
-                <li><a href="#contact" onClick={() => setMobileMenuOpen(false)}>Contact</a></li>
-                
-                <div className="divider my-2"></div>
-                
-                {isLoggedIn ? (
-                  <>
-                    <div className="px-4 py-2 flex items-center">
-                      <div className="avatar">
-                        <div className="w-8 rounded-full ring ring-primary ring-offset-1 ring-offset-base-100 bg-primary text-white flex items-center justify-center font-bold">
-                          {user?.username.charAt(0).toUpperCase()}
-                        </div>
-                      </div>
-                      <span className="ml-2">{user?.username}</span>
-                    </div>
-                    <li>
-                      <button 
-                        onClick={() => {
-                          handleLogout();
-                          setMobileMenuOpen(false);
-                        }}
-                        className="text-error"
-                      >
-                        Log Out
-                      </button>
-                    </li>
-                  </>
-                ) : (
-                  <div className="px-4 py-2 flex flex-col gap-2">
-                    <Link 
-                      href="/login" 
-                      className="btn btn-outline btn-sm"
-                      onClick={() => setMobileMenuOpen(false)}
-                    >
-                      Sign In
-                    </Link>
-                    <Link 
-                      href="/register" 
-                      className="btn btn-primary btn-sm"
-                      onClick={() => setMobileMenuOpen(false)}
-                    >
-                      Register
-                    </Link>
-                  </div>
-                )}
-              </ul>
-            )}
-          </div>
-          
-          <Link href="/" className="flex-shrink-0 flex items-center">
-            <span className="text-primary font-heading font-bold text-2xl lg:text-3xl">
-              ZORO<span className="text-accent">CARS</span>
-            </span>
-          </Link>
-        </div>
-        
-        <div className="navbar-center hidden lg:flex">
-          <ul className="menu menu-horizontal px-1 gap-2">
-            <li>
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="flex justify-between h-18">
+          <div className="flex items-center">
+            <Link href="/" className="flex-shrink-0 flex items-center">
+              <span className="text-primary font-heading font-bold text-2xl">
+                ZORO<span className="text-accent">CARS</span>
+              </span>
+            </Link>
+            <div className="hidden md:ml-10 md:flex md:space-x-8">
               <Link href="/" className={`${
                 isActive('/') 
                   ? 'text-accent font-medium animated-underline after:w-full' 
-                  : 'hover:text-accent font-medium animated-underline'
-              } px-2`}>
+                  : 'text-neutral-700 hover:text-accent font-medium animated-underline'
+              } px-1 py-4 transition-all`}>
                 Home
               </Link>
-            </li>
-            <li>
               <Link href="/cars" className={`${
                 isActive('/cars') 
                   ? 'text-accent font-medium animated-underline after:w-full' 
-                  : 'hover:text-accent font-medium animated-underline'
-              } px-2`}>
+                  : 'text-neutral-700 hover:text-accent font-medium animated-underline'
+              } px-1 py-4 transition-all`}>
                 Cars
               </Link>
-            </li>
-            <li>
               <Link href="/drivers" className={`${
                 isActive('/drivers') 
                   ? 'text-accent font-medium animated-underline after:w-full' 
-                  : 'hover:text-accent font-medium animated-underline'
-              } px-2`}>
+                  : 'text-neutral-700 hover:text-accent font-medium animated-underline'
+              } px-1 py-4 transition-all`}>
                 Drivers
               </Link>
-            </li>
-            <li>
-              <a href="#about" className="hover:text-accent font-medium px-2 animated-underline">
+              <a href="#about" className="text-neutral-700 hover:text-accent font-medium px-1 py-4 animated-underline transition-all">
                 About
               </a>
-            </li>
-            <li>
-              <a href="#contact" className="hover:text-accent font-medium px-2 animated-underline">
+              <a href="#contact" className="text-neutral-700 hover:text-accent font-medium px-1 py-4 animated-underline transition-all">
                 Contact
               </a>
-            </li>
-          </ul>
-        </div>
-        
-        <div className="navbar-end">
-          {isLoggedIn ? (
-            <div className="flex items-center gap-2">
-              <div className="dropdown dropdown-end">
-                <div tabIndex={0} role="button" className="btn btn-ghost btn-circle avatar">
-                  <div className="w-10 rounded-full ring ring-primary ring-offset-2 ring-offset-base-100 bg-primary text-white flex items-center justify-center font-bold">
+            </div>
+          </div>
+          <div className="flex items-center">
+            {isLoggedIn ? (
+              <>
+                <div className="hidden md:flex md:items-center bg-teal-50/70 backdrop-blur-sm px-4 py-1.5 rounded-full">
+                  <div className="w-8 h-8 bg-accent text-white rounded-full flex items-center justify-center font-bold mr-2">
                     {user?.username.charAt(0).toUpperCase()}
                   </div>
+                  <span className="text-neutral-700 mr-2">{user?.username}</span>
                 </div>
-                <ul tabIndex={0} className="mt-3 z-[1] p-2 shadow menu menu-sm dropdown-content glass-card rounded-box w-52">
-                  <li className="font-semibold px-4 py-2">{user?.username}</li>
-                  <div className="divider my-0"></div>
-                  <li><a>Profile</a></li>
-                  <li><a>Bookings</a></li>
-                  <li><button onClick={handleLogout} className="text-error">Logout</button></li>
-                </ul>
-              </div>
+                <button 
+                  onClick={handleLogout}
+                  className="ml-4 text-neutral-700 hover:text-accent px-3 py-2 rounded-full text-sm font-medium border border-neutral-200 hover:border-accent transition-all"
+                >
+                  Log Out
+                </button>
+              </>
+            ) : (
+              <>
+                <Link href="/login" className="text-neutral-700 hover:text-accent px-3 py-2 rounded-full text-sm font-medium border border-neutral-200 hover:border-accent transition-all">
+                  Sign In
+                </Link>
+                <Link href="/register" className="ml-4 px-5 py-2.5 rounded-full text-sm font-medium gradient-accent text-white hover:shadow-lg transition-all btn-hover-effect">
+                  Register
+                </Link>
+              </>
+            )}
+            <div className="md:hidden flex items-center ml-4">
+              <button 
+                onClick={toggleMobileMenu}
+                type="button" 
+                className="text-neutral-700 hover:text-accent focus:outline-none bg-white/50 backdrop-blur-sm p-2 rounded-full"
+              >
+                <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
+                </svg>
+              </button>
             </div>
-          ) : (
-            <div className="hidden lg:flex items-center gap-2">
-              <Link href="/login" className="btn btn-ghost btn-sm">
-                Sign In
-              </Link>
-              <Link href="/register" className="btn btn-accent btn-sm">
-                Register
-              </Link>
-            </div>
-          )}
+          </div>
         </div>
       </div>
-    </div>
+      
+      {/* Mobile menu */}
+      <div className={`${mobileMenuOpen ? 'block' : 'hidden'} md:hidden glass-panel mt-2 mx-4 rounded-xl overflow-hidden transition-all duration-300`}>
+        <div className="px-2 py-3 space-y-1 sm:px-3">
+          <Link 
+            href="/" 
+            className={`block px-4 py-2.5 rounded-lg text-base font-medium ${
+              isActive('/') ? 'bg-gradient-to-r from-teal-500/20 to-teal-400/10 text-accent' : 'text-neutral-700 hover:bg-neutral-100/80'
+            }`}
+            onClick={() => setMobileMenuOpen(false)}
+          >
+            Home
+          </Link>
+          <Link 
+            href="/cars" 
+            className={`block px-4 py-2.5 rounded-lg text-base font-medium ${
+              isActive('/cars') ? 'bg-gradient-to-r from-teal-500/20 to-teal-400/10 text-accent' : 'text-neutral-700 hover:bg-neutral-100/80'
+            }`}
+            onClick={() => setMobileMenuOpen(false)}
+          >
+            Cars
+          </Link>
+          <Link 
+            href="/drivers" 
+            className={`block px-4 py-2.5 rounded-lg text-base font-medium ${
+              isActive('/drivers') ? 'bg-gradient-to-r from-teal-500/20 to-teal-400/10 text-accent' : 'text-neutral-700 hover:bg-neutral-100/80'
+            }`}
+            onClick={() => setMobileMenuOpen(false)}
+          >
+            Drivers
+          </Link>
+          <a 
+            href="#about" 
+            className="block px-4 py-2.5 rounded-lg text-base font-medium text-neutral-700 hover:bg-neutral-100/80"
+            onClick={() => setMobileMenuOpen(false)}
+          >
+            About
+          </a>
+          <a 
+            href="#contact" 
+            className="block px-4 py-2.5 rounded-lg text-base font-medium text-neutral-700 hover:bg-neutral-100/80"
+            onClick={() => setMobileMenuOpen(false)}
+          >
+            Contact
+          </a>
+          
+          <div className="pt-4 mt-4 border-t border-neutral-200/30">
+            {isLoggedIn ? (
+              <>
+                <div className="px-4 py-2.5 flex items-center">
+                  <div className="w-8 h-8 bg-accent text-white rounded-full flex items-center justify-center font-bold mr-2">
+                    {user?.username.charAt(0).toUpperCase()}
+                  </div>
+                  <span className="text-neutral-700">{user?.username}</span>
+                </div>
+                <button 
+                  onClick={() => {
+                    handleLogout();
+                    setMobileMenuOpen(false);
+                  }}
+                  className="block w-full text-left px-4 py-2.5 rounded-lg text-base font-medium text-red-500 hover:bg-red-50/50"
+                >
+                  Log Out
+                </button>
+              </>
+            ) : (
+              <div className="flex flex-col space-y-2">
+                <Link 
+                  href="/login" 
+                  className="block px-4 py-2.5 rounded-lg text-center text-base font-medium border border-neutral-200 text-neutral-700 hover:border-accent hover:text-accent"
+                  onClick={() => setMobileMenuOpen(false)}
+                >
+                  Sign In
+                </Link>
+                <Link 
+                  href="/register" 
+                  className="block px-4 py-2.5 rounded-lg text-center text-base font-medium gradient-accent text-white"
+                  onClick={() => setMobileMenuOpen(false)}
+                >
+                  Register
+                </Link>
+              </div>
+            )}
+          </div>
+        </div>
+      </div>
+    </nav>
   );
 };
 
