@@ -190,10 +190,10 @@ const CarDetails = () => {
   const displayRating = formatRating(car.rating);
   
   return (
-    <div className="bg-neutral-50 py-12">
+    <div className="bg-white py-12 dark:bg-gray-900">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="mb-6">
-          <Link href="/cars" className="text-accent hover:text-accent-dark inline-flex items-center">
+          <Link href="/cars" className="text-violet-600 hover:text-violet-700 dark:text-violet-400 dark:hover:text-violet-300 inline-flex items-center">
             <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-1" viewBox="0 0 20 20" fill="currentColor">
               <path fillRule="evenodd" d="M9.707 16.707a1 1 0 01-1.414 0l-6-6a1 1 0 010-1.414l6-6a1 1 0 011.414 1.414L5.414 9H17a1 1 0 110 2H5.414l4.293 4.293a1 1 0 010 1.414z" clipRule="evenodd" />
             </svg>
@@ -202,12 +202,12 @@ const CarDetails = () => {
         </div>
         
         <div className="mb-8">
-          <h1 className="text-3xl md:text-4xl font-bold text-primary font-heading">{car.name}</h1>
+          <h1 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white font-heading">{car.name}</h1>
           <div className="flex items-center mt-2">
-            <span className="bg-accent text-white px-2 py-1 rounded-md text-sm mr-3">{car.type}</span>
+            <span className="bg-violet-600 text-white px-2 py-1 rounded-md text-sm mr-3">{car.type}</span>
             <div className="flex items-center">
               <StarRating rating={displayRating} />
-              <span className="ml-1 text-neutral-700">
+              <span className="ml-1 text-gray-700 dark:text-gray-300">
                 {displayRating.toFixed(1)} ({car.reviewCount} reviews)
               </span>
             </div>
@@ -235,23 +235,23 @@ const CarDetails = () => {
               )}
               
               {/* Tabs */}
-              <div className="border-b border-neutral-200">
+              <div className="border-b border-gray-200 dark:border-gray-700">
                 <div className="flex">
                   <button
                     onClick={() => setActiveTab("details")}
-                    className={`px-4 py-3 text-sm font-medium ${activeTab === "details" ? "text-accent border-b-2 border-accent" : "text-neutral-500 hover:text-primary"}`}
+                    className={`px-4 py-3 text-sm font-medium ${activeTab === "details" ? "text-violet-600 dark:text-violet-400 border-b-2 border-violet-600 dark:border-violet-400" : "text-gray-600 dark:text-gray-300 hover:text-violet-600 dark:hover:text-violet-400"}`}
                   >
                     Car Details
                   </button>
                   <button
                     onClick={() => setActiveTab("specs")}
-                    className={`px-4 py-3 text-sm font-medium ${activeTab === "specs" ? "text-accent border-b-2 border-accent" : "text-neutral-500 hover:text-primary"}`}
+                    className={`px-4 py-3 text-sm font-medium ${activeTab === "specs" ? "text-violet-600 dark:text-violet-400 border-b-2 border-violet-600 dark:border-violet-400" : "text-gray-600 dark:text-gray-300 hover:text-violet-600 dark:hover:text-violet-400"}`}
                   >
                     Specifications
                   </button>
                   <button
                     onClick={() => setActiveTab("features")}
-                    className={`px-4 py-3 text-sm font-medium ${activeTab === "features" ? "text-accent border-b-2 border-accent" : "text-neutral-500 hover:text-primary"}`}
+                    className={`px-4 py-3 text-sm font-medium ${activeTab === "features" ? "text-violet-600 dark:text-violet-400 border-b-2 border-violet-600 dark:border-violet-400" : "text-gray-600 dark:text-gray-300 hover:text-violet-600 dark:hover:text-violet-400"}`}
                   >
                     Features
                   </button>
@@ -262,25 +262,25 @@ const CarDetails = () => {
               <div className="p-6">
                 {activeTab === "details" && (
                   <div>
-                    <h3 className="text-xl font-bold text-primary font-heading mb-4">About this car</h3>
-                    <p className="text-neutral-700">{car.description}</p>
+                    <h3 className="text-xl font-bold text-gray-900 dark:text-white font-heading mb-4">About this car</h3>
+                    <p className="text-gray-700 dark:text-gray-300">{car.description}</p>
                     
                     <div className="mt-6 grid grid-cols-2 gap-4">
                       <div>
-                        <h4 className="font-medium text-neutral-900">Brand</h4>
-                        <p className="text-neutral-600">{car.brand}</p>
+                        <h4 className="font-medium text-gray-900 dark:text-gray-100">Brand</h4>
+                        <p className="text-gray-700 dark:text-gray-300">{car.brand}</p>
                       </div>
                       <div>
-                        <h4 className="font-medium text-neutral-900">Model</h4>
-                        <p className="text-neutral-600">{car.model}</p>
+                        <h4 className="font-medium text-gray-900 dark:text-gray-100">Model</h4>
+                        <p className="text-gray-700 dark:text-gray-300">{car.model}</p>
                       </div>
                       <div>
-                        <h4 className="font-medium text-neutral-900">Year</h4>
-                        <p className="text-neutral-600">{car.year}</p>
+                        <h4 className="font-medium text-gray-900 dark:text-gray-100">Year</h4>
+                        <p className="text-gray-700 dark:text-gray-300">{car.year}</p>
                       </div>
                       <div>
-                        <h4 className="font-medium text-neutral-900">Daily Rate</h4>
-                        <p className="text-neutral-600">{formatCurrency(car.price)}</p>
+                        <h4 className="font-medium text-gray-900 dark:text-gray-100">Daily Rate</h4>
+                        <p className="text-gray-700 dark:text-gray-300">{formatCurrency(car.price)}</p>
                       </div>
                     </div>
                   </div>
@@ -288,47 +288,47 @@ const CarDetails = () => {
                 
                 {activeTab === "specs" && (
                   <div>
-                    <h3 className="text-xl font-bold text-primary font-heading mb-4">Car Specifications</h3>
+                    <h3 className="text-xl font-bold text-gray-900 dark:text-white font-heading mb-4">Car Specifications</h3>
                     
                     <div className="grid grid-cols-2 gap-4">
                       <div className="flex items-center">
-                        <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-accent mr-2" viewBox="0 0 20 20" fill="currentColor">
+                        <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-violet-600 dark:text-violet-400 mr-2" viewBox="0 0 20 20" fill="currentColor">
                           <path d="M8 16.5a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0zM15 16.5a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0z" />
                           <path d="M3 4a1 1 0 00-1 1v10a1 1 0 001 1h1.05a2.5 2.5 0 014.9 0H10a1 1 0 001-1V5a1 1 0 00-1-1H3zM14 7h2.5a1 1 0 01.8.4l1.5 2a1 1 0 01.2.6V15a1 1 0 01-1 1h-1.05a2.5 2.5 0 01-4.9 0H10a1 1 0 01-1-1v-4a1 1 0 011-1h4z" />
                         </svg>
                         <div>
-                          <h4 className="font-medium text-neutral-900">Seats</h4>
-                          <p className="text-neutral-600">{car.seats}</p>
+                          <h4 className="font-medium text-gray-900 dark:text-gray-100">Seats</h4>
+                          <p className="text-gray-700 dark:text-gray-300">{car.seats}</p>
                         </div>
                       </div>
                       
                       <div className="flex items-center">
-                        <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-accent mr-2" viewBox="0 0 20 20" fill="currentColor">
+                        <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-violet-600 dark:text-violet-400 mr-2" viewBox="0 0 20 20" fill="currentColor">
                           <path fillRule="evenodd" d="M11.3 1.046A1 1 0 0112 2v5h4a1 1 0 01.82 1.573l-7 10A1 1 0 018 18v-5H4a1 1 0 01-.82-1.573l7-10a1 1 0 011.12-.38z" clipRule="evenodd" />
                         </svg>
                         <div>
-                          <h4 className="font-medium text-neutral-900">Top Speed</h4>
-                          <p className="text-neutral-600">{car.topSpeed} km/h</p>
+                          <h4 className="font-medium text-gray-900 dark:text-gray-100">Top Speed</h4>
+                          <p className="text-gray-700 dark:text-gray-300">{car.topSpeed} km/h</p>
                         </div>
                       </div>
                       
                       <div className="flex items-center">
-                        <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-accent mr-2" viewBox="0 0 20 20" fill="currentColor">
+                        <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-violet-600 dark:text-violet-400 mr-2" viewBox="0 0 20 20" fill="currentColor">
                           <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 0 10-2 0v4a1 1 0 00.293.707l2.828 2.829a1 1 0 101.415-1.415L11 9.586V6z" clipRule="evenodd" />
                         </svg>
                         <div>
-                          <h4 className="font-medium text-neutral-900">Transmission</h4>
-                          <p className="text-neutral-600">{car.transmission}</p>
+                          <h4 className="font-medium text-gray-900 dark:text-gray-100">Transmission</h4>
+                          <p className="text-gray-700 dark:text-gray-300">{car.transmission}</p>
                         </div>
                       </div>
                       
                       <div className="flex items-center">
-                        <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-accent mr-2" viewBox="0 0 20 20" fill="currentColor">
+                        <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-violet-600 dark:text-violet-400 mr-2" viewBox="0 0 20 20" fill="currentColor">
                           <path d="M4 4a2 2 0 00-2 2v4a2 2 0 002 2V6h10a2 2 0 00-2-2H4zm2 6a2 2 0 012-2h8a2 2 0 012 2v4a2 2 0 01-2 2H8a2 2 0 01-2-2v-4zm6 4a2 2 0 100-4 2 2 0 000 4z" />
                         </svg>
                         <div>
-                          <h4 className="font-medium text-neutral-900">Fuel Type</h4>
-                          <p className="text-neutral-600">{car.fuelType}</p>
+                          <h4 className="font-medium text-gray-900 dark:text-gray-100">Fuel Type</h4>
+                          <p className="text-gray-700 dark:text-gray-300">{car.fuelType}</p>
                         </div>
                       </div>
                     </div>
@@ -337,15 +337,15 @@ const CarDetails = () => {
                 
                 {activeTab === "features" && (
                   <div>
-                    <h3 className="text-xl font-bold text-primary font-heading mb-4">Features</h3>
+                    <h3 className="text-xl font-bold text-gray-900 dark:text-white font-heading mb-4">Features</h3>
                     
                     <ul className="grid grid-cols-1 md:grid-cols-2 gap-2">
                       {car.features.map((feature, index) => (
                         <li key={index} className="flex items-center">
-                          <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-accent mr-2" viewBox="0 0 20 20" fill="currentColor">
+                          <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-violet-600 dark:text-violet-400 mr-2" viewBox="0 0 20 20" fill="currentColor">
                             <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
                           </svg>
-                          {feature}
+                          <span className="text-gray-800 dark:text-gray-200">{feature}</span>
                         </li>
                       ))}
                     </ul>
@@ -357,44 +357,44 @@ const CarDetails = () => {
           
           {/* Booking form */}
           <div className="lg:col-span-1">
-            <div className="bg-white rounded-lg shadow-md p-6">
-              <h3 className="text-xl font-bold text-primary font-heading mb-4">Book this car</h3>
+            <div className="bg-white dark:bg-gray-800 rounded-lg shadow-md p-6">
+              <h3 className="text-xl font-bold text-gray-900 dark:text-white font-heading mb-4">Book this car</h3>
               
               <form onSubmit={handleBooking}>
                 <div className="space-y-4">
                   <div>
-                    <label htmlFor="location" className="block text-sm font-medium text-neutral-700">Pickup Location</label>
+                    <label htmlFor="location" className="block text-sm font-medium text-gray-700 dark:text-gray-300">Pickup Location</label>
                     <input
                       type="text"
                       id="location"
                       value={location}
                       onChange={(e) => setLocation(e.target.value)}
-                      className="mt-1 block w-full border-neutral-300 rounded-md shadow-sm focus:ring-accent focus:border-accent sm:text-sm"
+                      className="mt-1 block w-full border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white rounded-md shadow-sm focus:ring-violet-500 focus:border-violet-500 sm:text-sm"
                       placeholder="Enter city or airport"
                       required
                     />
                   </div>
                   
                   <div>
-                    <label htmlFor="startDate" className="block text-sm font-medium text-neutral-700">Pickup Date</label>
+                    <label htmlFor="startDate" className="block text-sm font-medium text-gray-700 dark:text-gray-300">Pickup Date</label>
                     <input
                       type="date"
                       id="startDate"
                       value={startDate}
                       onChange={(e) => setStartDate(e.target.value)}
-                      className="mt-1 block w-full border-neutral-300 rounded-md shadow-sm focus:ring-accent focus:border-accent sm:text-sm"
+                      className="mt-1 block w-full border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white rounded-md shadow-sm focus:ring-violet-500 focus:border-violet-500 sm:text-sm"
                       required
                     />
                   </div>
                   
                   <div>
-                    <label htmlFor="endDate" className="block text-sm font-medium text-neutral-700">Return Date</label>
+                    <label htmlFor="endDate" className="block text-sm font-medium text-gray-700 dark:text-gray-300">Return Date</label>
                     <input
                       type="date"
                       id="endDate"
                       value={endDate}
                       onChange={(e) => setEndDate(e.target.value)}
-                      className="mt-1 block w-full border-neutral-300 rounded-md shadow-sm focus:ring-accent focus:border-accent sm:text-sm"
+                      className="mt-1 block w-full border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white rounded-md shadow-sm focus:ring-violet-500 focus:border-violet-500 sm:text-sm"
                       required
                     />
                   </div>
@@ -405,24 +405,24 @@ const CarDetails = () => {
                       id="withDriver"
                       checked={withDriver}
                       onChange={(e) => setWithDriver(e.target.checked)}
-                      className="h-4 w-4 text-accent focus:ring-accent border-neutral-300 rounded"
+                      className="h-4 w-4 text-violet-600 focus:ring-violet-500 border-gray-300 dark:border-gray-600 rounded"
                     />
-                    <label htmlFor="withDriver" className="ml-2 block text-sm text-neutral-700">
+                    <label htmlFor="withDriver" className="ml-2 block text-sm text-gray-700 dark:text-gray-300">
                       Need a professional driver?
                     </label>
                   </div>
                   
                   {withDriver && (
                     <div>
-                      <label htmlFor="driver" className="block text-sm font-medium text-neutral-700">Select Driver</label>
+                      <label htmlFor="driver" className="block text-sm font-medium text-gray-700 dark:text-gray-300">Select Driver</label>
                       {isLoadingDrivers ? (
-                        <div className="mt-1 h-10 w-full animate-pulse bg-gray-200 rounded"></div>
+                        <div className="mt-1 h-10 w-full animate-pulse bg-gray-200 dark:bg-gray-600 rounded"></div>
                       ) : (
                         <select
                           id="driver"
                           value={selectedDriverId || ""}
                           onChange={(e) => setSelectedDriverId(parseInt(e.target.value))}
-                          className="mt-1 block w-full border-neutral-300 rounded-md shadow-sm focus:ring-accent focus:border-accent sm:text-sm"
+                          className="mt-1 block w-full border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white rounded-md shadow-sm focus:ring-violet-500 focus:border-violet-500 sm:text-sm"
                           required={withDriver}
                         >
                           <option value="">Select a driver</option>
@@ -436,23 +436,23 @@ const CarDetails = () => {
                     </div>
                   )}
                   
-                  <div className="mt-6 pt-6 border-t border-neutral-200">
+                  <div className="mt-6 pt-6 border-t border-gray-200 dark:border-gray-700">
                     <div className="flex justify-between items-center">
-                      <span className="text-neutral-700">Price per day:</span>
-                      <span className="font-medium">{formatCurrency(car.price)}</span>
+                      <span className="text-gray-700 dark:text-gray-300">Price per day:</span>
+                      <span className="font-medium text-gray-900 dark:text-white">{formatCurrency(car.price)}</span>
                     </div>
                     
                     {totalPrice > 0 && (
                       <>
                         {withDriver && (
                           <div className="flex justify-between items-center mt-2">
-                            <span className="text-neutral-700">Driver service:</span>
-                            <span className="font-medium">+30%</span>
+                            <span className="text-gray-700 dark:text-gray-300">Driver service:</span>
+                            <span className="font-medium text-gray-900 dark:text-white">+30%</span>
                           </div>
                         )}
                         <div className="flex justify-between items-center mt-4 text-lg font-bold">
-                          <span className="text-primary">Total:</span>
-                          <span className="text-primary">{formatCurrency(totalPrice)}</span>
+                          <span className="text-violet-600 dark:text-violet-400">Total:</span>
+                          <span className="text-violet-600 dark:text-violet-400">{formatCurrency(totalPrice)}</span>
                         </div>
                       </>
                     )}
@@ -461,16 +461,16 @@ const CarDetails = () => {
                   <button
                     type="submit"
                     disabled={isSubmitting || totalPrice <= 0}
-                    className={`w-full mt-6 bg-accent hover:bg-accent-dark text-white py-3 px-4 rounded-md font-medium transition-all ${(isSubmitting || totalPrice <= 0) ? 'opacity-50 cursor-not-allowed' : ''}`}
+                    className={`w-full mt-6 bg-gradient-to-r from-violet-600 to-indigo-600 hover:from-violet-700 hover:to-indigo-700 text-white py-3 px-4 rounded-md font-medium transition-all ${(isSubmitting || totalPrice <= 0) ? 'opacity-50 cursor-not-allowed' : ''}`}
                   >
                     {isSubmitting ? 'Processing...' : 'Book Now'}
                   </button>
                   
                   {!isLoggedIn && (
-                    <p className="mt-2 text-sm text-neutral-500 text-center">
-                      <Link href="/login" className="text-accent hover:text-accent-dark">
+                    <p className="mt-2 text-sm text-gray-500 dark:text-gray-400 text-center">
+                      <Link href="/login" className="text-violet-600 dark:text-violet-400 hover:text-violet-700 dark:hover:text-violet-300">
                         Login
-                      </Link> or <Link href="/register" className="text-accent hover:text-accent-dark">
+                      </Link> or <Link href="/register" className="text-violet-600 dark:text-violet-400 hover:text-violet-700 dark:hover:text-violet-300">
                         Register
                       </Link> to book this car
                     </p>

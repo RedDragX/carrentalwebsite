@@ -106,48 +106,48 @@ const DriverDetails = () => {
               />
             </div>
             <div className="p-8 md:w-3/5">
-              <div className="uppercase tracking-wide text-sm text-accent font-semibold">Professional Driver</div>
-              <h1 className="mt-2 text-3xl font-bold text-primary font-heading">{driver.name}</h1>
+              <div className="uppercase tracking-wide text-sm text-violet-600 dark:text-violet-400 font-semibold">Professional Driver</div>
+              <h1 className="mt-2 text-3xl font-bold text-gray-900 dark:text-white font-heading">{driver.name}</h1>
               
               <div className="mt-2 flex items-center">
                 <StarRating rating={displayRating} />
-                <span className="ml-2 text-neutral-700">
+                <span className="ml-2 text-gray-700 dark:text-gray-300">
                   {displayRating.toFixed(1)} ({driver.tripCount} trips)
                 </span>
               </div>
               
               <div className="mt-4 flex flex-wrap">
                 <div className="mr-6 mb-4">
-                  <div className="text-sm text-neutral-500">Experience</div>
-                  <div className="font-medium">{driver.experience} years</div>
+                  <div className="text-sm text-gray-500 dark:text-gray-400">Experience</div>
+                  <div className="font-medium text-gray-900 dark:text-gray-100">{driver.experience} years</div>
                 </div>
                 
                 <div className="mr-6 mb-4">
-                  <div className="text-sm text-neutral-500">Languages</div>
-                  <div className="font-medium">{driver.languages.join(", ")}</div>
+                  <div className="text-sm text-gray-500 dark:text-gray-400">Languages</div>
+                  <div className="font-medium text-gray-900 dark:text-gray-100">{driver.languages.join(", ")}</div>
                 </div>
                 
                 <div className="mb-4">
-                  <div className="text-sm text-neutral-500">Status</div>
-                  <div className={`font-medium ${driver.available ? "text-green-600" : "text-red-600"}`}>
+                  <div className="text-sm text-gray-500 dark:text-gray-400">Status</div>
+                  <div className={`font-medium ${driver.available ? "text-green-600 dark:text-green-400" : "text-red-600 dark:text-red-400"}`}>
                     {driver.available ? "Available" : "Unavailable"}
                   </div>
                 </div>
               </div>
               
-              <blockquote className="mt-4 italic text-neutral-700 border-l-4 border-accent pl-4 py-2 bg-neutral-50">
+              <blockquote className="mt-4 italic text-gray-700 dark:text-gray-300 border-l-4 border-violet-500 pl-4 py-2 bg-gray-50 dark:bg-gray-800">
                 "{driver.quote}"
               </blockquote>
               
-              <p className="mt-6 text-neutral-700">{driver.description}</p>
+              <p className="mt-6 text-gray-700 dark:text-gray-300">{driver.description}</p>
               
               <div className="mt-6">
-                <h3 className="font-bold text-primary">Specialties</h3>
+                <h3 className="font-bold text-gray-900 dark:text-white">Specialties</h3>
                 <div className="mt-2 flex flex-wrap gap-2">
                   {driver.specialties.map((specialty: string, index: number) => (
                     <span 
                       key={index} 
-                      className="bg-neutral-100 text-neutral-800 px-3 py-1 text-sm rounded-full"
+                      className="bg-gray-100 dark:bg-gray-800 text-gray-800 dark:text-gray-200 px-3 py-1 text-sm rounded-full"
                     >
                       {specialty}
                     </span>
@@ -158,7 +158,7 @@ const DriverDetails = () => {
               <div className="mt-8">
                 <Link 
                   href="/cars"
-                  className="inline-flex items-center bg-accent hover:bg-accent-dark text-white px-6 py-3 rounded-md font-medium transition-all"
+                  className="inline-flex items-center bg-gradient-to-r from-violet-600 to-indigo-600 hover:from-violet-700 hover:to-indigo-700 text-white px-6 py-3 rounded-md font-medium transition-all shadow-md hover:shadow-lg"
                 >
                   Book a Car with this Driver
                   <svg xmlns="http://www.w3.org/2000/svg" className="ml-2 h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
@@ -173,10 +173,10 @@ const DriverDetails = () => {
         <div className="mt-12">
           <Tabs defaultValue="ai-analysis" className="w-full">
             <TabsList className="grid w-full grid-cols-2 mb-8 glass-panel p-1 gap-1">
-              <TabsTrigger value="ai-analysis" className="text-md text-white data-[state=active]:bg-gradient-to-r data-[state=active]:from-accent data-[state=active]:to-blue-600 data-[state=active]:text-white data-[state=active]:shadow-lg">
+              <TabsTrigger value="ai-analysis" className="text-md text-gray-200 data-[state=active]:bg-gradient-to-r data-[state=active]:from-violet-600 data-[state=active]:to-indigo-600 data-[state=active]:text-white data-[state=active]:shadow-lg">
                 AI Driver Analysis
               </TabsTrigger>
-              <TabsTrigger value="benefits" className="text-md text-white data-[state=active]:bg-gradient-to-r data-[state=active]:from-blue-600 data-[state=active]:to-indigo-600 data-[state=active]:text-white data-[state=active]:shadow-lg">
+              <TabsTrigger value="benefits" className="text-md text-gray-200 data-[state=active]:bg-gradient-to-r data-[state=active]:from-violet-600 data-[state=active]:to-indigo-600 data-[state=active]:text-white data-[state=active]:shadow-lg">
                 Why Choose a Professional Driver
               </TabsTrigger>
             </TabsList>
@@ -188,41 +188,41 @@ const DriverDetails = () => {
             <TabsContent value="benefits">
               <div className="glass-card p-0.5 overflow-hidden">
                 <div className="glass-dark p-6 rounded-xl h-full">
-                  <h2 className="text-2xl font-bold text-white bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent mb-6">Why Choose a Professional Driver</h2>
+                  <h2 className="text-2xl font-bold text-white bg-gradient-to-r from-violet-500 to-indigo-500 bg-clip-text text-transparent mb-6">Why Choose a Professional Driver</h2>
                   
                   <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                    <div className="glass-panel p-6 rounded-lg border border-blue-500/20 transition-all duration-300 hover:border-blue-500/50 hover:shadow-glow">
-                      <div className="w-14 h-14 bg-gradient-to-br from-accent to-blue-600 rounded-full flex items-center justify-center mb-5 shadow-glow">
+                    <div className="glass-panel p-6 rounded-lg border border-violet-500/20 transition-all duration-300 hover:border-violet-500/50 hover:shadow-glow">
+                      <div className="w-14 h-14 bg-gradient-to-br from-violet-600 to-indigo-600 rounded-full flex items-center justify-center mb-5 shadow-glow">
                         <svg xmlns="http://www.w3.org/2000/svg" className="h-7 w-7 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
                         </svg>
                       </div>
                       <h3 className="text-lg font-bold text-white mb-2">Safety & Security</h3>
-                      <p className="text-gray-300">
+                      <p className="text-gray-200">
                         Our professional drivers ensure maximum safety with their expert driving skills and knowledge of the vehicles.
                       </p>
                     </div>
                     
-                    <div className="glass-panel p-6 rounded-lg border border-blue-500/20 transition-all duration-300 hover:border-blue-500/50 hover:shadow-glow">
-                      <div className="w-14 h-14 bg-gradient-to-br from-blue-600 to-indigo-600 rounded-full flex items-center justify-center mb-5 shadow-glow">
+                    <div className="glass-panel p-6 rounded-lg border border-violet-500/20 transition-all duration-300 hover:border-violet-500/50 hover:shadow-glow">
+                      <div className="w-14 h-14 bg-gradient-to-br from-violet-600 to-indigo-600 rounded-full flex items-center justify-center mb-5 shadow-glow">
                         <svg xmlns="http://www.w3.org/2000/svg" className="h-7 w-7 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
                         </svg>
                       </div>
                       <h3 className="text-lg font-bold text-white mb-2">Convenience</h3>
-                      <p className="text-gray-300">
+                      <p className="text-gray-200">
                         Relax and enjoy the journey without worrying about directions, parking, or driving in unfamiliar locations.
                       </p>
                     </div>
                     
-                    <div className="glass-panel p-6 rounded-lg border border-blue-500/20 transition-all duration-300 hover:border-blue-500/50 hover:shadow-glow">
-                      <div className="w-14 h-14 bg-gradient-to-br from-indigo-600 to-purple-600 rounded-full flex items-center justify-center mb-5 shadow-glow">
+                    <div className="glass-panel p-6 rounded-lg border border-violet-500/20 transition-all duration-300 hover:border-violet-500/50 hover:shadow-glow">
+                      <div className="w-14 h-14 bg-gradient-to-br from-violet-600 to-indigo-600 rounded-full flex items-center justify-center mb-5 shadow-glow">
                         <svg xmlns="http://www.w3.org/2000/svg" className="h-7 w-7 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z" />
                         </svg>
                       </div>
                       <h3 className="text-lg font-bold text-white mb-2">Experience</h3>
-                      <p className="text-gray-300">
+                      <p className="text-gray-200">
                         Enhance your luxury car experience with a chauffeur who knows how to maximize performance and comfort.
                       </p>
                     </div>
