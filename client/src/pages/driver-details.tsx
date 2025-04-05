@@ -1,8 +1,10 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { useParams, Link } from "wouter";
 import { formatRating } from "@/lib/utils";
 import StarRating from "@/components/ui/star-rating";
+import AIDriverReview from "@/components/driver/ai-driver-review";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
 const DriverDetails = () => {
   const { id } = useParams();
@@ -151,45 +153,58 @@ const DriverDetails = () => {
         </div>
         
         <div className="mt-12">
-          <h2 className="text-2xl font-bold text-primary font-heading mb-6">Why Choose a Professional Driver</h2>
-          
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            <div className="bg-white p-6 rounded-lg shadow-md">
-              <div className="w-12 h-12 bg-accent rounded-full flex items-center justify-center mb-4">
-                <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
-                </svg>
-              </div>
-              <h3 className="text-lg font-bold text-primary font-heading">Safety & Security</h3>
-              <p className="mt-2 text-neutral-600">
-                Our professional drivers ensure maximum safety with their expert driving skills and knowledge of the vehicles.
-              </p>
-            </div>
+          <Tabs defaultValue="ai-analysis" className="w-full">
+            <TabsList className="grid w-full grid-cols-2 mb-8">
+              <TabsTrigger value="ai-analysis" className="text-lg">AI Driver Analysis</TabsTrigger>
+              <TabsTrigger value="benefits" className="text-lg">Why Choose a Professional Driver</TabsTrigger>
+            </TabsList>
             
-            <div className="bg-white p-6 rounded-lg shadow-md">
-              <div className="w-12 h-12 bg-accent rounded-full flex items-center justify-center mb-4">
-                <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
-                </svg>
-              </div>
-              <h3 className="text-lg font-bold text-primary font-heading">Convenience</h3>
-              <p className="mt-2 text-neutral-600">
-                Relax and enjoy the journey without worrying about directions, parking, or driving in unfamiliar locations.
-              </p>
-            </div>
+            <TabsContent value="ai-analysis" className="mt-4">
+              <AIDriverReview driverId={driver.id} driverName={driver.name} />
+            </TabsContent>
             
-            <div className="bg-white p-6 rounded-lg shadow-md">
-              <div className="w-12 h-12 bg-accent rounded-full flex items-center justify-center mb-4">
-                <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z" />
-                </svg>
+            <TabsContent value="benefits">
+              <h2 className="text-2xl font-bold text-primary font-heading mb-6">Why Choose a Professional Driver</h2>
+              
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div className="bg-white p-6 rounded-lg shadow-md">
+                  <div className="w-12 h-12 bg-accent rounded-full flex items-center justify-center mb-4">
+                    <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+                    </svg>
+                  </div>
+                  <h3 className="text-lg font-bold text-primary font-heading">Safety & Security</h3>
+                  <p className="mt-2 text-neutral-600">
+                    Our professional drivers ensure maximum safety with their expert driving skills and knowledge of the vehicles.
+                  </p>
+                </div>
+                
+                <div className="bg-white p-6 rounded-lg shadow-md">
+                  <div className="w-12 h-12 bg-accent rounded-full flex items-center justify-center mb-4">
+                    <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                    </svg>
+                  </div>
+                  <h3 className="text-lg font-bold text-primary font-heading">Convenience</h3>
+                  <p className="mt-2 text-neutral-600">
+                    Relax and enjoy the journey without worrying about directions, parking, or driving in unfamiliar locations.
+                  </p>
+                </div>
+                
+                <div className="bg-white p-6 rounded-lg shadow-md">
+                  <div className="w-12 h-12 bg-accent rounded-full flex items-center justify-center mb-4">
+                    <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z" />
+                    </svg>
+                  </div>
+                  <h3 className="text-lg font-bold text-primary font-heading">Experience</h3>
+                  <p className="mt-2 text-neutral-600">
+                    Enhance your luxury car experience with a chauffeur who knows how to maximize performance and comfort.
+                  </p>
+                </div>
               </div>
-              <h3 className="text-lg font-bold text-primary font-heading">Experience</h3>
-              <p className="mt-2 text-neutral-600">
-                Enhance your luxury car experience with a chauffeur who knows how to maximize performance and comfort.
-              </p>
-            </div>
-          </div>
+            </TabsContent>
+          </Tabs>
         </div>
       </div>
     </div>
