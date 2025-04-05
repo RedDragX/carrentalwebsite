@@ -86,5 +86,64 @@ export default {
       },
     },
   },
-  plugins: [require("tailwindcss-animate"), require("@tailwindcss/typography")],
+  daisyui: {
+    themes: [
+      {
+        zoroTheme: {
+          "primary": "#1e40af",
+          "secondary": "#15803d",
+          "accent": "#0ea5e9",
+          "neutral": "#191d24",
+          "base-100": "#0f172a",
+          "base-200": "#1e293b",
+          "base-300": "#334155",
+          "info": "#3abff8",
+          "success": "#10b981",
+          "warning": "#f59e0b",
+          "error": "#ef4444",
+          // Custom properties
+          "--rounded-box": "1rem",
+          "--rounded-btn": "0.5rem",
+          "--rounded-badge": "1.9rem",
+          "--animation-btn": "0.25s",
+          "--animation-input": "0.2s",
+          "--btn-focus-scale": "0.95",
+          "--border-btn": "1px",
+          "--tab-border": "1px",
+          "--tab-radius": "0.5rem",
+        },
+      },
+      // Add a second theme for light mode
+      {
+        zoroLightTheme: {
+          "primary": "#2563eb",
+          "secondary": "#16a34a",
+          "accent": "#38bdf8",
+          "neutral": "#1f2937",
+          "base-100": "#f3f4f6",
+          "base-200": "#e5e7eb",
+          "base-300": "#d1d5db",
+          "info": "#0ea5e9",
+          "success": "#22c55e",
+          "warning": "#f59e0b",
+          "error": "#ef4444",
+          // Custom properties
+          "--rounded-box": "1rem",
+          "--rounded-btn": "0.5rem",
+          "--rounded-badge": "1.9rem",
+          "--animation-btn": "0.25s",
+          "--animation-input": "0.2s",
+          "--btn-focus-scale": "0.95",
+          "--border-btn": "1px",
+          "--tab-border": "1px",
+          "--tab-radius": "0.5rem",
+        },
+      }
+    ],
+  },
+  plugins: [
+    require("tailwindcss-animate"),
+    require("@tailwindcss/typography"),
+    require("daisyui")
+  ],
 } satisfies Config;
