@@ -37,137 +37,140 @@ const Navbar = () => {
   };
   
   return (
-    <div className={`sticky top-0 z-50 transition-all duration-300 ${
+    <header className={`sticky top-0 z-50 transition-all duration-300 ${
       scrolled 
-        ? 'backdrop-blur-xl bg-gradient-to-r from-gray-900/80 via-violet-950/80 to-gray-900/80 border-b border-violet-500/10 shadow-lg' 
-        : 'bg-transparent backdrop-blur-sm bg-black/5'
+        ? 'backdrop-blur-xl bg-white/5 dark:bg-gray-900/60 shadow-lg border-b border-white/10' 
+        : 'bg-transparent backdrop-blur-sm bg-white/0 dark:bg-black/5'
     }`}>
-      <div className="max-w-7xl mx-auto px-4 py-3 w-full">
-        <div className="flex items-center justify-between">
-          {/* Mobile menu */}
-          <div className="flex lg:hidden">
+      <div className="container mx-auto px-4 py-4 w-full">
+        <nav className="relative flex items-center justify-between">
+          {/* Mobile menu button */}
+          <div className="lg:hidden">
             <button
               type="button"
-              className="-m-2.5 inline-flex items-center justify-center rounded-md p-2.5 text-gray-300"
+              className="inline-flex items-center justify-center rounded-full w-10 h-10 bg-white/10 backdrop-blur-xl text-gray-200 hover:bg-white/20 transition-colors"
               onClick={toggleMobileMenu}
+              aria-label="Open menu"
             >
-              <span className="sr-only">Open main menu</span>
-              <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h16M4 18h16" />
               </svg>
             </button>
             
-            {/* Mobile menu dropdown */}
+            {/* Mobile menu overlay */}
             {mobileMenuOpen && (
               <div className="lg:hidden fixed inset-0 z-50">
-                <div className="fixed inset-0 bg-gray-900/70 backdrop-blur-sm" onClick={() => setMobileMenuOpen(false)}></div>
-                <div className="fixed inset-y-0 left-0 z-50 w-full overflow-y-auto glass-dark px-6 py-6 sm:max-w-sm sm:ring-1 sm:ring-white/10">
-                  <div className="flex items-center justify-between">
-                    <Link href="/" className="-m-1.5 p-1.5" onClick={() => setMobileMenuOpen(false)}>
+                {/* Backdrop */}
+                <div className="fixed inset-0 bg-gray-900/80 backdrop-blur-md" onClick={() => setMobileMenuOpen(false)}></div>
+                
+                {/* Mobile menu panel */}
+                <div className="fixed inset-y-0 left-0 z-50 w-full overflow-y-auto bg-gradient-to-b from-gray-900 to-gray-950 px-6 py-6 sm:max-w-sm sm:ring-1 sm:ring-white/10">
+                  <div className="flex items-center justify-between mb-8">
+                    <Link href="/" className="flex items-center" onClick={() => setMobileMenuOpen(false)}>
                       <span className="logo-text text-2xl">
-                        <span className="bg-gradient-to-r from-primary to-violet-500 text-transparent bg-clip-text">ZORO</span>
-                        <span className="bg-gradient-to-r from-blue-400 to-accent text-transparent bg-clip-text">CARS</span>
+                        <span className="bg-gradient-to-r from-primary to-violet-400 text-transparent bg-clip-text font-bold">ZORO</span>
+                        <span className="bg-gradient-to-r from-blue-400 to-indigo-300 text-transparent bg-clip-text font-bold">CARS</span>
                       </span>
                     </Link>
                     <button
                       type="button"
-                      className="-m-2.5 rounded-md p-2.5 text-gray-400 hover:text-gray-300"
+                      className="rounded-full flex items-center justify-center w-9 h-9 bg-white/5 hover:bg-white/10 text-gray-400 hover:text-gray-300 transition-colors"
                       onClick={() => setMobileMenuOpen(false)}
+                      aria-label="Close menu"
                     >
-                      <span className="sr-only">Close menu</span>
-                      <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12" />
                       </svg>
                     </button>
                   </div>
                   
-                  <div className="mt-6 flow-root">
-                    <div className="space-y-2 py-6">
-                      <Link
-                        href="/"
-                        onClick={() => setMobileMenuOpen(false)}
-                        className={`-mx-3 block rounded-lg px-3 py-2.5 text-base font-medium leading-7 ${
-                          isActive('/') ? 'text-violet-400' : 'text-gray-200 hover:bg-gray-800/60'
-                        }`}
-                      >
-                        Home
-                      </Link>
-                      <Link
-                        href="/cars"
-                        onClick={() => setMobileMenuOpen(false)}
-                        className={`-mx-3 block rounded-lg px-3 py-2.5 text-base font-medium leading-7 ${
-                          isActive('/cars') ? 'text-violet-400' : 'text-gray-200 hover:bg-gray-800/60'
-                        }`}
-                      >
-                        Cars
-                      </Link>
-                      <Link
-                        href="/drivers"
-                        onClick={() => setMobileMenuOpen(false)}
-                        className={`-mx-3 block rounded-lg px-3 py-2.5 text-base font-medium leading-7 ${
-                          isActive('/drivers') ? 'text-violet-400' : 'text-gray-200 hover:bg-gray-800/60'
-                        }`}
-                      >
-                        Drivers
-                      </Link>
-                      <a 
-                        href="#about" 
-                        onClick={() => setMobileMenuOpen(false)}
-                        className="-mx-3 block rounded-lg px-3 py-2.5 text-base font-medium leading-7 text-gray-200 hover:bg-gray-800/60"
-                      >
-                        About
-                      </a>
-                      <a 
-                        href="#contact" 
-                        onClick={() => setMobileMenuOpen(false)}
-                        className="-mx-3 block rounded-lg px-3 py-2.5 text-base font-medium leading-7 text-gray-200 hover:bg-gray-800/60"
-                      >
-                        Contact
-                      </a>
+                  <div className="flow-root">
+                    <div className="space-y-2">
+                      {[
+                        { label: "Home", href: "/" },
+                        { label: "Cars", href: "/cars" },
+                        { label: "Drivers", href: "/drivers" },
+                        { label: "About", href: "#about" },
+                        { label: "Contact", href: "#contact" }
+                      ].map((item) => (
+                        <Link
+                          key={item.label}
+                          href={item.href}
+                          onClick={() => setMobileMenuOpen(false)}
+                          className={`block rounded-xl px-4 py-3 text-base font-medium font-space ${
+                            isActive(item.href) 
+                            ? 'bg-gradient-to-r from-violet-600/20 to-indigo-600/10 text-violet-400 border border-violet-500/20' 
+                            : 'text-gray-200 hover:bg-white/5'
+                          }`}
+                        >
+                          {item.label}
+                        </Link>
+                      ))}
                     </div>
                     
-                    <div className="border-t border-gray-700/50 py-6">
+                    <div className="mt-8 pt-6 border-t border-gray-800">
                       {isLoggedIn ? (
-                        <div className="space-y-4">
-                          <div className="flex items-center gap-4 px-3">
-                            <div className="w-10 h-10 rounded-full ring-2 ring-violet-500/30 bg-gradient-to-br from-violet-600 to-purple-700 flex items-center justify-center text-white font-bold text-lg shadow-lg">
+                        <div className="space-y-5">
+                          {/* User profile */}
+                          <div className="p-4 rounded-xl bg-white/5 flex items-center gap-4">
+                            <div className="w-12 h-12 rounded-full bg-gradient-to-br from-violet-600 to-indigo-600 flex items-center justify-center text-white font-bold text-xl shadow-lg">
                               {user?.username.charAt(0).toUpperCase()}
                             </div>
                             <div>
                               <p className="text-base font-semibold text-white font-space">{user?.username}</p>
-                              <p className="text-sm text-gray-400 font-outfit">{user?.email}</p>
+                              <p className="text-sm text-gray-400 font-outfit truncate max-w-[200px]">{user?.email}</p>
                             </div>
                           </div>
                           
-                          <div className="space-y-1">
-                            <a className="block px-3 py-2 text-base font-medium text-gray-200 hover:bg-gray-800/60 rounded-lg">Profile</a>
-                            <a className="block px-3 py-2 text-base font-medium text-gray-200 hover:bg-gray-800/60 rounded-lg">Bookings</a>
+                          {/* User actions */}
+                          <div className="space-y-2">
+                            <a className="block px-4 py-3 rounded-xl text-gray-200 hover:bg-white/5 font-medium font-space">
+                              <span className="flex items-center">
+                                <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-3 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+                                </svg>
+                                My Profile
+                              </span>
+                            </a>
+                            <a className="block px-4 py-3 rounded-xl text-gray-200 hover:bg-white/5 font-medium font-space">
+                              <span className="flex items-center">
+                                <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-3 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
+                                </svg>
+                                My Bookings
+                              </span>
+                            </a>
                             <button 
                               onClick={() => {
                                 handleLogout();
                                 setMobileMenuOpen(false);
                               }}
-                              className="block w-full text-left px-3 py-2 text-base font-medium text-rose-400 hover:text-rose-300 hover:bg-gray-800/60 rounded-lg"
+                              className="w-full px-4 py-3 rounded-xl text-left text-rose-400 hover:bg-rose-500/10 font-medium font-space"
                             >
-                              Log Out
+                              <span className="flex items-center">
+                                <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
+                                </svg>
+                                Log Out
+                              </span>
                             </button>
                           </div>
                         </div>
                       ) : (
-                        <div className="space-y-3 px-3">
+                        <div className="space-y-3">
                           <Link
                             href="/login"
                             onClick={() => setMobileMenuOpen(false)}
-                            className="block w-full text-center py-2.5 px-3 rounded-lg text-gray-200 font-space text-base font-medium border border-gray-700 hover:bg-gray-800/60"
+                            className="block w-full text-center py-3.5 px-4 rounded-xl bg-white/5 text-gray-100 font-medium font-space border border-gray-800 hover:bg-white/10 transition-colors"
                           >
                             Sign In
                           </Link>
                           <Link
                             href="/register"
                             onClick={() => setMobileMenuOpen(false)}
-                            className="block w-full text-center py-2.5 px-3 rounded-lg font-space text-base font-medium bg-gradient-to-r from-violet-600 to-purple-600 hover:from-violet-700 hover:to-purple-700 text-white shadow-lg"
+                            className="block w-full text-center py-3.5 px-4 rounded-xl font-medium font-space bg-gradient-to-r from-violet-600 to-indigo-600 text-white shadow-lg hover:shadow-violet-500/20"
                           >
-                            Register
+                            Create Account
                           </Link>
                         </div>
                       )}
@@ -181,57 +184,37 @@ const Navbar = () => {
           {/* Logo */}
           <div className="flex-shrink-0 flex items-center">
             <Link href="/" className="flex items-center">
-              <span className="logo-text text-2xl lg:text-3xl">
-                <span className="bg-gradient-to-r from-primary to-violet-500 text-transparent bg-clip-text drop-shadow-sm">ZORO</span>
-                <span className="bg-gradient-to-r from-blue-400 to-accent text-transparent bg-clip-text drop-shadow-sm">CARS</span>
+              <span className="logo-text text-2xl lg:text-3xl font-bold">
+                <span className="bg-gradient-to-r from-violet-500 to-indigo-500 text-transparent bg-clip-text">ZORO</span>
+                <span className="bg-gradient-to-r from-indigo-400 to-violet-400 text-transparent bg-clip-text">CARS</span>
               </span>
             </Link>
           </div>
           
           {/* Desktop navigation */}
-          <div className="hidden lg:flex lg:gap-x-6 justify-center">
-            <Link 
-              href="/" 
-              className={`relative font-space text-sm font-medium px-3 py-2 ${
-                isActive('/') 
-                  ? 'text-violet-400 after:absolute after:bottom-0 after:left-0 after:w-full after:h-0.5 after:bg-violet-500/50' 
-                  : 'text-gray-300 hover:text-white'
-              }`}
-            >
-              Home
-            </Link>
-            <Link 
-              href="/cars" 
-              className={`relative font-space text-sm font-medium px-3 py-2 ${
-                isActive('/cars') 
-                  ? 'text-violet-400 after:absolute after:bottom-0 after:left-0 after:w-full after:h-0.5 after:bg-violet-500/50' 
-                  : 'text-gray-300 hover:text-white'
-              }`}
-            >
-              Cars
-            </Link>
-            <Link 
-              href="/drivers" 
-              className={`relative font-space text-sm font-medium px-3 py-2 ${
-                isActive('/drivers') 
-                  ? 'text-violet-400 after:absolute after:bottom-0 after:left-0 after:w-full after:h-0.5 after:bg-violet-500/50' 
-                  : 'text-gray-300 hover:text-white'
-              }`}
-            >
-              Drivers
-            </Link>
-            <a 
-              href="#about" 
-              className="relative font-space text-sm font-medium text-gray-300 hover:text-white px-3 py-2"
-            >
-              About
-            </a>
-            <a 
-              href="#contact" 
-              className="relative font-space text-sm font-medium text-gray-300 hover:text-white px-3 py-2"
-            >
-              Contact
-            </a>
+          <div className="hidden lg:flex lg:gap-1 items-center justify-center">
+            {[
+              { label: "Home", href: "/" },
+              { label: "Cars", href: "/cars" },
+              { label: "Drivers", href: "/drivers" },
+              { label: "About", href: "#about" },
+              { label: "Contact", href: "#contact" }
+            ].map((item) => (
+              <Link 
+                key={item.label}
+                href={item.href} 
+                className={`relative font-space text-sm font-medium rounded-lg px-4 py-2 transition-all duration-200 ${
+                  isActive(item.href) 
+                    ? 'text-white bg-gradient-to-r from-violet-600/20 to-indigo-600/20 backdrop-blur-xl shadow-sm' 
+                    : 'text-gray-300 hover:text-white hover:bg-white/5'
+                }`}
+              >
+                {item.label}
+                {isActive(item.href) && (
+                  <span className="absolute bottom-0 left-1/2 transform -translate-x-1/2 w-1.5 h-1.5 bg-violet-500 rounded-full"></span>
+                )}
+              </Link>
+            ))}
           </div>
           
           {/* User account section */}
@@ -240,9 +223,9 @@ const Navbar = () => {
               <div className="relative group">
                 <button 
                   type="button" 
-                  className="flex items-center gap-x-2 text-sm font-space leading-6 text-gray-200"
+                  className="flex items-center gap-x-2 py-2 px-4 rounded-xl bg-white/5 hover:bg-white/10 transition-colors text-sm font-space leading-6 text-gray-200"
                 >
-                  <div className="w-9 h-9 rounded-full ring-2 ring-violet-500/30 bg-gradient-to-br from-violet-600 to-purple-700 flex items-center justify-center text-white font-bold text-base shadow-lg">
+                  <div className="w-8 h-8 rounded-full bg-gradient-to-br from-violet-600 to-indigo-600 flex items-center justify-center text-white font-bold text-base shadow-sm">
                     {user?.username.charAt(0).toUpperCase()}
                   </div>
                   <span className="text-gray-300 max-w-[100px] truncate">{user?.username}</span>
@@ -252,45 +235,60 @@ const Navbar = () => {
                 </button>
                 
                 {/* Dropdown menu */}
-                <div className="absolute right-0 z-10 mt-2.5 w-56 origin-top-right rounded-xl bg-gray-900/90 backdrop-blur-xl py-2 shadow-xl ring-1 ring-white/10 focus:outline-none opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 translate-y-1 group-hover:translate-y-0">
-                  <div className="px-4 py-3 border-b border-gray-700/50">
+                <div className="absolute right-0 z-10 mt-2 w-64 origin-top-right rounded-xl bg-gradient-to-b from-gray-900 to-gray-950 py-2 shadow-2xl ring-1 ring-white/10 backdrop-blur-xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 translate-y-1 group-hover:translate-y-0">
+                  <div className="px-4 py-3 border-b border-gray-800">
                     <p className="text-sm text-gray-400 font-outfit">Signed in as</p>
                     <p className="text-sm font-medium text-white truncate font-space">{user?.email}</p>
                   </div>
-                  <div className="py-1">
-                    <a className="block px-4 py-2 text-sm text-gray-300 hover:text-white hover:bg-gray-800/60 font-outfit">Profile</a>
-                    <a className="block px-4 py-2 text-sm text-gray-300 hover:text-white hover:bg-gray-800/60 font-outfit">Bookings</a>
+                  
+                  <div className="py-2 px-1">
+                    <a className="flex items-center px-3 py-2.5 text-sm text-gray-300 hover:text-white hover:bg-white/5 rounded-lg font-outfit">
+                      <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-3 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+                      </svg>
+                      My Profile
+                    </a>
+                    <a className="flex items-center px-3 py-2.5 text-sm text-gray-300 hover:text-white hover:bg-white/5 rounded-lg font-outfit">
+                      <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-3 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
+                      </svg>
+                      My Bookings
+                    </a>
                   </div>
-                  <div className="py-1 border-t border-gray-700/50">
+                  
+                  <div className="py-1 border-t border-gray-800 px-1 mt-1">
                     <button 
                       onClick={handleLogout}
-                      className="block w-full text-left px-4 py-2 text-sm font-outfit text-rose-400 hover:text-rose-300 hover:bg-gray-800/60"
+                      className="flex w-full items-center px-3 py-2.5 text-sm font-outfit text-rose-400 hover:text-rose-300 hover:bg-rose-900/10 rounded-lg"
                     >
+                      <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
+                      </svg>
                       Sign out
                     </button>
                   </div>
                 </div>
               </div>
             ) : (
-              <div className="flex items-center space-x-4">
+              <div className="flex items-center space-x-3">
                 <Link
                   href="/login"
-                  className="text-sm font-space font-medium text-gray-300 hover:text-white px-3 py-2"
+                  className="text-sm font-space font-medium text-gray-300 hover:text-white px-4 py-2 rounded-lg hover:bg-white/5 transition-colors"
                 >
                   Sign in
                 </Link>
                 <Link
                   href="/register"
-                  className="rounded-lg bg-gradient-to-r from-violet-600 to-purple-600 px-4 py-2 text-sm font-space font-medium text-white shadow-sm hover:from-violet-700 hover:to-purple-700 transition-all duration-300 hover:shadow-violet-500/20 hover:shadow-lg"
+                  className="rounded-lg bg-gradient-to-r from-violet-600 to-indigo-600 px-4 py-2 text-sm font-space font-medium text-white shadow-md hover:shadow-lg hover:shadow-violet-500/20 transition-all duration-300"
                 >
-                  Get started
+                  Create Account
                 </Link>
               </div>
             )}
           </div>
-        </div>
+        </nav>
       </div>
-    </div>
+    </header>
   );
 };
 
