@@ -28,6 +28,12 @@ interface NLPResult {
   recommendations: string[];
 }
 
+interface AIGeneratedReview {
+  driver_id: number;
+  driver_name: string;
+  ai_generated_review: string;
+}
+
 const AIDriverReview = ({ driverId, driverName }: AIDriverReviewProps) => {
   const [reviewText, setReviewText] = useState("");
   const { toast } = useToast();
@@ -39,7 +45,7 @@ const AIDriverReview = ({ driverId, driverName }: AIDriverReviewProps) => {
     isLoading: isGeneratedReviewLoading,
     error: generatedReviewError,
     refetch: refetchAIReview
-  } = useQuery({
+  } = useQuery<AIGeneratedReview>({
     queryKey: [`/api/ai/generate-review/${driverId}`],
     enabled: !!driverId
   });
@@ -103,17 +109,17 @@ const AIDriverReview = ({ driverId, driverName }: AIDriverReviewProps) => {
 
   return (
     <div className="space-y-8">
-      <Card className="bg-white/70 backdrop-blur-sm border-accent/20">
-        <CardHeader>
-          <CardTitle className="text-2xl font-bold text-primary">AI Driver Analysis</CardTitle>
-          <CardDescription>
-            Our AI system analyzes driver performance using natural language processing. Enter your review
-            below or get an AI-generated review to see insights about this driver.
-          </CardDescription>
-        </CardHeader>
-        <CardContent>
-          <div className="mb-4">
-            <label htmlFor="review" className="block text-sm font-medium mb-2">
+      <div className="glass-card p-0.5 overflow-hidden">
+        <div className="glass-dark p-6 rounded-xl h-full">
+          <div className="mb-6">
+            <h3 className="text-2xl font-bold text-white bg-gradient-to-r from-accent to-blue-500 bg-clip-text text-transparent mb-2">AI Driver Analysis</h3>
+            <p className="text-gray-300">
+              Our AI system analyzes driver performance using natural language processing. Enter your review
+              below or get an AI-generated review to see insights about this driver.
+            </p>
+          </div>
+          <div className="mb-6">
+            <label htmlFor="review" className="block text-sm font-medium mb-2 text-gray-200">
               Your Review of {driverName}
             </label>
             <Textarea
@@ -121,7 +127,7 @@ const AIDriverReview = ({ driverId, driverName }: AIDriverReviewProps) => {
               value={reviewText}
               onChange={(e: ChangeEvent<HTMLTextAreaElement>) => setReviewText(e.target.value)}
               placeholder="Enter your review of the driver here..."
-              className="w-full"
+              className="w-full bg-gray-800/80 border-gray-700 text-white placeholder:text-gray-400 focus:border-accent"
               rows={4}
             />
           </div>
@@ -130,7 +136,7 @@ const AIDriverReview = ({ driverId, driverName }: AIDriverReviewProps) => {
             <Button
               onClick={handleSubmitReview}
               disabled={analyzeMutation.isPending || !reviewText.trim()}
-              className="bg-accent hover:bg-accent-dark text-white"
+              className="bg-gradient-to-r from-accent to-blue-500 hover:from-accent/90 hover:to-blue-600 text-white"
             >
               {analyzeMutation.isPending ? "Analyzing..." : "Analyze Review"}
             </Button>
@@ -138,85 +144,83 @@ const AIDriverReview = ({ driverId, driverName }: AIDriverReviewProps) => {
               onClick={handleGenerateNewReview}
               variant="outline"
               disabled={isGeneratedReviewLoading}
-              className="border-accent text-accent hover:bg-accent/10"
+              className="border-accent text-accent hover:bg-accent/10 hover:text-white"
             >
               {isGeneratedReviewLoading ? "Generating..." : "Generate AI Review"}
             </Button>
           </div>
-        </CardContent>
-      </Card>
+        </div>
+      </div>
 
       {/* AI-Generated Review Card */}
-      {aiGeneratedReview && typeof aiGeneratedReview === 'object' && 'ai_generated_review' in aiGeneratedReview && (
-        <Card className="bg-gradient-to-br from-accent/10 to-accent/5 backdrop-blur-sm border-accent/20 overflow-hidden relative">
-          <div className="absolute top-3 right-3 bg-accent/90 text-white text-xs px-2 py-1 rounded-full">
-            AI-Generated
-          </div>
-          <CardHeader>
-            <CardTitle className="text-xl font-bold text-primary">AI-Generated Review</CardTitle>
-            <CardDescription>
-              This is an AI-generated review based on this driver's profile and experience.
-            </CardDescription>
-          </CardHeader>
-          <CardContent>
-            <div className="bg-white/60 p-4 rounded-lg">
-              <p className="italic text-neutral-800">{String(aiGeneratedReview.ai_generated_review)}</p>
+      {aiGeneratedReview && (
+        <div className="glass-card gradient-border p-0.5 overflow-hidden relative">
+          <div className="glass-dark p-6 rounded-xl h-full">
+            <div className="absolute top-3 right-3 bg-gradient-to-r from-blue-600 to-accent text-white text-xs px-3 py-1 rounded-full">
+              AI-Generated
             </div>
-          </CardContent>
-          <CardFooter>
+            <div className="mb-6 mt-2">
+              <h3 className="text-xl font-bold text-white bg-gradient-to-r from-accent to-blue-500 bg-clip-text text-transparent mb-2">AI-Generated Review</h3>
+              <p className="text-gray-300">
+                This is an AI-generated review based on this driver's profile and experience.
+              </p>
+            </div>
+            <div className="glass-panel p-4 rounded-lg mb-6">
+              <p className="italic text-gray-200">{String(aiGeneratedReview.ai_generated_review)}</p>
+            </div>
             <Button
               onClick={handleGenerateNewReview}
               variant="outline"
               size="sm"
-              className="border-accent text-accent hover:bg-accent/10"
+              className="border-accent text-accent hover:bg-accent/20 hover:text-white"
             >
               Generate Another Review
             </Button>
-          </CardFooter>
-        </Card>
+          </div>
+        </div>
       )}
 
       {/* Analysis Result Card */}
       {analysisResult && (
-        <Card className="bg-white/70 backdrop-blur-sm border-primary/10">
-          <CardHeader>
-            <CardTitle className="text-xl font-bold text-primary">Review Analysis Results</CardTitle>
-            <CardDescription>
-              Our AI has analyzed your review of {analysisResult.driver_name}
-            </CardDescription>
-          </CardHeader>
-          <CardContent>
+        <div className="glass-card glow-effect p-0.5 overflow-hidden">
+          <div className="glass-dark p-6 rounded-xl h-full">
+            <div className="mb-6">
+              <h3 className="text-xl font-bold text-white bg-gradient-to-r from-accent to-blue-500 bg-clip-text text-transparent mb-2">Review Analysis Results</h3>
+              <p className="text-gray-300">
+                Our AI has analyzed your review of {analysisResult.driver_name}
+              </p>
+            </div>
             <div className="space-y-6">
               {/* Overall Sentiment */}
-              <div>
-                <h4 className="font-medium text-primary mb-2">Overall Sentiment</h4>
+              <div className="glass-panel p-4 rounded-lg">
+                <h4 className="font-medium text-white mb-3">Overall Sentiment</h4>
                 <div className="flex items-center">
-                  <div className="w-full bg-neutral-200 rounded-full h-2.5">
+                  <div className="w-full bg-gray-700 rounded-full h-2.5">
                     <div 
-                      className="bg-accent h-2.5 rounded-full" 
+                      className="progress-bar-glow h-2.5 rounded-full" 
                       style={{ width: `${(analysisResult.sentiment_score / 5) * 100}%` }}
                     ></div>
                   </div>
-                  <span className="ml-3 font-medium">{analysisResult.sentiment_score}/5</span>
+                  <span className="ml-3 font-medium text-white">{analysisResult.sentiment_score}/5</span>
                 </div>
               </div>
 
               {/* Skill Analysis */}
-              <div>
-                <h4 className="font-medium text-primary mb-2">Skill Analysis</h4>
-                <div className="space-y-3">
+              <div className="glass-panel p-4 rounded-lg">
+                <h4 className="font-medium text-white mb-3">Skill Analysis</h4>
+                <div className="space-y-4">
                   {Object.entries(analysisResult.skill_analysis).map(([skill, score]) => (
                     <div key={skill}>
                       <div className="flex justify-between mb-1">
-                        <span className="text-sm">{formatSkillName(skill)}</span>
-                        <span className="text-sm font-medium">{score}/5</span>
+                        <span className="text-sm text-gray-300">{formatSkillName(skill)}</span>
+                        <span className="text-sm font-medium text-white">{score}/5</span>
                       </div>
-                      <div className="w-full bg-neutral-200 rounded-full h-2">
+                      <div className="w-full bg-gray-700 rounded-full h-2">
                         <div 
                           className={`h-2 rounded-full ${
-                            score >= 4 ? 'bg-green-500' : 
-                            score >= 3 ? 'bg-accent' : 
-                            'bg-red-500'
+                            score >= 4 ? 'bg-gradient-to-r from-green-500 to-emerald-500' : 
+                            score >= 3 ? 'bg-gradient-to-r from-blue-500 to-cyan-500' : 
+                            'bg-gradient-to-r from-red-500 to-rose-500'
                           }`}
                           style={{ width: `${(score / 5) * 100}%` }}
                         ></div>
@@ -226,28 +230,31 @@ const AIDriverReview = ({ driverId, driverName }: AIDriverReviewProps) => {
                 </div>
               </div>
 
-              {/* Insights */}
-              <div>
-                <h4 className="font-medium text-primary mb-2">AI Insights</h4>
-                <ul className="list-disc pl-5 space-y-1">
-                  {analysisResult.insights.map((insight, index) => (
-                    <li key={index} className="text-neutral-700">{insight}</li>
-                  ))}
-                </ul>
-              </div>
+              {/* Insights and Recommendations */}
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                {/* Insights */}
+                <div className="glass-panel p-4 rounded-lg">
+                  <h4 className="font-medium text-white mb-3">AI Insights</h4>
+                  <ul className="list-disc pl-5 space-y-2 text-gray-300">
+                    {analysisResult.insights.map((insight, index) => (
+                      <li key={index}>{insight}</li>
+                    ))}
+                  </ul>
+                </div>
 
-              {/* Recommendations */}
-              <div>
-                <h4 className="font-medium text-primary mb-2">Recommendations</h4>
-                <ul className="list-disc pl-5 space-y-1">
-                  {analysisResult.recommendations.map((recommendation, index) => (
-                    <li key={index} className="text-neutral-700">{recommendation}</li>
-                  ))}
-                </ul>
+                {/* Recommendations */}
+                <div className="glass-panel p-4 rounded-lg">
+                  <h4 className="font-medium text-white mb-3">Recommendations</h4>
+                  <ul className="list-disc pl-5 space-y-2 text-gray-300">
+                    {analysisResult.recommendations.map((recommendation, index) => (
+                      <li key={index}>{recommendation}</li>
+                    ))}
+                  </ul>
+                </div>
               </div>
             </div>
-          </CardContent>
-        </Card>
+          </div>
+        </div>
       )}
     </div>
   );
