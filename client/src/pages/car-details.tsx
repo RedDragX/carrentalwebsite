@@ -194,10 +194,10 @@ const CarDetails = () => {
   const { car } = carData;
   
   return (
-    <div className="container mx-auto py-8 px-4">
+    <div className="container mx-auto py-8 px-4 bg-gray-100 dark:bg-gray-900 min-h-screen">
       <div className="max-w-7xl mx-auto">
         <div className="mb-6">
-          <Link href="/cars" className="text-violet-600 dark:text-violet-400 hover:underline flex items-center">
+          <Link href="/cars" className="text-violet-600 hover:text-violet-800 dark:text-violet-400 dark:hover:text-violet-300 hover:underline flex items-center font-medium">
             <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-1" viewBox="0 0 20 20" fill="currentColor">
               <path fillRule="evenodd" d="M9.707 16.707a1 1 0 01-1.414 0l-6-6a1 1 0 010-1.414l6-6a1 1 0 011.414 1.414L5.414 9H17a1 1 0 110 2H5.414l4.293 4.293a1 1 0 010 1.414z" clipRule="evenodd" />
             </svg>
@@ -205,24 +205,25 @@ const CarDetails = () => {
           </Link>
         </div>
         
-        <h1 className="text-3xl md:text-4xl font-bold font-space text-gray-900 dark:text-white mb-2">{car.name}</h1>
+        {/* Title with gradient text */}
+        <h1 className="text-3xl md:text-4xl font-bold font-space text-transparent bg-clip-text bg-gradient-to-r from-violet-700 to-indigo-600 dark:from-violet-400 dark:to-indigo-300 mb-3">{car.name}</h1>
         
         <div className="flex items-center flex-wrap gap-3 mb-6">
           <div className="flex items-center">
             <StarRating value={car.rating} size={20} />
-            <span className="ml-2 text-gray-700 dark:text-gray-300">{formatRating(car.rating)} ({car.reviewCount} reviews)</span>
+            <span className="ml-2 text-gray-700 dark:text-gray-300 font-medium">{formatRating(car.rating)} ({car.reviewCount} reviews)</span>
           </div>
           <span className="inline-block h-4 w-[1px] bg-gray-300 dark:bg-gray-700 mx-1"></span>
-          <div className="badge badge-lg badge-primary">{car.type}</div>
+          <div className="badge badge-lg bg-violet-500 text-white border-0">{car.type}</div>
           <span className="inline-block h-4 w-[1px] bg-gray-300 dark:bg-gray-700 mx-1"></span>
-          <span className="text-gray-700 dark:text-gray-300">
-            <span className="font-bold text-violet-700 dark:text-violet-500">{formatCurrency(car.price)}</span> / day
+          <span className="text-gray-700 dark:text-gray-300 font-medium">
+            <span className="font-bold text-violet-700 dark:text-violet-400">{formatCurrency(car.price)}</span> / day
           </span>
         </div>
         
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
           <div className="lg:col-span-2">
-            <div className="bg-white dark:bg-gray-800 rounded-lg shadow-md overflow-hidden mb-8">
+            <div className="glass-card rounded-xl shadow-lg overflow-hidden mb-8 border border-gray-200 dark:border-gray-700/50">
               <div className="relative">
                 <img 
                   src={car.images[0]} 
@@ -230,8 +231,8 @@ const CarDetails = () => {
                   className="w-full h-[300px] md:h-[400px] object-cover"
                 />
                 {!car.available && (
-                  <div className="absolute top-0 left-0 w-full h-full bg-black bg-opacity-60 flex items-center justify-center">
-                    <div className="bg-red-600 text-white text-lg font-bold py-2 px-6 rounded-md">
+                  <div className="absolute top-0 left-0 w-full h-full bg-black bg-opacity-60 flex items-center justify-center backdrop-blur-sm">
+                    <div className="bg-gradient-to-r from-red-600 to-red-500 text-white text-lg font-bold py-2 px-6 rounded-md shadow-lg">
                       Currently Unavailable
                     </div>
                   </div>
@@ -256,48 +257,65 @@ const CarDetails = () => {
                 
                 {activeTab === "details" && (
                   <div>
-                    <p className="text-gray-600 dark:text-gray-300 mb-6">{car.description}</p>
+                    {/* Description with improved typography */}
+                    <div className="p-4 rounded-lg bg-gray-50 dark:bg-gray-800/30 mb-6 backdrop-blur-sm border border-gray-100/50 dark:border-gray-700/30">
+                      <p className="text-gray-700 dark:text-gray-300 leading-relaxed font-poppins">{car.description}</p>
+                    </div>
                     
-                    <h3 className="text-xl font-bold text-gray-900 dark:text-white font-heading mb-4">Specifications</h3>
+                    {/* Specifications heading with gradient text */}
+                    <h3 className="text-xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-violet-700 to-indigo-600 dark:from-violet-400 dark:to-indigo-300 font-space mb-4">Performance Specifications</h3>
                     
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-y-4 gap-x-6 mb-6">
-                      <div className="flex items-center">
-                        <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-violet-600 dark:text-violet-400 mr-2" viewBox="0 0 20 20" fill="currentColor">
-                          <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-13a1 1 0 10-2 0v4a1 1 0 00.293.707l2.828 2.829a1 1 0 101.415-1.415L11 9.586V5z" clipRule="evenodd" />
-                        </svg>
+                    {/* Grid with glass effect cards */}
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+                      {/* Top Speed */}
+                      <div className="flex items-center bg-white/80 dark:bg-gray-800/50 backdrop-blur-sm p-3 rounded-lg border border-gray-100/60 dark:border-gray-700/30 hover:shadow-md transition-all duration-200 group">
+                        <div className="flex items-center justify-center w-12 h-12 bg-violet-100 dark:bg-violet-900/20 rounded-lg mr-4 group-hover:bg-violet-200 dark:group-hover:bg-violet-900/40 transition-colors">
+                          <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-violet-600 dark:text-violet-400" viewBox="0 0 20 20" fill="currentColor">
+                            <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-13a1 1 0 10-2 0v4a1 1 0 00.293.707l2.828 2.829a1 1 0 101.415-1.415L11 9.586V5z" clipRule="evenodd" />
+                          </svg>
+                        </div>
                         <div>
                           <h4 className="font-medium text-gray-900 dark:text-gray-100">Top Speed</h4>
-                          <p className="text-gray-700 dark:text-gray-300">{car.topSpeed} mph</p>
+                          <p className="text-gray-700 dark:text-violet-300 font-mono font-semibold">{car.topSpeed} mph</p>
                         </div>
                       </div>
                       
-                      <div className="flex items-center">
-                        <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-violet-600 dark:text-violet-400 mr-2" viewBox="0 0 20 20" fill="currentColor">
-                          <path d="M9 6a3 3 0 11-6 0 3 3 0 016 0zM17 6a3 3 0 11-6 0 3 3 0 016 0zM12.93 17c.046-.327.07-.66.07-1a6.97 6.97 0 00-1.5-4.33A5 5 0 0119 16v1h-6.07zM6 11a5 5 0 015 5v1H1v-1a5 5 0 015-5z" />
-                        </svg>
+                      {/* Seating Capacity */}
+                      <div className="flex items-center bg-white/80 dark:bg-gray-800/50 backdrop-blur-sm p-3 rounded-lg border border-gray-100/60 dark:border-gray-700/30 hover:shadow-md transition-all duration-200 group">
+                        <div className="flex items-center justify-center w-12 h-12 bg-indigo-100 dark:bg-indigo-900/20 rounded-lg mr-4 group-hover:bg-indigo-200 dark:group-hover:bg-indigo-900/40 transition-colors">
+                          <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-indigo-600 dark:text-indigo-400" viewBox="0 0 20 20" fill="currentColor">
+                            <path d="M9 6a3 3 0 11-6 0 3 3 0 016 0zM17 6a3 3 0 11-6 0 3 3 0 016 0zM12.93 17c.046-.327.07-.66.07-1a6.97 6.97 0 00-1.5-4.33A5 5 0 0119 16v1h-6.07zM6 11a5 5 0 015 5v1H1v-1a5 5 0 015-5z" />
+                          </svg>
+                        </div>
                         <div>
                           <h4 className="font-medium text-gray-900 dark:text-gray-100">Seating Capacity</h4>
-                          <p className="text-gray-700 dark:text-gray-300">{car.seats} seats</p>
+                          <p className="text-gray-700 dark:text-indigo-300 font-mono font-semibold">{car.seats} seats</p>
                         </div>
                       </div>
                       
-                      <div className="flex items-center">
-                        <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-violet-600 dark:text-violet-400 mr-2" viewBox="0 0 20 20" fill="currentColor">
-                          <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-8.707l-3-3a1 1 0 00-1.414 0l-3 3a1 1 0 001.414 1.414L9 9.414V13a1 1 0 102 0V9.414l1.293 1.293a1 1 0 001.414-1.414z" clipRule="evenodd" />
-                        </svg>
+                      {/* Transmission */}
+                      <div className="flex items-center bg-white/80 dark:bg-gray-800/50 backdrop-blur-sm p-3 rounded-lg border border-gray-100/60 dark:border-gray-700/30 hover:shadow-md transition-all duration-200 group">
+                        <div className="flex items-center justify-center w-12 h-12 bg-blue-100 dark:bg-blue-900/20 rounded-lg mr-4 group-hover:bg-blue-200 dark:group-hover:bg-blue-900/40 transition-colors">
+                          <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-blue-600 dark:text-blue-400" viewBox="0 0 20 20" fill="currentColor">
+                            <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-8.707l-3-3a1 1 0 00-1.414 0l-3 3a1 1 0 001.414 1.414L9 9.414V13a1 1 0 102 0V9.414l1.293 1.293a1 1 0 001.414-1.414z" clipRule="evenodd" />
+                          </svg>
+                        </div>
                         <div>
                           <h4 className="font-medium text-gray-900 dark:text-gray-100">Transmission</h4>
-                          <p className="text-gray-700 dark:text-gray-300">{car.transmission}</p>
+                          <p className="text-gray-700 dark:text-blue-300 font-mono font-semibold">{car.transmission}</p>
                         </div>
                       </div>
                       
-                      <div className="flex items-center">
-                        <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-violet-600 dark:text-violet-400 mr-2" viewBox="0 0 20 20" fill="currentColor">
-                          <path d="M4 4a2 2 0 00-2 2v4a2 2 0 002 2V6h10a2 2 0 00-2-2H4zm2 6a2 2 0 012-2h8a2 2 0 012 2v4a2 2 0 01-2 2H8a2 2 0 01-2-2v-4zm6 4a2 2 0 100-4 2 2 0 000 4z" />
-                        </svg>
+                      {/* Fuel Type */}
+                      <div className="flex items-center bg-white/80 dark:bg-gray-800/50 backdrop-blur-sm p-3 rounded-lg border border-gray-100/60 dark:border-gray-700/30 hover:shadow-md transition-all duration-200 group">
+                        <div className="flex items-center justify-center w-12 h-12 bg-purple-100 dark:bg-purple-900/20 rounded-lg mr-4 group-hover:bg-purple-200 dark:group-hover:bg-purple-900/40 transition-colors">
+                          <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-purple-600 dark:text-purple-400" viewBox="0 0 20 20" fill="currentColor">
+                            <path d="M4 4a2 2 0 00-2 2v4a2 2 0 002 2V6h10a2 2 0 00-2-2H4zm2 6a2 2 0 012-2h8a2 2 0 012 2v4a2 2 0 01-2 2H8a2 2 0 01-2-2v-4zm6 4a2 2 0 100-4 2 2 0 000 4z" />
+                          </svg>
+                        </div>
                         <div>
                           <h4 className="font-medium text-gray-900 dark:text-gray-100">Fuel Type</h4>
-                          <p className="text-gray-700 dark:text-gray-300">{car.fuelType}</p>
+                          <p className="text-gray-700 dark:text-purple-300 font-mono font-semibold">{car.fuelType}</p>
                         </div>
                       </div>
                     </div>
@@ -306,15 +324,17 @@ const CarDetails = () => {
                 
                 {activeTab === "features" && (
                   <div>
-                    <h3 className="text-xl font-bold text-gray-900 dark:text-white font-heading mb-4">Features</h3>
+                    <h3 className="text-xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-violet-700 to-indigo-600 dark:from-violet-400 dark:to-indigo-300 font-heading mb-4">Premium Features</h3>
                     
-                    <ul className="grid grid-cols-1 md:grid-cols-2 gap-2">
+                    <ul className="grid grid-cols-1 md:grid-cols-2 gap-3">
                       {car.features.map((feature, index) => (
-                        <li key={index} className="flex items-center">
-                          <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-violet-600 dark:text-violet-400 mr-2" viewBox="0 0 20 20" fill="currentColor">
-                            <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
-                          </svg>
-                          <span className="text-gray-800 dark:text-gray-200">{feature}</span>
+                        <li key={index} className="flex items-center bg-gray-50 dark:bg-gray-800/50 p-2 rounded-lg border border-gray-100 dark:border-gray-700/50 hover:shadow-md transition-all duration-200 group">
+                          <div className="flex items-center justify-center bg-violet-100 dark:bg-violet-900/30 rounded-md p-1.5 mr-3 group-hover:bg-violet-200 dark:group-hover:bg-violet-900/50 transition-colors">
+                            <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 text-violet-600 dark:text-violet-400" viewBox="0 0 20 20" fill="currentColor">
+                              <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
+                            </svg>
+                          </div>
+                          <span className="text-gray-800 dark:text-gray-200 font-medium">{feature}</span>
                         </li>
                       ))}
                     </ul>
