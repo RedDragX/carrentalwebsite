@@ -1,7 +1,7 @@
 import { Link } from "wouter";
 import { formatCurrency, formatRating } from "@/lib/utils";
 import StarRating from "@/components/ui/star-rating";
-import { Heart } from "lucide-react";
+import { Heart, Clock, Calendar, Sparkles, Users, Gauge } from "lucide-react";
 
 interface CarCardProps {
   car: {
@@ -40,91 +40,128 @@ const CarCard = ({ car }: CarCardProps) => {
   const displayRating = formatRating(rating);
 
   return (
-    <div className="car-card">
-      {/* Card Image */}
-      <div className="car-card-image">
+    <div className="group relative overflow-hidden rounded-xl bg-white dark:bg-gray-800/95 shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
+      {/* Card Image with Hover Effect */}
+      <div className="relative overflow-hidden aspect-[16/9]">
         <Link href={`/cars/${id}`}>
           <img 
             src={images[0]} 
             alt={`${brand} ${model}`} 
-            className="w-full h-full object-cover"
+            className="w-full h-full object-cover transform transition-transform duration-700 group-hover:scale-110"
           />
         </Link>
         
+        {/* Gradient Overlay */}
+        <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent opacity-60"></div>
+        
         {/* Type Badge */}
-        <div className="car-card-badge bg-violet-600 text-white">
+        <div className="absolute top-3 left-3 px-2.5 py-1 text-xs font-medium rounded-lg bg-violet-600/90 text-white backdrop-blur-sm font-space tracking-wide shadow-lg">
           {type}
         </div>
         
-        {/* Wishlist button */}
-        <button className="car-card-wishlist">
+        {/* Wishlist button with glow on hover */}
+        <button className="absolute top-3 right-3 p-1.5 rounded-full bg-white/80 hover:bg-white dark:bg-gray-800/70 dark:hover:bg-gray-800 text-gray-600 dark:text-gray-300 hover:text-rose-500 dark:hover:text-rose-400 transition-colors shadow-sm group-hover:shadow-md">
           <Heart className="h-4 w-4" />
         </button>
+        
+        {/* Price Badge */}
+        <div className="absolute bottom-3 right-3 px-3 py-1.5 rounded-lg bg-white/10 backdrop-blur-md border border-white/20 text-white shadow-lg">
+          <div className="flex items-center">
+            <span className="text-lg font-bold font-space">{formatCurrency(price)}</span>
+            <span className="text-xs ml-1 opacity-80 font-outfit">/day</span>
+          </div>
+        </div>
+        
+        {/* Status Badge for Unavailable */}
+        {!available && (
+          <div className="absolute inset-0 bg-black/70 backdrop-blur-sm flex items-center justify-center">
+            <div className="px-4 py-2 bg-red-600/90 text-white rounded-lg font-space text-sm tracking-wide shadow-lg">
+              Currently Unavailable
+            </div>
+          </div>
+        )}
       </div>
       
       {/* Card Content */}
-      <div className="car-card-content">
+      <div className="p-5">
         {/* Title & Rating */}
-        <div className="flex justify-between items-start">
+        <div className="flex justify-between items-start mb-3">
           <div>
-            <h3 className="car-card-title text-gray-900 dark:text-white">
-              {brand} {model}
-            </h3>
-            <p className="car-card-subtitle">
+            <Link href={`/cars/${id}`}>
+              <h3 className="text-lg font-bold text-gray-900 dark:text-white font-space hover:text-violet-600 dark:hover:text-violet-400 transition-colors">
+                {brand} {model}
+              </h3>
+            </Link>
+            <p className="text-sm text-gray-600 dark:text-gray-400 font-outfit">
               {name}
             </p>
           </div>
-          <div className="flex items-center gap-1">
+          
+          <div className="flex items-center px-2 py-1 bg-amber-50 dark:bg-amber-900/20 rounded-lg">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-4 h-4 text-amber-500">
               <path fillRule="evenodd" d="M10.788 3.21c.448-1.077 1.976-1.077 2.424 0l2.082 5.007 5.404.433c1.164.093 1.636 1.545.749 2.305l-4.117 3.527 1.257 5.273c.271 1.136-.964 2.033-1.96 1.425L12 18.354 7.373 21.18c-.996.608-2.231-.29-1.96-1.425l1.257-5.273-4.117-3.527c-.887-.76-.415-2.212.749-2.305l5.404-.433 2.082-5.006z" clipRule="evenodd" />
             </svg>
-            <span className="text-gray-900 dark:text-white font-medium">
+            <span className="ml-1 text-amber-800 dark:text-amber-300 font-medium font-outfit">
               {displayRating.toFixed(1)}
             </span>
-            <span className="text-gray-500 dark:text-gray-400 text-xs">
+            <span className="ml-1 text-gray-500 dark:text-gray-400 text-xs">
               ({reviewCount})
             </span>
           </div>
         </div>
         
-        {/* Features */}
-        <div className="car-card-features">
-          <div className="flex items-center">
-            <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 14a2 2 0 100-4 2 2 0 000 4zM7 14a2 2 0 100-4 2 2 0 000 4z" />
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6v4m0 8v-4m-8 0h16" />
-            </svg>
-            <span>{seats} seats</span>
+        {/* Features with modern icons */}
+        <div className="grid grid-cols-2 gap-3 mb-4">
+          <div className="flex items-center text-gray-700 dark:text-gray-300 text-sm">
+            <div className="w-7 h-7 rounded-full bg-violet-100 dark:bg-violet-900/30 flex items-center justify-center mr-2 text-violet-600 dark:text-violet-400">
+              <Users className="h-3.5 w-3.5" />
+            </div>
+            <span className="font-outfit">{seats} seats</span>
           </div>
-          <div className="flex items-center">
-            <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
-            </svg>
-            <span>{topSpeed} km/h</span>
+          
+          <div className="flex items-center text-gray-700 dark:text-gray-300 text-sm">
+            <div className="w-7 h-7 rounded-full bg-blue-100 dark:bg-blue-900/30 flex items-center justify-center mr-2 text-blue-600 dark:text-blue-400">
+              <Gauge className="h-3.5 w-3.5" />
+            </div>
+            <span className="font-outfit">{topSpeed} km/h</span>
+          </div>
+          
+          <div className="flex items-center text-gray-700 dark:text-gray-300 text-sm">
+            <div className="w-7 h-7 rounded-full bg-emerald-100 dark:bg-emerald-900/30 flex items-center justify-center mr-2 text-emerald-600 dark:text-emerald-400">
+              <Calendar className="h-3.5 w-3.5" />
+            </div>
+            <span className="font-outfit">Free cancellation</span>
+          </div>
+          
+          <div className="flex items-center text-gray-700 dark:text-gray-300 text-sm">
+            <div className="w-7 h-7 rounded-full bg-amber-100 dark:bg-amber-900/30 flex items-center justify-center mr-2 text-amber-600 dark:text-amber-400">
+              <Sparkles className="h-3.5 w-3.5" />
+            </div>
+            <span className="font-outfit">Premium</span>
           </div>
         </div>
         
-        {/* Price and CTA */}
-        <div className="mt-4 pt-4 border-t border-gray-200 dark:border-gray-700 flex justify-between items-center">
-          <div>
-            <span className="text-sm text-gray-500 dark:text-gray-400">Price per day</span>
-            <p className="car-card-price text-gray-900 dark:text-white">{formatCurrency(price)}</p>
-          </div>
+        {/* Call to Action */}
+        <div className="flex items-center justify-center">
           <Link 
             href={`/cars/${id}`} 
-            className={`btn-turo ${!available ? 'opacity-75 cursor-not-allowed' : ''}`}
+            className={`w-full py-2.5 px-4 rounded-lg font-medium text-white text-center transition-all duration-300 font-space text-sm shadow-md 
+              ${available 
+                ? 'bg-gradient-to-r from-violet-600 to-purple-600 hover:from-violet-700 hover:to-purple-700 hover:shadow-xl hover:shadow-violet-500/10' 
+                : 'bg-gray-600 opacity-75 cursor-not-allowed'
+              }`}
           >
-            {available ? "Book Now" : "Unavailable"}
+            {available ? "View Details" : "Unavailable"}
           </Link>
         </div>
-        
-        {/* Availability Status */}
-        {!available && (
-          <div className="mt-2 text-center text-sm text-red-500 bg-red-50 dark:bg-red-900/20 py-1 rounded-md">
-            Currently unavailable
-          </div>
-        )}
       </div>
+      
+      {/* Premium Indicator */}
+      {price > 1000 && (
+        <div className="absolute -right-10 top-5 w-40 transform rotate-45 bg-gradient-to-r from-amber-500 to-yellow-500 text-white text-xs font-bold py-1 text-center shadow-md">
+          PREMIUM
+        </div>
+      )}
     </div>
   );
 };
