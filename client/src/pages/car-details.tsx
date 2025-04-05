@@ -194,7 +194,15 @@ const CarDetails = () => {
   const { car } = carData;
   
   return (
-    <div className="container mx-auto py-8 px-4 bg-gray-100 dark:bg-gray-900 min-h-screen">
+    <div className="container mx-auto py-8 px-4 min-h-screen relative z-10 backdrop-blur-md">
+      {/* Background gradient effect */}
+      <div className="absolute inset-0 -z-10 overflow-hidden">
+        <div className="absolute -top-40 -right-40 w-80 h-80 bg-purple-600/30 rounded-full blur-3xl"></div>
+        <div className="absolute -bottom-40 -left-40 w-80 h-80 bg-indigo-600/30 rounded-full blur-3xl"></div>
+        <div className="absolute top-1/4 left-1/3 w-80 h-80 bg-blue-600/20 rounded-full blur-3xl"></div>
+        <div className="absolute bottom-1/4 right-1/3 w-60 h-60 bg-violet-600/20 rounded-full blur-3xl"></div>
+        <div className="absolute inset-0 bg-gradient-to-b from-gray-900/60 to-gray-900/90 backdrop-blur-sm"></div>
+      </div>
       <div className="max-w-7xl mx-auto">
         <div className="mb-6">
           <Link href="/cars" className="text-violet-600 hover:text-violet-800 dark:text-violet-400 dark:hover:text-violet-300 hover:underline flex items-center font-medium">
@@ -346,15 +354,16 @@ const CarDetails = () => {
           
           {/* Booking form */}
           <div className="lg:col-span-1">
-            <div className="glass-card overflow-hidden">
+            <div className="overflow-hidden backdrop-blur-xl bg-white/5 border border-white/10 shadow-xl rounded-xl">
               {/* Header with gradient */}
-              <div className="bg-gradient-to-r from-primary/90 to-violet-600/90 p-5 relative">
-                <h3 className="text-xl font-bold text-white font-space">Book this car</h3>
-                <p className="text-white/80 text-sm mt-1 font-poppins">
+              <div className="bg-gradient-to-r from-violet-600/90 via-indigo-600/90 to-purple-600/90 p-5 relative">
+                <h3 className="text-xl font-bold text-white font-heading">Book this car</h3>
+                <p className="text-white/90 text-sm mt-1 font-accent">
                   Experience luxury at your fingertips
                 </p>
                 
                 {/* Decorative elements */}
+                <div className="absolute -right-2 -top-2 w-20 h-20 rounded-full bg-indigo-500/20 blur-2xl"></div>
                 <div className="absolute right-4 top-1/2 transform -translate-y-1/2 w-12 h-12 rounded-full bg-white/10 backdrop-blur-md flex items-center justify-center">
                   <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
@@ -363,7 +372,7 @@ const CarDetails = () => {
               </div>
               
               {/* Form section with glass effect */}
-              <form onSubmit={handleBooking} className="p-6 space-y-5 bg-gray-900/70 backdrop-blur-sm">
+              <form onSubmit={handleBooking} className="p-6 space-y-5 bg-gray-900/50 backdrop-blur-md border-t border-white/10">
                 <div>
                   <label htmlFor="location" className="block text-sm font-medium text-gray-200 font-outfit mb-1.5">
                     Pickup Location
