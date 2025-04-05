@@ -79,7 +79,7 @@ function App() {
   return (
     <QueryClientProvider client={queryClient}>
       <UserContext.Provider value={{ user, setUser, isLoggedIn: !!user }}>
-        <div className="flex flex-col min-h-screen" data-theme="zoroTheme">
+        <div className="flex flex-col min-h-screen font-poppins" data-theme="zoroTheme">
           <Navbar />
           <main className="flex-grow">
             <Router />

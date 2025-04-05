@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&family=Inter:wght@300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&family=Inter:wght@300;400;500;600;700&family=Poppins:wght@300;400;500;600;700&family=Space+Grotesk:wght@300;400;500;600;700&family=Outfit:wght@300;400;500;600;700&family=Quicksand:wght@300;400;500;600;700&display=swap');
 
 @tailwind base;
 @tailwind components;
@@ -43,7 +43,7 @@
 
   body {
     @apply min-h-screen text-foreground;
-    font-family: 'Inter', sans-serif;
+    font-family: 'Poppins', sans-serif;
     background: 
       radial-gradient(circle at top left, rgba(124, 58, 237, 0.2), transparent 400px),
       radial-gradient(circle at top right, rgba(168, 85, 247, 0.2), transparent 400px),
@@ -55,11 +55,27 @@
   }
 
   h1, h2, h3, h4, h5, h6 {
-    font-family: 'Montserrat', sans-serif;
+    font-family: 'Space Grotesk', sans-serif;
   }
   
   .font-heading {
-    font-family: 'Montserrat', sans-serif;
+    font-family: 'Space Grotesk', sans-serif;
+  }
+  
+  .font-space {
+    font-family: 'Space Grotesk', sans-serif;
+  }
+  
+  .font-poppins {
+    font-family: 'Poppins', sans-serif;
+  }
+  
+  .font-outfit {
+    font-family: 'Outfit', sans-serif;
+  }
+  
+  .font-quicksand {
+    font-family: 'Quicksand', sans-serif;
   }
 
   /* Customize scrollbar */
@@ -122,7 +138,13 @@
   }
   
   .glass-navbar {
-    @apply backdrop-blur-md bg-gradient-to-r from-indigo-900/80 to-blue-900/80 border-b border-indigo-800/30 shadow-md sticky top-0 z-40;
+    @apply backdrop-blur-xl bg-gradient-to-r from-indigo-900/60 to-purple-900/60 border-b border-violet-800/30 shadow-lg sticky top-0 z-40;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+  }
+  
+  .modern-navbar {
+    @apply backdrop-blur-2xl bg-white/10 dark:bg-gray-900/30 border-b border-white/10 dark:border-gray-800/30 shadow-lg;
+    box-shadow: 0 10px 30px -10px rgba(79, 70, 229, 0.2);
   }
   
   .glass-dark {
