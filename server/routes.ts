@@ -7,6 +7,7 @@ import {
   insertBookingSchema,
   insertReviewSchema,
 } from "@shared/schema";
+import { registerAIRoutes } from "./routes/ai-routes";
 
 export async function registerRoutes(app: Express): Promise<Server> {
   // Car routes
@@ -255,6 +256,9 @@ export async function registerRoutes(app: Express): Promise<Server> {
       res.status(500).json({ message: "Failed to fetch reviews" });
     }
   });
+
+  // Register AI routes
+  registerAIRoutes(app);
 
   const httpServer = createServer(app);
   return httpServer;
