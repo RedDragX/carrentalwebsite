@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&family=Inter:wght@300;400;500;600;700&family=Poppins:wght@300;400;500;600;700&family=Space+Grotesk:wght@300;400;500;600;700&family=Outfit:wght@300;400;500;600;700&family=Quicksand:wght@300;400;500;600;700&family=Orbitron:wght@400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700;800&family=Lexend:wght@400;500;600;700;800&family=Chivo:wght@400;500;600;700;800;900&family=Unbounded:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&family=Outfit:wght@400;500;600;700;800&family=Orbitron:wght@500;600;700;800&display=swap');
 
 @tailwind base;
 @tailwind components;
@@ -70,7 +70,8 @@
 
   body {
     @apply min-h-screen text-foreground;
-    font-family: 'Poppins', sans-serif;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-weight: 500;
     background: 
       radial-gradient(circle at top left, rgba(124, 58, 237, 0.2), transparent 400px),
       radial-gradient(circle at top right, rgba(168, 85, 247, 0.2), transparent 400px),
@@ -79,40 +80,54 @@
       linear-gradient(to bottom, rgba(17, 24, 39, 1), rgba(15, 23, 42, 1)),
       url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='400' viewBox='0 0 800 800'%3E%3Cg fill='none' stroke='%23312E81' stroke-width='1'%3E%3Cpath d='M769 229L1037 260.9M927 880L731 737 520 660 309 538 40 599 295 764 126.5 879.5 40 599-197 493 102 382-31 229 126.5 79.5-69-63'/%3E%3Cpath d='M-31 229L237 261 390 382 603 493 308.5 537.5 101.5 381.5M370 905L295 764'/%3E%3Cpath d='M520 660L578 842 731 737 840 599 603 493 520 660 295 764 309 538 390 382 539 269 769 229 577.5 41.5 370 105 295 -36 126.5 79.5 237 261 102 382 40 599 -69 737 127 880'/%3E%3Cpath d='M520-140L578.5 42.5 731-63M603 493L539 269 237 261 370 105M902 382L539 269M390 382L102 382'/%3E%3Cpath d='M-222 42L126.5 79.5 370 105 539 269 577.5 41.5 927 80 769 229 902 382 603 493 731 737M295-36L577.5 41.5M578 842L295 764M40-201L127 80M102 382L-261 269'/%3E%3C/g%3E%3Cg fill='%235B21B6'%3E%3Ccircle cx='769' cy='229' r='5'/%3E%3Ccircle cx='539' cy='269' r='5'/%3E%3Ccircle cx='603' cy='493' r='5'/%3E%3Ccircle cx='731' cy='737' r='5'/%3E%3Ccircle cx='520' cy='660' r='5'/%3E%3Ccircle cx='309' cy='538' r='5'/%3E%3Ccircle cx='295' cy='764' r='5'/%3E%3Ccircle cx='40' cy='599' r='5'/%3E%3Ccircle cx='102' cy='382' r='5'/%3E%3Ccircle cx='127' cy='80' r='5'/%3E%3Ccircle cx='370' cy='105' r='5'/%3E%3Ccircle cx='578' cy='42' r='5'/%3E%3Ccircle cx='237' cy='261' r='5'/%3E%3Ccircle cx='390' cy='382' r='5'/%3E%3C/g%3E%3C/svg%3E");
     background-attachment: fixed;
+    letter-spacing: 0.01em;
   }
 
   h1, h2, h3, h4, h5, h6 {
-    font-family: 'Space Grotesk', sans-serif;
+    font-family: 'Sora', sans-serif;
+    font-weight: 600;
+    letter-spacing: -0.02em;
   }
   
   .font-heading {
-    font-family: 'Space Grotesk', sans-serif;
+    font-family: 'Unbounded', sans-serif;
+    font-weight: 600;
+    letter-spacing: -0.01em;
   }
   
-  .font-space {
-    font-family: 'Space Grotesk', sans-serif;
+  .font-title {
+    font-family: 'Sora', sans-serif;
+    font-weight: 700;
+    letter-spacing: -0.02em;
   }
   
-  .font-poppins {
-    font-family: 'Poppins', sans-serif;
+  .font-body {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-weight: 500;
   }
   
-  .font-outfit {
-    font-family: 'Outfit', sans-serif;
+  .font-display {
+    font-family: 'Chivo', sans-serif;
+    font-weight: 700;
+    letter-spacing: -0.03em;
   }
   
-  .font-quicksand {
-    font-family: 'Quicksand', sans-serif;
+  .font-accent {
+    font-family: 'Lexend', sans-serif;
+    font-weight: 500;
   }
   
   .font-orbitron {
     font-family: 'Orbitron', sans-serif;
+    font-weight: 700;
+    letter-spacing: 0.02em;
   }
   
   .logo-text {
     font-family: 'Orbitron', sans-serif;
-    font-weight: 600;
-    letter-spacing: 0.05em;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
   }
 
   /* Customize scrollbar */
@@ -158,13 +173,53 @@
     transition: all 0.3s ease;
   }
   
+  /* Text enhancements for bold modern look */
+  .text-bold-gradient {
+    @apply bg-clip-text text-transparent bg-gradient-to-r from-indigo-500 to-violet-500 font-extrabold;
+  }
+  
+  .text-title-gradient {
+    @apply bg-clip-text text-transparent bg-gradient-to-r from-blue-500 via-violet-500 to-purple-500 font-black;
+  }
+  
+  .text-accent-gradient {
+    @apply bg-clip-text text-transparent bg-gradient-to-br from-cyan-400 to-blue-600 font-bold;
+  }
+  
+  .text-heading-xl {
+    @apply text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight;
+    font-family: 'Unbounded', sans-serif;
+  }
+  
+  .text-heading-lg {
+    @apply text-3xl md:text-4xl font-bold tracking-tight;
+    font-family: 'Sora', sans-serif;
+  }
+  
+  .text-heading-md {
+    @apply text-2xl md:text-3xl font-bold;
+    font-family: 'Sora', sans-serif;
+  }
+  
+  .text-heading-sm {
+    @apply text-xl md:text-2xl font-semibold;
+    font-family: 'Sora', sans-serif;
+  }
+  
+  .text-body-bold {
+    @apply font-semibold tracking-tight;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+  }
+  
   /* Daisy UI enhancements */
   .btn-zoro {
-    @apply btn bg-gradient-to-r from-blue-600 to-indigo-600 text-white border-none hover:from-blue-700 hover:to-indigo-700 shadow-lg;
+    @apply btn bg-gradient-to-r from-blue-600 to-indigo-600 text-white border-none hover:from-blue-700 hover:to-indigo-700 shadow-lg font-bold;
+    font-family: 'Lexend', sans-serif;
   }
   
   .btn-accent-zoro {
-    @apply btn bg-gradient-to-r from-cyan-500 to-blue-500 text-white border-none hover:from-cyan-600 hover:to-blue-600 shadow-lg;
+    @apply btn bg-gradient-to-r from-cyan-500 to-blue-500 text-white border-none hover:from-cyan-600 hover:to-blue-600 shadow-lg font-bold;
+    font-family: 'Lexend', sans-serif;
   }
   
   .card-zoro {
@@ -223,7 +278,7 @@
     background: conic-gradient(from 0deg at 50% 50%, theme('colors.blue.900'), theme('colors.indigo.900'), theme('colors.blue.900'));
   }
   
-  /* Turo-style car card effects */
+  /* Turo-style car card effects - Updated with modern bold fonts */
   .car-card {
     @apply transition-all duration-300 hover:-translate-y-1 overflow-hidden bg-white dark:bg-gray-800 rounded-xl shadow-lg;
     transform-style: preserve-3d;
@@ -243,31 +298,38 @@
   }
   
   .car-card-content {
-    @apply p-4 relative;
+    @apply p-5 relative;
   }
   
   .car-card-price {
-    @apply text-xl font-semibold;
+    @apply text-xl font-bold text-indigo-600 dark:text-indigo-400;
+    font-family: 'Lexend', sans-serif;
   }
   
   .car-card-title {
-    @apply font-bold text-lg mb-1;
+    @apply font-extrabold text-lg mb-1 tracking-tight;
+    font-family: 'Sora', sans-serif;
   }
   
   .car-card-subtitle {
-    @apply text-sm text-gray-500 dark:text-gray-400 mb-2;
+    @apply text-sm text-gray-500 dark:text-gray-400 mb-2 font-medium;
+    font-family: 'Plus Jakarta Sans', sans-serif;
   }
   
   .car-card-rating {
-    @apply flex items-center gap-1 text-sm;
+    @apply flex items-center gap-1 text-sm font-semibold;
+    font-family: 'Plus Jakarta Sans', sans-serif;
   }
   
   .car-card-features {
-    @apply mt-2 flex gap-3 text-sm text-gray-600 dark:text-gray-300;
+    @apply mt-2 flex gap-3 text-sm text-gray-600 dark:text-gray-300 font-medium;
+    font-family: 'Plus Jakarta Sans', sans-serif;
   }
   
   .car-card-badge {
-    @apply absolute top-3 left-3 px-2 py-1 text-xs font-medium rounded-md;
+    @apply absolute top-3 left-3 px-2.5 py-1 text-xs font-bold rounded-md;
+    font-family: 'Lexend', sans-serif;
+    letter-spacing: 0.01em;
   }
   
   .car-card-wishlist {
@@ -458,23 +520,51 @@
     animation: gradient-shift 4s ease infinite;
   }
   
-  /* Button styles - Turo-inspired */
+  /* Button styles - Modern bold look */
   .btn-turo {
-    @apply relative py-2.5 px-5 rounded-lg font-medium text-white shadow-md overflow-hidden transition-all duration-300;
+    @apply relative py-2.5 px-6 rounded-lg font-bold text-white shadow-md overflow-hidden transition-all duration-300;
     background: linear-gradient(to right, #7c3aed, #8b5cf6);
+    font-family: 'Lexend', sans-serif;
+    letter-spacing: 0.01em;
   }
   
   .btn-turo:hover {
-    @apply shadow-lg;
+    @apply shadow-lg transform -translate-y-0.5;
     background: linear-gradient(to right, #6d28d9, #7c3aed);
   }
   
   .btn-turo-light {
-    @apply relative py-2.5 px-5 rounded-lg font-medium bg-white text-violet-700 border border-violet-200 shadow-sm overflow-hidden transition-all duration-300;
+    @apply relative py-2.5 px-6 rounded-lg font-bold bg-white text-violet-700 border border-violet-200 shadow-sm overflow-hidden transition-all duration-300;
+    font-family: 'Lexend', sans-serif;
+    letter-spacing: 0.01em;
   }
   
   .btn-turo-light:hover {
-    @apply shadow-md bg-violet-50;
+    @apply shadow-md bg-violet-50 transform -translate-y-0.5;
+  }
+  
+  .btn-modern {
+    @apply relative py-3 px-7 rounded-lg font-bold tracking-tight text-white overflow-hidden;
+    background: linear-gradient(to right, #6d28d9, #9333ea);
+    font-family: 'Lexend', sans-serif;
+    box-shadow: 0 4px 10px -2px rgba(109, 40, 217, 0.4);
+    transition: all 0.2s cubic-bezier(0.17, 0.67, 0.83, 0.67);
+  }
+  
+  .btn-modern:hover {
+    @apply transform -translate-y-0.5;
+    box-shadow: 0 6px 15px -3px rgba(109, 40, 217, 0.5);
+    filter: brightness(1.05);
+  }
+  
+  .btn-modern-outline {
+    @apply relative py-3 px-7 rounded-lg font-bold tracking-tight bg-transparent text-violet-500 border-2 border-violet-500/30 overflow-hidden;
+    font-family: 'Lexend', sans-serif;
+    transition: all 0.2s cubic-bezier(0.17, 0.67, 0.83, 0.67);
+  }
+  
+  .btn-modern-outline:hover {
+    @apply transform -translate-y-0.5 border-violet-500/80 text-violet-600 bg-violet-50;
   }
   
   @keyframes gradient-shift {
@@ -516,5 +606,61 @@
     100% {
       transform: translateX(100%);
     }
+  }
+  
+  /* Driver card styles with modern bold fonts */
+  .driver-card {
+    @apply relative overflow-hidden rounded-xl transition-all duration-300 bg-gradient-to-br from-gray-900/90 via-gray-800/90 to-indigo-950/90 border border-violet-500/10 backdrop-blur-sm shadow-xl hover:shadow-2xl;
+  }
+  
+  .driver-card:hover {
+    @apply transform -translate-y-1 border-violet-500/20;
+    box-shadow: 0 20px 25px -5px rgba(124, 58, 237, 0.15), 0 10px 10px -5px rgba(124, 58, 237, 0.1);
+  }
+  
+  .driver-card-image {
+    @apply relative aspect-square overflow-hidden;
+  }
+  
+  .driver-card-image img {
+    @apply object-cover w-full h-full transition duration-300;
+  }
+  
+  .driver-card:hover .driver-card-image img {
+    transform: scale(1.05);
+  }
+  
+  .driver-card-content {
+    @apply p-5;
+  }
+  
+  .driver-card-name {
+    @apply text-xl font-extrabold text-white mb-1;
+    font-family: 'Sora', sans-serif;
+    letter-spacing: -0.01em;
+  }
+  
+  .driver-card-experience {
+    @apply text-sm font-medium text-indigo-300 mb-3;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+  }
+  
+  .driver-card-quote {
+    @apply text-gray-300 text-sm italic mb-4 line-clamp-2;
+    font-family: 'Lexend', sans-serif;
+  }
+  
+  .driver-card-rating {
+    @apply flex items-center gap-2;
+  }
+  
+  .driver-card-rating-score {
+    @apply text-lg font-bold text-yellow-400;
+    font-family: 'Lexend', sans-serif;
+  }
+  
+  .driver-card-trips {
+    @apply text-sm font-medium text-gray-400;
+    font-family: 'Plus Jakarta Sans', sans-serif;
   }
 }
