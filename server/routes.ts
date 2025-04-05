@@ -8,6 +8,12 @@ import {
   insertReviewSchema,
 } from "@shared/schema";
 import { log } from "./vite";
+import { 
+  analyzeReviewWithOpenAI, 
+  generateReviewWithOpenAI,
+  type NLPResult,
+  type SkillAnalysis
+} from "./openai-service";
 
 export async function registerRoutes(app: Express): Promise<Server> {
   // Car routes
@@ -274,8 +280,8 @@ export async function registerRoutes(app: Express): Promise<Server> {
         return res.status(404).json({ message: "Driver not found" });
       }
       
-      // Simulate NLP analysis
-      const analysis = simulateNLPAnalysis(review, driver);
+      // Use OpenAI for NLP analysis
+      const analysis = await analyzeReviewWithOpenAI(review, driver);
       
       log(`AI analyzed review for driver ${driver.name}: ${JSON.stringify(analysis)}`, "ai");
       res.json(analysis);
@@ -300,8 +306,8 @@ export async function registerRoutes(app: Express): Promise<Server> {
         return res.status(404).json({ message: "Driver not found" });
       }
       
-      // Simulate AI-generated review
-      const aiReview = generateAIReview(driver);
+      // Use OpenAI to generate review
+      const aiReview = await generateReviewWithOpenAI(driver);
       
       log(`AI generated review for driver ${driver.name}: ${aiReview}`, "ai");
       res.json({
@@ -319,24 +325,9 @@ export async function registerRoutes(app: Express): Promise<Server> {
   return httpServer;
 }
 
-// Simulated NLP functions for driver reviews
+// Keeping legacy simulated NLP functions for reference and fallback
 
-interface SkillAnalysis {
-  driving_skill: number;
-  communication: number;
-  punctuality: number;
-  professionalism: number;
-  vehicle_condition: number;
-}
-
-interface NLPResult {
-  driver_id: number;
-  driver_name: string;
-  sentiment_score: number;
-  skill_analysis: SkillAnalysis;
-  insights: string[];
-  recommendations: string[];
-}
+// Using SkillAnalysis and NLPResult types imported from openai-service.ts
 
 // Simulated NLP analysis function
 function simulateNLPAnalysis(text: string, driver: any): NLPResult {
