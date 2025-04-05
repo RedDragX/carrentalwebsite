@@ -1,6 +1,7 @@
 import { Link } from "wouter";
 import { formatCurrency, formatRating } from "@/lib/utils";
 import StarRating from "@/components/ui/star-rating";
+import { Heart } from "lucide-react";
 
 interface CarCardProps {
   car: {
@@ -23,12 +24,15 @@ const CarCard = ({ car }: CarCardProps) => {
   const {
     id,
     name,
+    brand,
+    model,
     type,
     seats,
     topSpeed,
     price,
     images,
     rating,
+    reviewCount,
     available
   } = car;
 
@@ -36,60 +40,90 @@ const CarCard = ({ car }: CarCardProps) => {
   const displayRating = formatRating(rating);
 
   return (
-    <div className="car-card glass-card rounded-xl overflow-hidden hover:shadow-teal-100/20">
-      <div className="car-card-image relative h-48 w-full">
+    <div className="car-card">
+      {/* Card Image */}
+      <div className="car-card-image">
         <Link href={`/cars/${id}`}>
           <img 
             src={images[0]} 
-            alt={name} 
-            className="w-full h-full object-cover transition-all duration-700"
+            alt={`${brand} ${model}`} 
+            className="w-full h-full object-cover"
           />
-          {/* Gradient overlay for better text visibility */}
-          <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-60"></div>
         </Link>
-        <div className="absolute top-0 right-0 gradient-accent text-white px-3 py-1 m-3 rounded-full font-medium text-sm shadow-lg">
+        
+        {/* Type Badge */}
+        <div className="car-card-badge bg-violet-600 text-white">
           {type}
         </div>
-        <div className="absolute bottom-3 left-3 flex items-center bg-white/20 backdrop-blur-md px-2 py-1 rounded-full">
-          <StarRating rating={displayRating} />
-          <span className="ml-1 text-white font-medium text-sm">{displayRating.toFixed(1)}</span>
-        </div>
+        
+        {/* Wishlist button */}
+        <button className="car-card-wishlist">
+          <Heart className="h-4 w-4" />
+        </button>
       </div>
-      <div className="p-5">
-        <div className="flex justify-between items-center">
-          <Link href={`/cars/${id}`} className="animated-underline">
-            <h3 className="font-heading font-bold text-lg text-primary hover:text-accent transition-colors">{name}</h3>
-          </Link>
-          <div className="flex items-center">
-            <div className="text-sm px-2 py-1 rounded-full bg-teal-50 text-accent font-medium">
-              {available ? "Available" : "Unavailable"}
-            </div>
+      
+      {/* Card Content */}
+      <div className="car-card-content">
+        {/* Title & Rating */}
+        <div className="flex justify-between items-start">
+          <div>
+            <h3 className="car-card-title text-gray-900 dark:text-white">
+              {brand} {model}
+            </h3>
+            <p className="car-card-subtitle">
+              {name}
+            </p>
+          </div>
+          <div className="flex items-center gap-1">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-4 h-4 text-amber-500">
+              <path fillRule="evenodd" d="M10.788 3.21c.448-1.077 1.976-1.077 2.424 0l2.082 5.007 5.404.433c1.164.093 1.636 1.545.749 2.305l-4.117 3.527 1.257 5.273c.271 1.136-.964 2.033-1.96 1.425L12 18.354 7.373 21.18c-.996.608-2.231-.29-1.96-1.425l1.257-5.273-4.117-3.527c-.887-.76-.415-2.212.749-2.305l5.404-.433 2.082-5.006z" clipRule="evenodd" />
+            </svg>
+            <span className="text-gray-900 dark:text-white font-medium">
+              {displayRating.toFixed(1)}
+            </span>
+            <span className="text-gray-500 dark:text-gray-400 text-xs">
+              ({reviewCount})
+            </span>
           </div>
         </div>
-        <div className="flex items-center mt-2 text-neutral-600 text-sm bg-gray-50/50 rounded-full px-3 py-1.5 backdrop-blur-sm">
-          <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 mr-1 text-accent" viewBox="0 0 20 20" fill="currentColor">
-            <path d="M8 16.5a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0zM15 16.5a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0z" />
-            <path d="M3 4a1 1 0 00-1 1v10a1 1 0 001 1h1.05a2.5 2.5 0 014.9 0H10a1 1 0 001-1V5a1 1 0 00-1-1H3zM14 7h2.5a1 1 0 01.8.4l1.5 2a1 1 0 01.2.6V15a1 1 0 01-1 1h-1.05a2.5 2.5 0 01-4.9 0H10a1 1 0 01-1-1v-4a1 1 0 011-1h4z" />
-          </svg>
-          <span>{seats} seats</span>
-          <span className="mx-2">•</span>
-          <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 mr-1 text-accent" viewBox="0 0 20 20" fill="currentColor">
-            <path fillRule="evenodd" d="M11.3 1.046A1 1 0 0112 2v5h4a1 1 0 01.82 1.573l-7 10A1 1 0 018 18v-5H4a1 1 0 01-.82-1.573l7-10a1 1 0 011.12-.38z" clipRule="evenodd" />
-          </svg>
-          <span>{topSpeed} km/h</span>
+        
+        {/* Features */}
+        <div className="car-card-features">
+          <div className="flex items-center">
+            <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 14a2 2 0 100-4 2 2 0 000 4zM7 14a2 2 0 100-4 2 2 0 000 4z" />
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6v4m0 8v-4m-8 0h16" />
+            </svg>
+            <span>{seats} seats</span>
+          </div>
+          <div className="flex items-center">
+            <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
+            </svg>
+            <span>{topSpeed} km/h</span>
+          </div>
         </div>
-        <div className="mt-4 flex justify-between items-center">
+        
+        {/* Price and CTA */}
+        <div className="mt-4 pt-4 border-t border-gray-200 dark:border-gray-700 flex justify-between items-center">
           <div>
-            <span className="text-sm text-neutral-600">Price per day</span>
-            <p className="text-primary font-heading font-bold text-xl">{formatCurrency(price)}</p>
+            <span className="text-sm text-gray-500 dark:text-gray-400">Price per day</span>
+            <p className="car-card-price text-gray-900 dark:text-white">{formatCurrency(price)}</p>
           </div>
           <Link 
             href={`/cars/${id}`} 
-            className="btn-hover-effect gradient-accent text-white px-5 py-2.5 rounded-full font-medium text-sm transition-all shadow-md hover:shadow-lg"
+            className={`btn-turo ${!available ? 'opacity-75 cursor-not-allowed' : ''}`}
           >
-            {available ? "Book Now" : "View Details"}
+            {available ? "Book Now" : "Unavailable"}
           </Link>
         </div>
+        
+        {/* Availability Status */}
+        {!available && (
+          <div className="mt-2 text-center text-sm text-red-500 bg-red-50 dark:bg-red-900/20 py-1 rounded-md">
+            Currently unavailable
+          </div>
+        )}
       </div>
     </div>
   );
