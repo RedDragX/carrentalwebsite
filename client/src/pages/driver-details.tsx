@@ -45,18 +45,39 @@ const DriverDetails = () => {
   
   if (isLoading) {
     return (
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        <div className="animate-pulse">
-          <div className="h-8 bg-gray-300 rounded w-1/3 mb-6"></div>
-          <div className="grid grid-cols-1 lg:grid-cols-5 gap-8">
-            <div className="lg:col-span-2">
-              <div className="h-96 bg-gray-300 rounded"></div>
-            </div>
-            <div className="lg:col-span-3 space-y-4">
-              <div className="h-6 bg-gray-300 rounded w-1/2"></div>
-              <div className="h-6 bg-gray-300 rounded w-1/4"></div>
-              <div className="h-6 bg-gray-300 rounded w-3/4"></div>
-              <div className="h-32 bg-gray-300 rounded"></div>
+      <div className="relative py-12">
+        {/* Background gradient and pattern - Matches home page */}
+        <div className="absolute inset-0 bg-gradient-to-br from-violet-950 via-indigo-950 to-slate-950">
+          {/* Animated radial gradient spots */}
+          <div className="absolute top-0 left-0 w-full h-full overflow-hidden">
+            <div className="absolute -top-40 left-[10%] w-[600px] h-[600px] rounded-full bg-violet-600/10 blur-3xl animate-pulse"></div>
+            <div className="absolute top-[40%] -right-20 w-[500px] h-[500px] rounded-full bg-indigo-500/10 blur-3xl animate-pulse" style={{ animationDelay: '2s' }}></div>
+            <div className="absolute -bottom-40 left-[30%] w-[500px] h-[500px] rounded-full bg-purple-600/10 blur-3xl animate-pulse" style={{ animationDelay: '3s' }}></div>
+          </div>
+          
+          {/* Noise overlay */}
+          <div className="absolute inset-0 opacity-20" 
+            style={{ 
+              backgroundImage: 'url("data:image/svg+xml,%3Csvg viewBox=\'0 0 200 200\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cfilter id=\'noiseFilter\'%3E%3CfeTurbulence type=\'fractalNoise\' baseFrequency=\'0.65\' numOctaves=\'3\' stitchTiles=\'stitch\'/%3E%3C/filter%3E%3Crect width=\'100%25\' height=\'100%25\' filter=\'url(%23noiseFilter)\'/%3E%3C/svg%3E")',
+              backgroundRepeat: 'repeat',
+              backgroundSize: '100px 100px' 
+            }}
+          ></div>
+        </div>
+        
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+          <div className="animate-pulse">
+            <div className="h-8 bg-base-300 rounded w-1/3 mb-6"></div>
+            <div className="grid grid-cols-1 lg:grid-cols-5 gap-8">
+              <div className="lg:col-span-2">
+                <div className="h-96 bg-base-300 rounded-lg"></div>
+              </div>
+              <div className="lg:col-span-3 space-y-4">
+                <div className="h-6 bg-base-300 rounded-md w-1/2"></div>
+                <div className="h-6 bg-base-300 rounded-md w-1/4"></div>
+                <div className="h-6 bg-base-300 rounded-md w-3/4"></div>
+                <div className="h-32 bg-base-300 rounded-md"></div>
+              </div>
             </div>
           </div>
         </div>
@@ -66,16 +87,44 @@ const DriverDetails = () => {
   
   if (error || !data?.driver) {
     return (
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        <div className="text-center p-12 bg-white rounded-lg shadow">
-          <svg xmlns="http://www.w3.org/2000/svg" className="h-12 w-12 mx-auto text-red-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
-          </svg>
-          <h3 className="mt-4 text-xl font-medium text-primary">Driver Not Found</h3>
-          <p className="mt-2 text-neutral-600">We couldn't find the driver you're looking for.</p>
-          <Link href="/drivers" className="mt-6 inline-block bg-accent text-white px-4 py-2 rounded-md hover:bg-accent-dark transition-all">
-            Back to Drivers
-          </Link>
+      <div className="relative py-12">
+        {/* Background gradient and pattern - Matches home page */}
+        <div className="absolute inset-0 bg-gradient-to-br from-violet-950 via-indigo-950 to-slate-950">
+          {/* Animated radial gradient spots */}
+          <div className="absolute top-0 left-0 w-full h-full overflow-hidden">
+            <div className="absolute -top-40 left-[10%] w-[600px] h-[600px] rounded-full bg-violet-600/10 blur-3xl animate-pulse"></div>
+            <div className="absolute top-[40%] -right-20 w-[500px] h-[500px] rounded-full bg-indigo-500/10 blur-3xl animate-pulse" style={{ animationDelay: '2s' }}></div>
+            <div className="absolute -bottom-40 left-[30%] w-[500px] h-[500px] rounded-full bg-purple-600/10 blur-3xl animate-pulse" style={{ animationDelay: '3s' }}></div>
+          </div>
+          
+          {/* Noise overlay */}
+          <div className="absolute inset-0 opacity-20" 
+            style={{ 
+              backgroundImage: 'url("data:image/svg+xml,%3Csvg viewBox=\'0 0 200 200\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cfilter id=\'noiseFilter\'%3E%3CfeTurbulence type=\'fractalNoise\' baseFrequency=\'0.65\' numOctaves=\'3\' stitchTiles=\'stitch\'/%3E%3C/filter%3E%3Crect width=\'100%25\' height=\'100%25\' filter=\'url(%23noiseFilter)\'/%3E%3C/svg%3E")',
+              backgroundRepeat: 'repeat',
+              backgroundSize: '100px 100px' 
+            }}
+          ></div>
+        </div>
+
+        <div className="container mx-auto px-4 relative z-10">
+          <div className="max-w-7xl mx-auto text-center py-16">
+            <div className="bg-base-100/10 backdrop-blur-md rounded-xl p-10 border border-white/10 shadow-xl">
+              <svg xmlns="http://www.w3.org/2000/svg" className="h-16 w-16 mx-auto text-red-400 mb-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+              </svg>
+              <h1 className="text-3xl font-bold text-white mb-4">Driver Not Found</h1>
+              <p className="text-gray-300 font-medium mb-8 max-w-md mx-auto">
+                The driver you're looking for doesn't exist or has been removed.
+              </p>
+              <Link href="/drivers" className="bg-primary hover:bg-primary/90 text-white font-semibold px-6 py-3 rounded-md inline-flex items-center transition-all duration-200 shadow-lg">
+                <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-2" viewBox="0 0 20 20" fill="currentColor">
+                  <path fillRule="evenodd" d="M9.707 16.707a1 1 0 01-1.414 0l-6-6a1 1 0 010-1.414l6-6a1 1 0 011.414 1.414L5.414 9H17a1 1 0 110 2H5.414l4.293 4.293a1 1 0 010 1.414z" clipRule="evenodd" />
+                </svg>
+                View All Drivers
+              </Link>
+            </div>
+          </div>
         </div>
       </div>
     );
@@ -85,10 +134,29 @@ const DriverDetails = () => {
   const displayRating = formatRating(driver.rating);
   
   return (
-    <div className="bg-neutral-50 py-12">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div className="relative py-12 min-h-screen">
+      {/* Background gradient and pattern - Matches home page */}
+      <div className="absolute inset-0 bg-gradient-to-br from-violet-950 via-indigo-950 to-slate-950">
+        {/* Animated radial gradient spots */}
+        <div className="absolute top-0 left-0 w-full h-full overflow-hidden">
+          <div className="absolute -top-40 left-[10%] w-[600px] h-[600px] rounded-full bg-violet-600/10 blur-3xl animate-pulse"></div>
+          <div className="absolute top-[40%] -right-20 w-[500px] h-[500px] rounded-full bg-indigo-500/10 blur-3xl animate-pulse" style={{ animationDelay: '2s' }}></div>
+          <div className="absolute -bottom-40 left-[30%] w-[500px] h-[500px] rounded-full bg-purple-600/10 blur-3xl animate-pulse" style={{ animationDelay: '3s' }}></div>
+        </div>
+        
+        {/* Noise overlay */}
+        <div className="absolute inset-0 opacity-20" 
+          style={{ 
+            backgroundImage: 'url("data:image/svg+xml,%3Csvg viewBox=\'0 0 200 200\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cfilter id=\'noiseFilter\'%3E%3CfeTurbulence type=\'fractalNoise\' baseFrequency=\'0.65\' numOctaves=\'3\' stitchTiles=\'stitch\'/%3E%3C/filter%3E%3Crect width=\'100%25\' height=\'100%25\' filter=\'url(%23noiseFilter)\'/%3E%3C/svg%3E")',
+            backgroundRepeat: 'repeat',
+            backgroundSize: '100px 100px' 
+          }}
+        ></div>
+      </div>
+      
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <div className="mb-6">
-          <Link href="/drivers" className="text-accent hover:text-accent-dark inline-flex items-center">
+          <Link href="/drivers" className="text-violet-400 hover:text-violet-300 hover:underline flex items-center font-medium">
             <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-1" viewBox="0 0 20 20" fill="currentColor">
               <path fillRule="evenodd" d="M9.707 16.707a1 1 0 01-1.414 0l-6-6a1 1 0 010-1.414l6-6a1 1 0 011.414 1.414L5.414 9H17a1 1 0 110 2H5.414l4.293 4.293a1 1 0 010 1.414z" clipRule="evenodd" />
             </svg>
@@ -96,7 +164,7 @@ const DriverDetails = () => {
           </Link>
         </div>
         
-        <div className="bg-white rounded-lg shadow-md overflow-hidden">
+        <div className="bg-base-100/10 backdrop-blur-md rounded-xl shadow-lg overflow-hidden border border-white/10">
           <div className="md:flex">
             <div className="md:flex-shrink-0 md:w-2/5">
               <img 
@@ -106,48 +174,48 @@ const DriverDetails = () => {
               />
             </div>
             <div className="p-8 md:w-3/5">
-              <div className="uppercase tracking-wide text-sm text-violet-600 dark:text-violet-400 font-semibold">Professional Driver</div>
-              <h1 className="mt-2 text-3xl font-bold text-gray-900 dark:text-white font-heading">{driver.name}</h1>
+              <div className="uppercase tracking-wide text-sm text-violet-400 font-semibold">Professional Driver</div>
+              <h1 className="mt-2 text-3xl font-bold text-white font-heading">{driver.name}</h1>
               
               <div className="mt-2 flex items-center">
                 <StarRating rating={displayRating} />
-                <span className="ml-2 text-gray-700 dark:text-gray-300">
+                <span className="ml-2 text-gray-300">
                   {displayRating.toFixed(1)} ({driver.tripCount} trips)
                 </span>
               </div>
               
               <div className="mt-4 flex flex-wrap">
                 <div className="mr-6 mb-4">
-                  <div className="text-sm text-gray-500 dark:text-gray-400">Experience</div>
-                  <div className="font-medium text-gray-900 dark:text-gray-100">{driver.experience} years</div>
+                  <div className="text-sm text-gray-400">Experience</div>
+                  <div className="font-medium text-gray-100">{driver.experience} years</div>
                 </div>
                 
                 <div className="mr-6 mb-4">
-                  <div className="text-sm text-gray-500 dark:text-gray-400">Languages</div>
-                  <div className="font-medium text-gray-900 dark:text-gray-100">{driver.languages.join(", ")}</div>
+                  <div className="text-sm text-gray-400">Languages</div>
+                  <div className="font-medium text-gray-100">{driver.languages.join(", ")}</div>
                 </div>
                 
                 <div className="mb-4">
-                  <div className="text-sm text-gray-500 dark:text-gray-400">Status</div>
-                  <div className={`font-medium ${driver.available ? "text-green-600 dark:text-green-400" : "text-red-600 dark:text-red-400"}`}>
+                  <div className="text-sm text-gray-400">Status</div>
+                  <div className={`font-medium ${driver.available ? "text-green-400" : "text-red-400"}`}>
                     {driver.available ? "Available" : "Unavailable"}
                   </div>
                 </div>
               </div>
               
-              <blockquote className="mt-4 italic text-gray-700 dark:text-gray-300 border-l-4 border-violet-500 pl-4 py-2 bg-gray-50 dark:bg-gray-800">
+              <blockquote className="mt-4 italic text-gray-300 border-l-4 border-violet-500 pl-4 py-2 bg-gray-800/30">
                 "{driver.quote}"
               </blockquote>
               
-              <p className="mt-6 text-gray-700 dark:text-gray-300">{driver.description}</p>
+              <p className="mt-6 text-gray-300">{driver.description}</p>
               
               <div className="mt-6">
-                <h3 className="font-bold text-gray-900 dark:text-white">Specialties</h3>
+                <h3 className="font-bold text-white">Specialties</h3>
                 <div className="mt-2 flex flex-wrap gap-2">
-                  {driver.specialties.map((specialty: string, index: number) => (
+                  {driver.specialties.map((specialty, index) => (
                     <span 
                       key={index} 
-                      className="bg-gray-100 dark:bg-gray-800 text-gray-800 dark:text-gray-200 px-3 py-1 text-sm rounded-full"
+                      className="bg-gray-800/50 text-gray-200 px-3 py-1 text-sm rounded-full border border-gray-700/50"
                     >
                       {specialty}
                     </span>
