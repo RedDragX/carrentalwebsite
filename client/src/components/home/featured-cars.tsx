@@ -22,7 +22,7 @@ const FeaturedCars = () => {
   };
 
   return (
-    <section id="cars" className="py-12 bg-neutral-50">
+    <section id="cars" className="py-12 bg-base-200">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-10">
           <h2 className="text-3xl font-bold text-primary font-heading">Featured Luxury & Sport Cars</h2>
@@ -33,7 +33,7 @@ const FeaturedCars = () => {
         <div className="flex flex-wrap justify-center gap-3 mb-8">
           <button 
             onClick={() => handleTypeChange("All Cars")}
-            className={`px-4 py-2 rounded-full ${activeType === "All Cars" ? "bg-accent text-white" : "bg-white text-neutral-600 hover:bg-neutral-100"} font-medium text-sm shadow-sm transition-all`}
+            className={`px-4 py-2 rounded-md ${activeType === "All Cars" ? "bg-primary text-white" : "bg-base-100 text-neutral-700 hover:bg-base-300"} font-medium text-sm shadow-sm transition-all`}
           >
             All Cars
           </button>
@@ -42,7 +42,7 @@ const FeaturedCars = () => {
             <button 
               key={type}
               onClick={() => handleTypeChange(type)}
-              className={`px-4 py-2 rounded-full ${activeType === type ? "bg-accent text-white" : "bg-white text-neutral-600 hover:bg-neutral-100"} font-medium text-sm shadow-sm transition-all`}
+              className={`px-4 py-2 rounded-md ${activeType === type ? "bg-primary text-white" : "bg-base-100 text-neutral-700 hover:bg-base-300"} font-medium text-sm shadow-sm transition-all`}
             >
               {type}
             </button>
@@ -77,7 +77,7 @@ const FeaturedCars = () => {
         <div className="mt-10 text-center">
           <Link 
             href="/cars"
-            className="inline-flex items-center px-6 py-3 border border-accent text-accent bg-white hover:bg-accent hover:text-white font-medium rounded-md transition-all"
+            className="inline-flex items-center px-6 py-3 border border-primary text-primary bg-base-100 hover:bg-primary hover:text-white font-medium rounded-md transition-all shadow-sm"
           >
             View All Cars
             <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 ml-2" viewBox="0 0 20 20" fill="currentColor">

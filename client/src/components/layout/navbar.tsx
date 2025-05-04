@@ -203,15 +203,15 @@ const Navbar = () => {
               <Link 
                 key={item.label}
                 href={item.href} 
-                className={`relative font-space text-sm font-medium rounded-lg px-4 py-2 transition-all duration-200 ${
+                className={`relative text-sm font-medium rounded-md px-4 py-2 transition-all duration-200 ${
                   isActive(item.href) 
-                    ? 'text-white bg-gradient-to-r from-violet-600/20 to-indigo-600/20 backdrop-blur-xl shadow-sm' 
-                    : 'text-gray-300 hover:text-white hover:bg-white/5'
+                    ? 'text-white bg-primary shadow-sm' 
+                    : 'text-white hover:text-white hover:bg-base-300'
                 }`}
               >
                 {item.label}
                 {isActive(item.href) && (
-                  <span className="absolute bottom-0 left-1/2 transform -translate-x-1/2 w-1.5 h-1.5 bg-violet-500 rounded-full"></span>
+                  <span className="absolute bottom-0 left-1/2 transform -translate-x-1/2 w-1.5 h-1.5 bg-white rounded-full"></span>
                 )}
               </Link>
             ))}
@@ -273,13 +273,13 @@ const Navbar = () => {
               <div className="flex items-center space-x-3">
                 <Link
                   href="/login"
-                  className="text-sm font-space font-medium text-gray-300 hover:text-white px-4 py-2 rounded-lg hover:bg-white/5 transition-colors"
+                  className="text-sm font-medium text-white px-4 py-2 rounded-md hover:bg-base-300 transition-colors"
                 >
                   Sign in
                 </Link>
                 <Link
                   href="/register"
-                  className="rounded-lg bg-gradient-to-r from-violet-600 to-indigo-600 px-4 py-2 text-sm font-space font-medium text-white shadow-md hover:shadow-lg hover:shadow-violet-500/20 transition-all duration-300"
+                  className="rounded-md bg-primary px-4 py-2 text-sm font-medium text-white shadow-md hover:bg-primary/90 transition-all duration-300"
                 >
                   Create Account
                 </Link>
