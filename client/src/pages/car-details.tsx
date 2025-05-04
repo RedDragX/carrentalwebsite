@@ -48,44 +48,50 @@ const CarDetails = () => {
   
   // Calculate total price when dates or withDriver changes
   useEffect(() => {
-    if (startDate && endDate && carData?.car) {
-      const start = new Date(startDate);
-      const end = new Date(endDate);
-      
-      if (start > end) {
-        setTotalPrice(0);
-        return;
-      }
-      
-      const days = daysBetween(start, end);
-      if (days <= 0) {
-        setTotalPrice(0);
-        return;
-      }
-      
-      const price = calculateTotalPrice(carData.car.price, days, withDriver);
-      setTotalPrice(price);
-    } else {
+    if (!carData?.car || !startDate || !endDate) {
       setTotalPrice(0);
+      return;
     }
-  }, [startDate, endDate, withDriver, carData]);
+    
+    const start = new Date(startDate);
+    const end = new Date(endDate);
+    const days = daysBetween(start, end);
+    
+    if (days <= 0) {
+      setTotalPrice(0);
+      return;
+    }
+    
+    const price = calculateTotalPrice(carData.car.price, days, withDriver);
+    setTotalPrice(price);
+  }, [carData, startDate, endDate, withDriver]);
   
-  const handleBooking = async (e: React.FormEvent) => {
+  const handleSubmitBooking = async (e: React.FormEvent) => {
     e.preventDefault();
     
     if (!isLoggedIn) {
       toast({
-        title: "Authentication required",
-        description: "Please login or register to book a car",
+        title: "Please log in",
+        description: "You need to be logged in to book a car.",
         variant: "destructive",
       });
+      navigate("/login");
       return;
     }
     
     if (!startDate || !endDate || !location) {
       toast({
         title: "Missing information",
-        description: "Please fill all the required fields",
+        description: "Please fill in all required fields.",
+        variant: "destructive",
+      });
+      return;
+    }
+    
+    if (new Date(startDate) >= new Date(endDate)) {
+      toast({
+        title: "Invalid dates",
+        description: "The end date must be after the start date.",
         variant: "destructive",
       });
       return;
@@ -93,30 +99,29 @@ const CarDetails = () => {
     
     if (withDriver && !selectedDriverId) {
       toast({
-        title: "Driver selection required",
-        description: "Please select a driver or disable the driver option",
+        title: "Driver required",
+        description: "Please select a driver.",
         variant: "destructive",
       });
       return;
     }
     
+    const bookingData = {
+      userId: user?.id,
+      carId: Number(id),
+      driverId: withDriver ? selectedDriverId : null,
+      startDate,
+      endDate,
+      location,
+      withDriver,
+      totalPrice,
+      status: "pending",
+    };
+    
+    setIsSubmitting(true);
+    
     try {
-      setIsSubmitting(true);
-      
-      // Prepare the booking data
-      const bookingData = {
-        userId: user?.id,
-        carId: parseInt(id as string),
-        driverId: withDriver ? selectedDriverId : null,
-        startDate,
-        endDate,
-        location,
-        totalPrice,
-        status: "pending",
-      };
-      
-      // Send booking request to the API
-      const response = await apiRequest("/api/bookings", {
+      const response = await fetch("/api/bookings", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -152,21 +157,42 @@ const CarDetails = () => {
   
   if (isLoadingCar) {
     return (
-      <div className="container mx-auto py-12 px-4">
-        <div className="max-w-7xl mx-auto">
-          <div className="animate-pulse">
-            <div className="h-8 bg-gray-300 dark:bg-gray-700 w-1/3 rounded mb-6"></div>
-            <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-              <div className="lg:col-span-2">
-                <div className="h-80 bg-gray-300 dark:bg-gray-700 rounded-lg mb-6"></div>
-                <div className="space-y-4">
-                  <div className="h-4 bg-gray-300 dark:bg-gray-700 rounded w-3/4"></div>
-                  <div className="h-4 bg-gray-300 dark:bg-gray-700 rounded w-1/2"></div>
-                  <div className="h-4 bg-gray-300 dark:bg-gray-700 rounded w-5/6"></div>
+      <div className="relative py-12">
+        {/* Background gradient and pattern - Matches home page */}
+        <div className="absolute inset-0 bg-gradient-to-br from-violet-950 via-indigo-950 to-slate-950">
+          {/* Animated radial gradient spots */}
+          <div className="absolute top-0 left-0 w-full h-full overflow-hidden">
+            <div className="absolute -top-40 left-[10%] w-[600px] h-[600px] rounded-full bg-violet-600/10 blur-3xl animate-pulse"></div>
+            <div className="absolute top-[40%] -right-20 w-[500px] h-[500px] rounded-full bg-indigo-500/10 blur-3xl animate-pulse" style={{ animationDelay: '2s' }}></div>
+            <div className="absolute -bottom-40 left-[30%] w-[500px] h-[500px] rounded-full bg-purple-600/10 blur-3xl animate-pulse" style={{ animationDelay: '3s' }}></div>
+          </div>
+          
+          {/* Noise overlay */}
+          <div className="absolute inset-0 opacity-20" 
+            style={{ 
+              backgroundImage: 'url("data:image/svg+xml,%3Csvg viewBox=\'0 0 200 200\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cfilter id=\'noiseFilter\'%3E%3CfeTurbulence type=\'fractalNoise\' baseFrequency=\'0.65\' numOctaves=\'3\' stitchTiles=\'stitch\'/%3E%3C/filter%3E%3Crect width=\'100%25\' height=\'100%25\' filter=\'url(%23noiseFilter)\'/%3E%3C/svg%3E")',
+              backgroundRepeat: 'repeat',
+              backgroundSize: '100px 100px' 
+            }}
+          ></div>
+        </div>
+        
+        <div className="container mx-auto px-4 relative z-10">
+          <div className="max-w-7xl mx-auto">
+            <div className="animate-pulse">
+              <div className="h-8 bg-base-300 w-1/3 rounded mb-6"></div>
+              <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                <div className="lg:col-span-2">
+                  <div className="h-80 bg-base-300 rounded-lg mb-6"></div>
+                  <div className="space-y-4">
+                    <div className="h-4 bg-base-300 rounded w-3/4"></div>
+                    <div className="h-4 bg-base-300 rounded w-1/2"></div>
+                    <div className="h-4 bg-base-300 rounded w-5/6"></div>
+                  </div>
                 </div>
-              </div>
-              <div className="lg:col-span-1">
-                <div className="h-60 bg-gray-300 dark:bg-gray-700 rounded-lg"></div>
+                <div className="lg:col-span-1">
+                  <div className="h-60 bg-base-300 rounded-lg"></div>
+                </div>
               </div>
             </div>
           </div>
@@ -177,15 +203,44 @@ const CarDetails = () => {
   
   if (carError || !carData?.car) {
     return (
-      <div className="container mx-auto py-12 px-4">
-        <div className="max-w-7xl mx-auto text-center">
-          <h1 className="text-2xl font-bold text-gray-900 dark:text-white mb-4">Car not found</h1>
-          <p className="text-gray-600 dark:text-gray-400 mb-8">
-            The car you're looking for doesn't exist or has been removed.
-          </p>
-          <Link href="/cars" className="btn btn-primary">
-            View all cars
-          </Link>
+      <div className="relative py-12">
+        {/* Background gradient and pattern - Matches home page */}
+        <div className="absolute inset-0 bg-gradient-to-br from-violet-950 via-indigo-950 to-slate-950">
+          {/* Animated radial gradient spots */}
+          <div className="absolute top-0 left-0 w-full h-full overflow-hidden">
+            <div className="absolute -top-40 left-[10%] w-[600px] h-[600px] rounded-full bg-violet-600/10 blur-3xl animate-pulse"></div>
+            <div className="absolute top-[40%] -right-20 w-[500px] h-[500px] rounded-full bg-indigo-500/10 blur-3xl animate-pulse" style={{ animationDelay: '2s' }}></div>
+            <div className="absolute -bottom-40 left-[30%] w-[500px] h-[500px] rounded-full bg-purple-600/10 blur-3xl animate-pulse" style={{ animationDelay: '3s' }}></div>
+          </div>
+          
+          {/* Noise overlay */}
+          <div className="absolute inset-0 opacity-20" 
+            style={{ 
+              backgroundImage: 'url("data:image/svg+xml,%3Csvg viewBox=\'0 0 200 200\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cfilter id=\'noiseFilter\'%3E%3CfeTurbulence type=\'fractalNoise\' baseFrequency=\'0.65\' numOctaves=\'3\' stitchTiles=\'stitch\'/%3E%3C/filter%3E%3Crect width=\'100%25\' height=\'100%25\' filter=\'url(%23noiseFilter)\'/%3E%3C/svg%3E")',
+              backgroundRepeat: 'repeat',
+              backgroundSize: '100px 100px' 
+            }}
+          ></div>
+        </div>
+
+        <div className="container mx-auto px-4 relative z-10">
+          <div className="max-w-7xl mx-auto text-center py-16">
+            <div className="bg-base-100/10 backdrop-blur-md rounded-xl p-10 border border-white/10 shadow-xl">
+              <svg xmlns="http://www.w3.org/2000/svg" className="h-16 w-16 mx-auto text-red-400 mb-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+              </svg>
+              <h1 className="text-3xl font-bold text-white mb-4">Car Not Found</h1>
+              <p className="text-gray-300 font-medium mb-8 max-w-md mx-auto">
+                The car you're looking for doesn't exist or has been removed.
+              </p>
+              <Link href="/cars" className="bg-primary hover:bg-primary/90 text-white font-semibold px-6 py-3 rounded-md inline-flex items-center transition-all duration-200 shadow-lg">
+                <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-2" viewBox="0 0 20 20" fill="currentColor">
+                  <path fillRule="evenodd" d="M9.707 16.707a1 1 0 01-1.414 0l-6-6a1 1 0 010-1.414l6-6a1 1 0 011.414 1.414L5.414 9H17a1 1 0 110 2H5.414l4.293 4.293a1 1 0 010 1.414z" clipRule="evenodd" />
+                </svg>
+                View All Cars
+              </Link>
+            </div>
+          </div>
         </div>
       </div>
     );
@@ -194,350 +249,280 @@ const CarDetails = () => {
   const { car } = carData;
   
   return (
-    <div className="container mx-auto py-8 px-4 min-h-screen relative z-10 backdrop-blur-md">
-      {/* Background gradient effect */}
-      <div className="absolute inset-0 -z-10 overflow-hidden">
-        <div className="absolute -top-40 -right-40 w-80 h-80 bg-purple-600/30 rounded-full blur-3xl"></div>
-        <div className="absolute -bottom-40 -left-40 w-80 h-80 bg-indigo-600/30 rounded-full blur-3xl"></div>
-        <div className="absolute top-1/4 left-1/3 w-80 h-80 bg-blue-600/20 rounded-full blur-3xl"></div>
-        <div className="absolute bottom-1/4 right-1/3 w-60 h-60 bg-violet-600/20 rounded-full blur-3xl"></div>
-        <div className="absolute inset-0 bg-gradient-to-b from-gray-900/60 to-gray-900/90 backdrop-blur-sm"></div>
+    <div className="relative py-8 min-h-screen">
+      {/* Background gradient and pattern - Matches home page */}
+      <div className="absolute inset-0 bg-gradient-to-br from-violet-950 via-indigo-950 to-slate-950">
+        {/* Animated radial gradient spots */}
+        <div className="absolute top-0 left-0 w-full h-full overflow-hidden">
+          <div className="absolute -top-40 left-[10%] w-[600px] h-[600px] rounded-full bg-violet-600/10 blur-3xl animate-pulse"></div>
+          <div className="absolute top-[40%] -right-20 w-[500px] h-[500px] rounded-full bg-indigo-500/10 blur-3xl animate-pulse" style={{ animationDelay: '2s' }}></div>
+          <div className="absolute -bottom-40 left-[30%] w-[500px] h-[500px] rounded-full bg-purple-600/10 blur-3xl animate-pulse" style={{ animationDelay: '3s' }}></div>
+        </div>
+        
+        {/* Noise overlay */}
+        <div className="absolute inset-0 opacity-20" 
+          style={{ 
+            backgroundImage: 'url("data:image/svg+xml,%3Csvg viewBox=\'0 0 200 200\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cfilter id=\'noiseFilter\'%3E%3CfeTurbulence type=\'fractalNoise\' baseFrequency=\'0.65\' numOctaves=\'3\' stitchTiles=\'stitch\'/%3E%3C/filter%3E%3Crect width=\'100%25\' height=\'100%25\' filter=\'url(%23noiseFilter)\'/%3E%3C/svg%3E")',
+            backgroundRepeat: 'repeat',
+            backgroundSize: '100px 100px' 
+          }}
+        ></div>
       </div>
-      <div className="max-w-7xl mx-auto">
-        <div className="mb-6">
-          <Link href="/cars" className="text-violet-600 hover:text-violet-800 dark:text-violet-400 dark:hover:text-violet-300 hover:underline flex items-center font-medium">
-            <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-1" viewBox="0 0 20 20" fill="currentColor">
-              <path fillRule="evenodd" d="M9.707 16.707a1 1 0 01-1.414 0l-6-6a1 1 0 010-1.414l6-6a1 1 0 011.414 1.414L5.414 9H17a1 1 0 110 2H5.414l4.293 4.293a1 1 0 010 1.414z" clipRule="evenodd" />
-            </svg>
-            Back to all cars
-          </Link>
-        </div>
-        
-        {/* Title with gradient text */}
-        <h1 className="text-3xl md:text-4xl font-bold font-space text-transparent bg-clip-text bg-gradient-to-r from-violet-700 to-indigo-600 dark:from-violet-400 dark:to-indigo-300 mb-3">{car.name}</h1>
-        
-        <div className="flex items-center flex-wrap gap-3 mb-6">
-          <div className="flex items-center">
-            <StarRating value={car.rating} size={20} />
-            <span className="ml-2 text-gray-700 dark:text-gray-300 font-medium">{formatRating(car.rating)} ({car.reviewCount} reviews)</span>
-          </div>
-          <span className="inline-block h-4 w-[1px] bg-gray-300 dark:bg-gray-700 mx-1"></span>
-          <div className="badge badge-lg bg-violet-500 text-white border-0">{car.type}</div>
-          <span className="inline-block h-4 w-[1px] bg-gray-300 dark:bg-gray-700 mx-1"></span>
-          <span className="text-gray-700 dark:text-gray-300 font-medium">
-            <span className="font-bold text-violet-700 dark:text-violet-400">{formatCurrency(car.price)}</span> / day
-          </span>
-        </div>
-        
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-          <div className="lg:col-span-2">
-            <div className="glass-card rounded-xl shadow-lg overflow-hidden mb-8 border border-gray-200 dark:border-gray-700/50">
-              <div className="relative">
-                <img 
-                  src={car.images[0]} 
-                  alt={car.name} 
-                  className="w-full h-[300px] md:h-[400px] object-cover"
-                />
-                {!car.available && (
-                  <div className="absolute top-0 left-0 w-full h-full bg-black bg-opacity-60 flex items-center justify-center backdrop-blur-sm">
-                    <div className="bg-gradient-to-r from-red-600 to-red-500 text-white text-lg font-bold py-2 px-6 rounded-md shadow-lg">
-                      Currently Unavailable
-                    </div>
-                  </div>
-                )}
-              </div>
-              
-              <div className="p-6">
-                <div className="flex mb-6 border-b dark:border-gray-700">
-                  <button 
-                    className={`px-4 py-2 text-sm font-medium ${activeTab === 'details' ? 'text-violet-600 dark:text-violet-400 border-b-2 border-violet-600 dark:border-violet-400' : 'text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300'}`}
-                    onClick={() => setActiveTab('details')}
-                  >
-                    Car Details
-                  </button>
-                  <button 
-                    className={`px-4 py-2 text-sm font-medium ${activeTab === 'features' ? 'text-violet-600 dark:text-violet-400 border-b-2 border-violet-600 dark:border-violet-400' : 'text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300'}`}
-                    onClick={() => setActiveTab('features')}
-                  >
-                    Features
-                  </button>
-                </div>
-                
-                {activeTab === "details" && (
-                  <div>
-                    {/* Description with improved typography */}
-                    <div className="p-4 rounded-lg bg-gray-50 dark:bg-gray-800/30 mb-6 backdrop-blur-sm border border-gray-100/50 dark:border-gray-700/30">
-                      <p className="text-gray-700 dark:text-gray-300 leading-relaxed font-poppins">{car.description}</p>
-                    </div>
-                    
-                    {/* Specifications heading with gradient text */}
-                    <h3 className="text-xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-violet-700 to-indigo-600 dark:from-violet-400 dark:to-indigo-300 font-space mb-4">Performance Specifications</h3>
-                    
-                    {/* Grid with glass effect cards */}
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
-                      {/* Top Speed */}
-                      <div className="flex items-center bg-white/80 dark:bg-gray-800/50 backdrop-blur-sm p-3 rounded-lg border border-gray-100/60 dark:border-gray-700/30 hover:shadow-md transition-all duration-200 group">
-                        <div className="flex items-center justify-center w-12 h-12 bg-violet-100 dark:bg-violet-900/20 rounded-lg mr-4 group-hover:bg-violet-200 dark:group-hover:bg-violet-900/40 transition-colors">
-                          <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-violet-600 dark:text-violet-400" viewBox="0 0 20 20" fill="currentColor">
-                            <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-13a1 1 0 10-2 0v4a1 1 0 00.293.707l2.828 2.829a1 1 0 101.415-1.415L11 9.586V5z" clipRule="evenodd" />
-                          </svg>
-                        </div>
-                        <div>
-                          <h4 className="font-medium text-gray-900 dark:text-gray-100">Top Speed</h4>
-                          <p className="text-gray-700 dark:text-violet-300 font-mono font-semibold">{car.topSpeed} mph</p>
-                        </div>
-                      </div>
-                      
-                      {/* Seating Capacity */}
-                      <div className="flex items-center bg-white/80 dark:bg-gray-800/50 backdrop-blur-sm p-3 rounded-lg border border-gray-100/60 dark:border-gray-700/30 hover:shadow-md transition-all duration-200 group">
-                        <div className="flex items-center justify-center w-12 h-12 bg-indigo-100 dark:bg-indigo-900/20 rounded-lg mr-4 group-hover:bg-indigo-200 dark:group-hover:bg-indigo-900/40 transition-colors">
-                          <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-indigo-600 dark:text-indigo-400" viewBox="0 0 20 20" fill="currentColor">
-                            <path d="M9 6a3 3 0 11-6 0 3 3 0 016 0zM17 6a3 3 0 11-6 0 3 3 0 016 0zM12.93 17c.046-.327.07-.66.07-1a6.97 6.97 0 00-1.5-4.33A5 5 0 0119 16v1h-6.07zM6 11a5 5 0 015 5v1H1v-1a5 5 0 015-5z" />
-                          </svg>
-                        </div>
-                        <div>
-                          <h4 className="font-medium text-gray-900 dark:text-gray-100">Seating Capacity</h4>
-                          <p className="text-gray-700 dark:text-indigo-300 font-mono font-semibold">{car.seats} seats</p>
-                        </div>
-                      </div>
-                      
-                      {/* Transmission */}
-                      <div className="flex items-center bg-white/80 dark:bg-gray-800/50 backdrop-blur-sm p-3 rounded-lg border border-gray-100/60 dark:border-gray-700/30 hover:shadow-md transition-all duration-200 group">
-                        <div className="flex items-center justify-center w-12 h-12 bg-blue-100 dark:bg-blue-900/20 rounded-lg mr-4 group-hover:bg-blue-200 dark:group-hover:bg-blue-900/40 transition-colors">
-                          <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-blue-600 dark:text-blue-400" viewBox="0 0 20 20" fill="currentColor">
-                            <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-8.707l-3-3a1 1 0 00-1.414 0l-3 3a1 1 0 001.414 1.414L9 9.414V13a1 1 0 102 0V9.414l1.293 1.293a1 1 0 001.414-1.414z" clipRule="evenodd" />
-                          </svg>
-                        </div>
-                        <div>
-                          <h4 className="font-medium text-gray-900 dark:text-gray-100">Transmission</h4>
-                          <p className="text-gray-700 dark:text-blue-300 font-mono font-semibold">{car.transmission}</p>
-                        </div>
-                      </div>
-                      
-                      {/* Fuel Type */}
-                      <div className="flex items-center bg-white/80 dark:bg-gray-800/50 backdrop-blur-sm p-3 rounded-lg border border-gray-100/60 dark:border-gray-700/30 hover:shadow-md transition-all duration-200 group">
-                        <div className="flex items-center justify-center w-12 h-12 bg-purple-100 dark:bg-purple-900/20 rounded-lg mr-4 group-hover:bg-purple-200 dark:group-hover:bg-purple-900/40 transition-colors">
-                          <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-purple-600 dark:text-purple-400" viewBox="0 0 20 20" fill="currentColor">
-                            <path d="M4 4a2 2 0 00-2 2v4a2 2 0 002 2V6h10a2 2 0 00-2-2H4zm2 6a2 2 0 012-2h8a2 2 0 012 2v4a2 2 0 01-2 2H8a2 2 0 01-2-2v-4zm6 4a2 2 0 100-4 2 2 0 000 4z" />
-                          </svg>
-                        </div>
-                        <div>
-                          <h4 className="font-medium text-gray-900 dark:text-gray-100">Fuel Type</h4>
-                          <p className="text-gray-700 dark:text-purple-300 font-mono font-semibold">{car.fuelType}</p>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                )}
-                
-                {activeTab === "features" && (
-                  <div>
-                    <h3 className="text-xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-violet-700 to-indigo-600 dark:from-violet-400 dark:to-indigo-300 font-heading mb-4">Premium Features</h3>
-                    
-                    <ul className="grid grid-cols-1 md:grid-cols-2 gap-3">
-                      {car.features.map((feature, index) => (
-                        <li key={index} className="flex items-center bg-gray-50 dark:bg-gray-800/50 p-2 rounded-lg border border-gray-100 dark:border-gray-700/50 hover:shadow-md transition-all duration-200 group">
-                          <div className="flex items-center justify-center bg-violet-100 dark:bg-violet-900/30 rounded-md p-1.5 mr-3 group-hover:bg-violet-200 dark:group-hover:bg-violet-900/50 transition-colors">
-                            <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 text-violet-600 dark:text-violet-400" viewBox="0 0 20 20" fill="currentColor">
-                              <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
-                            </svg>
-                          </div>
-                          <span className="text-gray-800 dark:text-gray-200 font-medium">{feature}</span>
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                )}
-              </div>
-            </div>
+      
+      <div className="container mx-auto px-4 relative z-10">
+        <div className="max-w-7xl mx-auto">
+          <div className="mb-6">
+            <Link href="/cars" className="text-violet-400 hover:text-violet-300 hover:underline flex items-center font-medium">
+              <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-1" viewBox="0 0 20 20" fill="currentColor">
+                <path fillRule="evenodd" d="M9.707 16.707a1 1 0 01-1.414 0l-6-6a1 1 0 010-1.414l6-6a1 1 0 011.414 1.414L5.414 9H17a1 1 0 110 2H5.414l4.293 4.293a1 1 0 010 1.414z" clipRule="evenodd" />
+              </svg>
+              Back to all cars
+            </Link>
           </div>
           
-          {/* Booking form */}
-          <div className="lg:col-span-1">
-            <div className="overflow-hidden backdrop-blur-xl bg-white/5 border border-white/10 shadow-xl rounded-xl">
-              {/* Header with gradient */}
-              <div className="bg-gradient-to-r from-violet-600/90 via-indigo-600/90 to-purple-600/90 p-5 relative">
-                <h3 className="text-xl font-bold text-white font-heading">Book this car</h3>
-                <p className="text-white/90 text-sm mt-1 font-accent">
-                  Experience luxury at your fingertips
-                </p>
-                
-                {/* Decorative elements */}
-                <div className="absolute -right-2 -top-2 w-20 h-20 rounded-full bg-indigo-500/20 blur-2xl"></div>
-                <div className="absolute right-4 top-1/2 transform -translate-y-1/2 w-12 h-12 rounded-full bg-white/10 backdrop-blur-md flex items-center justify-center">
-                  <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
-                  </svg>
-                </div>
-              </div>
-              
-              {/* Form section with glass effect */}
-              <form onSubmit={handleBooking} className="p-6 space-y-5 bg-gray-900/50 backdrop-blur-md border-t border-white/10">
-                <div>
-                  <label htmlFor="location" className="block text-sm font-medium text-gray-200 font-outfit mb-1.5">
-                    Pickup Location
-                  </label>
-                  <div className="relative">
-                    <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                      <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
-                      </svg>
-                    </div>
-                    <input
-                      type="text"
-                      id="location"
-                      value={location}
-                      onChange={(e) => setLocation(e.target.value)}
-                      className="pl-10 w-full py-2.5 bg-gray-800/70 border border-gray-700/50 rounded-lg text-gray-100 font-quicksand text-sm focus:ring-primary focus:border-primary transition-all"
-                      placeholder="Enter city or airport"
-                      required
-                    />
-                  </div>
-                </div>
-                
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  <div>
-                    <label htmlFor="startDate" className="block text-sm font-medium text-gray-200 font-outfit mb-1.5">Pickup Date</label>
-                    <div className="relative">
-                      <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                        <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
-                        </svg>
+          {/* Title with gradient text */}
+          <h1 className="text-3xl md:text-4xl font-bold font-space text-transparent bg-clip-text bg-gradient-to-r from-violet-400 to-indigo-300 mb-3">{car.name}</h1>
+          
+          <div className="flex items-center flex-wrap gap-3 mb-6">
+            <div className="flex items-center">
+              <StarRating value={car.rating} size={20} />
+              <span className="ml-2 text-gray-300 font-medium">{formatRating(car.rating)} ({car.reviewCount} reviews)</span>
+            </div>
+            <span className="inline-block h-4 w-[1px] bg-gray-700 mx-1"></span>
+            <div className="badge badge-lg bg-violet-500 text-white border-0">{car.type}</div>
+            <span className="inline-block h-4 w-[1px] bg-gray-700 mx-1"></span>
+            <span className="text-gray-300 font-medium">
+              <span className="font-bold text-violet-400">{formatCurrency(car.price)}</span> / day
+            </span>
+          </div>
+          
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+            <div className="lg:col-span-2">
+              <div className="glass-card rounded-xl shadow-lg overflow-hidden mb-8 border border-gray-700/50 bg-base-100/10 backdrop-blur-md">
+                <div className="relative">
+                  <img 
+                    src={car.images[0]} 
+                    alt={car.name} 
+                    className="w-full h-[300px] md:h-[400px] object-cover"
+                  />
+                  {!car.available && (
+                    <div className="absolute top-0 left-0 w-full h-full bg-black bg-opacity-60 flex items-center justify-center backdrop-blur-sm">
+                      <div className="bg-gradient-to-r from-red-600 to-red-500 text-white text-lg font-bold py-2 px-6 rounded-md shadow-lg">
+                        Currently Unavailable
                       </div>
-                      <input
-                        type="date"
-                        id="startDate"
-                        value={startDate}
-                        onChange={(e) => setStartDate(e.target.value)}
-                        className="pl-10 w-full py-2.5 bg-gray-800/70 border border-gray-700/50 rounded-lg text-gray-100 font-quicksand text-sm focus:ring-primary focus:border-primary transition-all"
-                        required
-                      />
                     </div>
+                  )}
+                </div>
+                
+                <div className="p-6">
+                  <div className="flex mb-6 border-b border-gray-700">
+                    <button 
+                      className={`px-4 py-2 text-sm font-medium ${activeTab === 'details' ? 'text-violet-400 border-b-2 border-violet-400' : 'text-gray-400 hover:text-gray-300'}`}
+                      onClick={() => setActiveTab('details')}
+                    >
+                      Car Details
+                    </button>
+                    <button 
+                      className={`px-4 py-2 text-sm font-medium ${activeTab === 'features' ? 'text-violet-400 border-b-2 border-violet-400' : 'text-gray-400 hover:text-gray-300'}`}
+                      onClick={() => setActiveTab('features')}
+                    >
+                      Features
+                    </button>
                   </div>
                   
-                  <div>
-                    <label htmlFor="endDate" className="block text-sm font-medium text-gray-200 font-outfit mb-1.5">Return Date</label>
-                    <div className="relative">
-                      <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                        <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
-                        </svg>
+                  {activeTab === "details" && (
+                    <div>
+                      {/* Description with improved typography */}
+                      <div className="p-4 rounded-lg bg-gray-800/30 mb-6 backdrop-blur-sm border border-gray-700/30">
+                        <p className="text-gray-300 leading-relaxed font-medium">{car.description}</p>
                       </div>
-                      <input
-                        type="date"
-                        id="endDate"
-                        value={endDate}
-                        onChange={(e) => setEndDate(e.target.value)}
-                        className="pl-10 w-full py-2.5 bg-gray-800/70 border border-gray-700/50 rounded-lg text-gray-100 font-quicksand text-sm focus:ring-primary focus:border-primary transition-all"
-                        required
-                      />
-                    </div>
-                  </div>
-                </div>
-                
-                <div className="bg-gray-800/50 rounded-lg p-3 border border-gray-700/30">
-                  <div className="flex items-center">
-                    <input
-                      type="checkbox"
-                      id="withDriver"
-                      checked={withDriver}
-                      onChange={(e) => setWithDriver(e.target.checked)}
-                      className="h-4 w-4 text-primary focus:ring-primary/80 border-gray-600 rounded"
-                    />
-                    <label htmlFor="withDriver" className="ml-2 block text-sm text-gray-200 font-medium font-outfit">
-                      Need a professional driver?
-                    </label>
-                  </div>
-                  
-                  {withDriver && (
-                    <div className="mt-3 pl-6 border-l-2 border-primary/30">
-                      <label htmlFor="driver" className="block text-sm font-medium text-gray-200 font-outfit mb-1.5">Select Driver</label>
-                      {isLoadingDrivers ? (
-                        <div className="mt-1 h-10 w-full animate-pulse bg-gray-700/70 rounded-lg"></div>
-                      ) : (
-                        <div className="relative">
-                          <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                            <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+                      
+                      {/* Specifications heading with gradient text */}
+                      <h3 className="text-xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-violet-400 to-indigo-300 mb-4">Performance Specifications</h3>
+                      
+                      {/* Grid with glass effect cards */}
+                      <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+                        {/* Top Speed */}
+                        <div className="flex items-center bg-gray-800/50 backdrop-blur-sm p-3 rounded-lg border border-gray-700/30 hover:shadow-md transition-all duration-200 group">
+                          <div className="flex items-center justify-center w-12 h-12 bg-violet-900/20 rounded-lg mr-4 group-hover:bg-violet-900/40 transition-colors">
+                            <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-violet-400" viewBox="0 0 20 20" fill="currentColor">
+                              <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-13a1 1 0 10-2 0v4a1 1 0 00.293.707l2.828 2.829a1 1 0 101.415-1.415L11 9.586V5z" clipRule="evenodd" />
                             </svg>
                           </div>
-                          <select
-                            id="driver"
-                            value={selectedDriverId || ""}
-                            onChange={(e) => setSelectedDriverId(parseInt(e.target.value))}
-                            className="pl-10 w-full py-2.5 bg-gray-800/70 border border-gray-700/50 rounded-lg text-gray-100 font-quicksand text-sm focus:ring-primary focus:border-primary transition-all"
-                            required={withDriver}
-                          >
-                            <option value="">Select a driver</option>
-                            {driversData?.drivers.map((driver: any) => (
-                              <option key={driver.id} value={driver.id}>
-                                {driver.name} ({driver.experience} years exp.)
-                              </option>
-                            ))}
-                          </select>
+                          <div>
+                            <h4 className="font-medium text-gray-100">Top Speed</h4>
+                            <p className="text-violet-300 font-mono font-semibold">{car.topSpeed} mph</p>
+                          </div>
                         </div>
-                      )}
-                    </div>
-                  )}
-                </div>
-                
-                {/* Price summary */}
-                <div className="mt-6 pt-5 border-t border-gray-700/50">
-                  <div className="flex justify-between items-center">
-                    <span className="text-gray-300 font-outfit">Price per day:</span>
-                    <span className="font-medium text-white font-space">{formatCurrency(car.price)}</span>
-                  </div>
-                  
-                  {totalPrice > 0 && (
-                    <>
-                      {withDriver && (
-                        <div className="flex justify-between items-center mt-2">
-                          <span className="text-gray-300 font-outfit">Driver service:</span>
-                          <span className="font-medium text-white font-space">+30%</span>
+                        
+                        {/* Seating Capacity */}
+                        <div className="flex items-center bg-gray-800/50 backdrop-blur-sm p-3 rounded-lg border border-gray-700/30 hover:shadow-md transition-all duration-200 group">
+                          <div className="flex items-center justify-center w-12 h-12 bg-indigo-900/20 rounded-lg mr-4 group-hover:bg-indigo-900/40 transition-colors">
+                            <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-indigo-400" viewBox="0 0 20 20" fill="currentColor">
+                              <path d="M9 6a3 3 0 11-6 0 3 3 0 016 0zM17 6a3 3 0 11-6 0 3 3 0 016 0zM12.93 17c.046-.327.07-.66.07-1a6.97 6.97 0 00-1.5-4.33A5 5 0 0119 16v1h-6.07zM6 11a5 5 0 015 5v1H1v-1a5 5 0 015-5z" />
+                            </svg>
+                          </div>
+                          <div>
+                            <h4 className="font-medium text-gray-100">Seating Capacity</h4>
+                            <p className="text-indigo-300 font-mono font-semibold">{car.seats} seats</p>
+                          </div>
                         </div>
-                      )}
-                      <div className="flex justify-between items-center mt-4 text-lg">
-                        <span className="font-bold bg-gradient-to-r from-primary to-violet-400 text-transparent bg-clip-text">Total:</span>
-                        <span className="font-bold font-space bg-gradient-to-r from-primary to-violet-400 text-transparent bg-clip-text">
-                          {formatCurrency(totalPrice)}
-                        </span>
                       </div>
-                    </>
+                    </div>
+                  )}
+                  
+                  {activeTab === "features" && (
+                    <div>
+                      <h3 className="text-xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-violet-400 to-indigo-300 mb-4">Premium Features</h3>
+                      
+                      <ul className="grid grid-cols-1 md:grid-cols-2 gap-3">
+                        {car.features.map((feature, index) => (
+                          <li key={index} className="flex items-center bg-gray-800/50 p-2 rounded-lg border border-gray-700/50 hover:shadow-md transition-all duration-200 group">
+                            <div className="flex items-center justify-center bg-violet-900/30 rounded-md p-1.5 mr-3 group-hover:bg-violet-900/50 transition-colors">
+                              <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 text-violet-400" viewBox="0 0 20 20" fill="currentColor">
+                                <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
+                              </svg>
+                            </div>
+                            <span className="text-gray-200 font-medium">{feature}</span>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
                   )}
                 </div>
-                
-                {/* Book Now button */}
-                <button
-                  type="submit"
-                  disabled={isSubmitting || totalPrice <= 0}
-                  className={`w-full mt-6 bg-gradient-to-r from-primary to-violet-600 hover:from-primary/90 hover:to-violet-600/90 text-white py-3.5 px-4 rounded-lg font-medium transition-all shadow-lg font-space ${(isSubmitting || totalPrice <= 0) ? 'opacity-50 cursor-not-allowed' : 'hover:shadow-primary/20 hover:shadow-xl'}`}
-                >
-                  {isSubmitting ? (
-                    <div className="flex items-center justify-center">
-                      <svg className="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                        <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
-                        <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-                      </svg>
-                      Processing...
+              </div>
+            </div>
+            
+            <div className="lg:col-span-1">
+              <div className="sticky top-6">
+                <div className="bg-base-100/10 backdrop-blur-md rounded-xl shadow-lg overflow-hidden border border-gray-700/50 p-6">
+                  <h3 className="text-xl font-bold text-white mb-4">Book This Car</h3>
+                  
+                  <form onSubmit={handleSubmitBooking} className="space-y-4">
+                    <div>
+                      <label className="block text-sm font-medium text-gray-300 mb-1">Start Date</label>
+                      <input
+                        type="date"
+                        value={startDate}
+                        onChange={(e) => setStartDate(e.target.value)}
+                        min={new Date().toISOString().split('T')[0]}
+                        className="w-full px-4 py-2 bg-gray-800/70 border border-gray-700 rounded-md text-white focus:outline-none focus:ring-2 focus:ring-primary"
+                        required
+                      />
                     </div>
-                  ) : 'Book Now'}
-                </button>
-                
-                {!isLoggedIn && (
-                  <div className="mt-4 text-sm text-gray-400 text-center font-outfit border-t border-gray-700/30 pt-4">
-                    <span>Please </span>
-                    <Link href="/login" className="text-primary hover:text-primary/80 transition-colors font-medium">
-                      Login
-                    </Link> 
-                    <span> or </span>
-                    <Link href="/register" className="text-primary hover:text-primary/80 transition-colors font-medium">
-                      Register
-                    </Link>
-                    <span> to book this car</span>
-                  </div>
-                )}
-              </form>
+                    
+                    <div>
+                      <label className="block text-sm font-medium text-gray-300 mb-1">End Date</label>
+                      <input
+                        type="date"
+                        value={endDate}
+                        onChange={(e) => setEndDate(e.target.value)}
+                        min={startDate || new Date().toISOString().split('T')[0]}
+                        className="w-full px-4 py-2 bg-gray-800/70 border border-gray-700 rounded-md text-white focus:outline-none focus:ring-2 focus:ring-primary"
+                        required
+                      />
+                    </div>
+                    
+                    <div>
+                      <label className="block text-sm font-medium text-gray-300 mb-1">Pickup Location</label>
+                      <input
+                        type="text"
+                        value={location}
+                        onChange={(e) => setLocation(e.target.value)}
+                        placeholder="Enter address"
+                        className="w-full px-4 py-2 bg-gray-800/70 border border-gray-700 rounded-md text-white focus:outline-none focus:ring-2 focus:ring-primary"
+                        required
+                      />
+                    </div>
+                    
+                    <div className="flex items-center">
+                      <input
+                        type="checkbox"
+                        id="withDriver"
+                        checked={withDriver}
+                        onChange={(e) => setWithDriver(e.target.checked)}
+                        className="h-4 w-4 text-primary focus:ring-primary rounded"
+                      />
+                      <label htmlFor="withDriver" className="ml-2 block text-sm text-gray-300">
+                        Include a driver (+$150/day)
+                      </label>
+                    </div>
+                    
+                    {withDriver && (
+                      <div>
+                        <label className="block text-sm font-medium text-gray-300 mb-1">Select Driver</label>
+                        <select
+                          value={selectedDriverId || ""}
+                          onChange={(e) => setSelectedDriverId(Number(e.target.value))}
+                          className="w-full px-4 py-2 bg-gray-800/70 border border-gray-700 rounded-md text-white focus:outline-none focus:ring-2 focus:ring-primary"
+                          required={withDriver}
+                        >
+                          <option value="">Select a driver</option>
+                          {driversData?.drivers.map((driver) => (
+                            <option key={driver.id} value={driver.id}>
+                              {driver.name} ({driver.experience} yrs exp)
+                            </option>
+                          ))}
+                        </select>
+                        {isLoadingDrivers && (
+                          <p className="text-xs text-gray-400 mt-1">Loading drivers...</p>
+                        )}
+                      </div>
+                    )}
+                    
+                    {totalPrice > 0 && (
+                      <div className="mt-4 p-4 bg-gray-800/50 rounded-lg border border-gray-700/50">
+                        <div className="flex justify-between text-gray-300 font-medium">
+                          <span>Rental Rate:</span>
+                          <span>{formatCurrency(car.price)}/day</span>
+                        </div>
+                        
+                        {startDate && endDate && (
+                          <div className="flex justify-between text-gray-300 mt-1">
+                            <span>Duration:</span>
+                            <span>{daysBetween(new Date(startDate), new Date(endDate))} days</span>
+                          </div>
+                        )}
+                        
+                        {withDriver && (
+                          <div className="flex justify-between text-gray-300 mt-1">
+                            <span>Driver Fee:</span>
+                            <span>$150/day</span>
+                          </div>
+                        )}
+                        
+                        <div className="border-t border-gray-700 my-2"></div>
+                        
+                        <div className="flex justify-between font-bold text-white">
+                          <span>Total:</span>
+                          <span>{formatCurrency(totalPrice)}</span>
+                        </div>
+                      </div>
+                    )}
+                    
+                    <button
+                      type="submit"
+                      disabled={isSubmitting || !car.available}
+                      className={`w-full py-3 px-4 rounded-md shadow-lg ${
+                        car.available
+                          ? "bg-primary hover:bg-primary/90 text-white"
+                          : "bg-gray-700 text-gray-400 cursor-not-allowed"
+                      } font-bold transition-colors`}
+                    >
+                      {isSubmitting ? "Processing..." : car.available ? "Book Now" : "Currently Unavailable"}
+                    </button>
+                    
+                    {!isLoggedIn && (
+                      <div className="text-xs text-center text-gray-400 mt-2">
+                        You need to be logged in to book a car.{' '}
+                        <Link href="/login" className="text-primary hover:underline">
+                          Log in here
+                        </Link>
+                      </div>
+                    )}
+                  </form>
+                </div>
+              </div>
             </div>
           </div>
         </div>

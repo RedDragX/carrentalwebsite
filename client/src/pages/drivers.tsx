@@ -33,11 +33,30 @@ const Drivers = () => {
   });
 
   return (
-    <div className="bg-base-200 py-12">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div className="relative py-12">
+      {/* Background gradient and pattern - Matches home page */}
+      <div className="absolute inset-0 bg-gradient-to-br from-violet-950 via-indigo-950 to-slate-950">
+        {/* Animated radial gradient spots */}
+        <div className="absolute top-0 left-0 w-full h-full overflow-hidden">
+          <div className="absolute -top-40 left-[10%] w-[600px] h-[600px] rounded-full bg-violet-600/10 blur-3xl animate-pulse"></div>
+          <div className="absolute top-[40%] -right-20 w-[500px] h-[500px] rounded-full bg-indigo-500/10 blur-3xl animate-pulse" style={{ animationDelay: '2s' }}></div>
+          <div className="absolute -bottom-40 left-[30%] w-[500px] h-[500px] rounded-full bg-purple-600/10 blur-3xl animate-pulse" style={{ animationDelay: '3s' }}></div>
+        </div>
+        
+        {/* Noise overlay */}
+        <div className="absolute inset-0 opacity-20" 
+          style={{ 
+            backgroundImage: 'url("data:image/svg+xml,%3Csvg viewBox=\'0 0 200 200\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cfilter id=\'noiseFilter\'%3E%3CfeTurbulence type=\'fractalNoise\' baseFrequency=\'0.65\' numOctaves=\'3\' stitchTiles=\'stitch\'/%3E%3C/filter%3E%3Crect width=\'100%25\' height=\'100%25\' filter=\'url(%23noiseFilter)\'/%3E%3C/svg%3E")',
+            backgroundRepeat: 'repeat',
+            backgroundSize: '100px 100px' 
+          }}
+        ></div>
+      </div>
+
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <div className="text-center mb-8">
-          <h1 className="text-4xl font-bold text-primary">Our Professional Drivers</h1>
-          <p className="mt-2 text-neutral-700">Experienced chauffeurs for your ultimate comfort and safety</p>
+          <h1 className="text-4xl font-bold text-white">Our Professional Drivers</h1>
+          <p className="mt-2 text-gray-200 font-medium">Experienced chauffeurs for your ultimate comfort and safety</p>
         </div>
         
         {/* Search */}
@@ -62,26 +81,30 @@ const Drivers = () => {
         {isLoading ? (
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
             {[...Array(4)].map((_, index) => (
-              <div key={index} className="bg-white rounded-lg overflow-hidden shadow-md h-72 animate-pulse">
-                <div className="h-56 w-full bg-gray-300"></div>
+              <div key={index} className="bg-base-100 rounded-lg overflow-hidden shadow-md h-72 animate-pulse">
+                <div className="h-56 w-full bg-base-300"></div>
                 <div className="p-4">
-                  <div className="h-4 bg-gray-300 rounded w-3/4 mb-2"></div>
-                  <div className="h-4 bg-gray-300 rounded w-1/2"></div>
+                  <div className="h-4 bg-base-300 rounded-md w-3/4 mb-2"></div>
+                  <div className="h-4 bg-base-300 rounded-md w-1/2"></div>
                 </div>
               </div>
             ))}
           </div>
         ) : error ? (
-          <div className="text-center p-8 bg-red-50 rounded-lg">
-            <p className="text-red-500">Error loading drivers. Please try again later.</p>
+          <div className="text-center p-10 bg-red-50 rounded-lg shadow-md">
+            <svg xmlns="http://www.w3.org/2000/svg" className="h-12 w-12 mx-auto text-red-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+            </svg>
+            <h3 className="mt-4 text-xl font-semibold text-red-600">Error Loading Drivers</h3>
+            <p className="mt-2 text-red-700 font-medium">Please try again later.</p>
           </div>
         ) : filteredDrivers?.length === 0 ? (
-          <div className="text-center p-12 bg-white rounded-lg shadow">
-            <svg xmlns="http://www.w3.org/2000/svg" className="h-12 w-12 mx-auto text-neutral-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <div className="text-center p-12 bg-base-100 rounded-lg shadow-md">
+            <svg xmlns="http://www.w3.org/2000/svg" className="h-12 w-12 mx-auto text-primary/60" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
             </svg>
-            <h3 className="mt-4 text-xl font-medium text-primary">No drivers found</h3>
-            <p className="mt-2 text-neutral-600">Try adjusting your search criteria.</p>
+            <h3 className="mt-4 text-xl font-semibold text-primary">No drivers found</h3>
+            <p className="mt-2 text-gray-200 font-medium">Try adjusting your search criteria.</p>
           </div>
         ) : (
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">

@@ -53,11 +53,30 @@ const Cars = () => {
   });
 
   return (
-    <div className="bg-base-200 py-12">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div className="relative py-12">
+      {/* Background gradient and pattern - Matches home page */}
+      <div className="absolute inset-0 bg-gradient-to-br from-violet-950 via-indigo-950 to-slate-950">
+        {/* Animated radial gradient spots */}
+        <div className="absolute top-0 left-0 w-full h-full overflow-hidden">
+          <div className="absolute -top-40 left-[10%] w-[600px] h-[600px] rounded-full bg-violet-600/10 blur-3xl animate-pulse"></div>
+          <div className="absolute top-[40%] -right-20 w-[500px] h-[500px] rounded-full bg-indigo-500/10 blur-3xl animate-pulse" style={{ animationDelay: '2s' }}></div>
+          <div className="absolute -bottom-40 left-[30%] w-[500px] h-[500px] rounded-full bg-purple-600/10 blur-3xl animate-pulse" style={{ animationDelay: '3s' }}></div>
+        </div>
+        
+        {/* Noise overlay */}
+        <div className="absolute inset-0 opacity-20" 
+          style={{ 
+            backgroundImage: 'url("data:image/svg+xml,%3Csvg viewBox=\'0 0 200 200\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cfilter id=\'noiseFilter\'%3E%3CfeTurbulence type=\'fractalNoise\' baseFrequency=\'0.65\' numOctaves=\'3\' stitchTiles=\'stitch\'/%3E%3C/filter%3E%3Crect width=\'100%25\' height=\'100%25\' filter=\'url(%23noiseFilter)\'/%3E%3C/svg%3E")',
+            backgroundRepeat: 'repeat',
+            backgroundSize: '100px 100px' 
+          }}
+        ></div>
+      </div>
+
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <div className="text-center mb-8">
-          <h1 className="text-4xl font-bold text-primary">Our Car Collection</h1>
-          <p className="mt-2 text-neutral-700 font-medium">Browse our selection of premium vehicles</p>
+          <h1 className="text-4xl font-bold text-white">Our Car Collection</h1>
+          <p className="mt-2 text-gray-200 font-medium">Browse our selection of premium vehicles</p>
         </div>
         
         {/* Search and filters */}
