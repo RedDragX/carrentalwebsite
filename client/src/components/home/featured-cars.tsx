@@ -4,18 +4,37 @@ import { Link } from "wouter";
 import CarCard from "../car/car-card";
 import { carTypes } from "@/lib/utils";
 
+interface Car {
+  id: number;
+  name: string;
+  brand: string;
+  model: string;
+  type: string;
+  seats: number;
+  topSpeed: number;
+  price: number;
+  images: string[];
+  rating: number;
+  reviewCount: number;
+  available: boolean;
+}
+
+interface CarsResponse {
+  cars: Car[];
+}
+
 const FeaturedCars = () => {
   const [activeType, setActiveType] = useState("All Cars");
   
-  const { data, isLoading, error } = useQuery({
+  const { data, isLoading, error } = useQuery<CarsResponse>({
     queryKey: ["/api/cars"],
     staleTime: 60000, // 1 minute
   });
   
-  const filteredCars = data?.cars.filter((car: any) => {
+  const filteredCars = data?.cars ? data.cars.filter((car: any) => {
     if (activeType === "All Cars") return true;
     return car.type === activeType;
-  }).slice(0, 6);
+  }).slice(0, 6) : [];
   
   const handleTypeChange = (type: string) => {
     setActiveType(type);

@@ -54,32 +54,50 @@ const Testimonials = () => {
   };
 
   return (
-    <section className="py-12 bg-primary">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-12">
-          <h2 className="text-3xl font-bold text-white font-heading">What Our Customers Say</h2>
-          <p className="mt-2 text-neutral-300">Hear from people who have experienced our premium service</p>
+    <section className="py-16 relative" style={{ background: 'linear-gradient(to right, rgba(124, 58, 237, 0.9), rgba(139, 92, 246, 0.9))' }}>
+      {/* Decorative elements */}
+      <div className="absolute inset-0 overflow-hidden">
+        <div className="absolute top-0 left-1/4 w-64 h-64 bg-purple-400/10 rounded-full blur-3xl"></div>
+        <div className="absolute bottom-0 right-1/4 w-80 h-80 bg-violet-300/10 rounded-full blur-3xl"></div>
+      </div>
+      
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+        <div className="text-center mb-16">
+          <h2 className="text-3xl font-bold text-white font-heading drop-shadow-md">What Our Customers Say</h2>
+          <p className="mt-2 text-purple-100">Hear from people who have experienced our premium service</p>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           {testimonials.map((testimonial) => (
-            <div key={testimonial.id} className="bg-white p-6 rounded-lg shadow-md">
+            <div key={testimonial.id} className="bg-white/95 backdrop-blur-sm p-8 rounded-xl shadow-xl hover:shadow-2xl transition-all duration-300 border border-purple-100">
               <div className="flex justify-between items-start">
                 <div className="flex items-center">
-                  <div className="h-12 w-12 rounded-full overflow-hidden">
+                  <div className="h-14 w-14 rounded-full overflow-hidden border-2 border-purple-200 shadow-md">
                     <img src={testimonial.image} alt={testimonial.name} className="h-full w-full object-cover" />
                   </div>
                   <div className="ml-4">
-                    <h4 className="font-bold text-primary">{testimonial.name}</h4>
-                    <p className="text-neutral-600 text-sm">{testimonial.location}</p>
+                    <h4 className="font-bold text-purple-800">{testimonial.name}</h4>
+                    <p className="text-purple-600/70 text-sm">{testimonial.location}</p>
                   </div>
                 </div>
                 <div className="flex">
                   {renderStars(testimonial.rating)}
                 </div>
               </div>
-              <p className="mt-4 text-neutral-700">{`"${testimonial.comment}"`}</p>
-              <p className="mt-3 text-sm text-neutral-500">Rented: {testimonial.car}</p>
+              <div className="mt-6 relative">
+                <div className="absolute -top-4 -left-2 text-purple-300 text-4xl font-serif">"</div>
+                <p className="relative z-10 text-purple-900/80 italic">{testimonial.comment}</p>
+                <div className="absolute -bottom-4 -right-2 text-purple-300 text-4xl font-serif">"</div>
+              </div>
+              <div className="mt-6 pt-4 border-t border-purple-100">
+                <p className="text-sm text-purple-600 font-medium flex items-center">
+                  <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 mr-1" viewBox="0 0 20 20" fill="currentColor">
+                    <path d="M8 16.5a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0zM15 16.5a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0z" />
+                    <path d="M3 4a1 1 0 00-1 1v10a1 1 0 001 1h1.05a2.5 2.5 0 014.9 0H10a1 1 0 001-1V5a1 1 0 00-1-1H3zM14 7h2.5a1 1 0 01.8.4l1.5 2a1 1 0 01.2.6V15a1 1 0 01-1 1h-1.05a2.5 2.5 0 01-4.9 0H10a1 1 0 01-1-1v-4a1 1 0 011-1h4z" />
+                  </svg>
+                  Rented: <span className="font-semibold ml-1">{testimonial.car}</span>
+                </p>
+              </div>
             </div>
           ))}
         </div>
