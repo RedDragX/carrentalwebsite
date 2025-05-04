@@ -40,14 +40,14 @@ const CarCard = ({ car }: CarCardProps) => {
   const displayRating = formatRating(rating);
 
   return (
-    <div className="group relative overflow-hidden rounded-xl bg-white dark:bg-gray-800/95 shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
+    <div className="group relative overflow-hidden rounded-lg bg-base-100 shadow-md hover:shadow-lg transition-all duration-300 hover:-translate-y-1">
       {/* Card Image with Hover Effect */}
       <div className="relative overflow-hidden aspect-[16/9]">
         <Link href={`/cars/${id}`}>
           <img 
             src={images[0]} 
             alt={`${brand} ${model}`} 
-            className="w-full h-full object-cover transform transition-transform duration-700 group-hover:scale-110"
+            className="w-full h-full object-cover transform transition-transform duration-500 group-hover:scale-105"
           />
         </Link>
         
@@ -55,20 +55,20 @@ const CarCard = ({ car }: CarCardProps) => {
         <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent opacity-60"></div>
         
         {/* Type Badge */}
-        <div className="absolute top-3 left-3 px-2.5 py-1 text-xs font-medium rounded-lg bg-violet-600/90 text-white backdrop-blur-sm font-space tracking-wide shadow-lg">
+        <div className="absolute top-3 left-3 px-2.5 py-1 text-xs font-medium rounded-md bg-primary text-white backdrop-blur-sm tracking-wide shadow-md">
           {type}
         </div>
         
         {/* Wishlist button with glow on hover */}
-        <button className="absolute top-3 right-3 p-1.5 rounded-full bg-white/80 hover:bg-white dark:bg-gray-800/70 dark:hover:bg-gray-800 text-gray-600 dark:text-gray-300 hover:text-rose-500 dark:hover:text-rose-400 transition-colors shadow-sm group-hover:shadow-md">
+        <button className="absolute top-3 right-3 p-1.5 rounded-full bg-white/90 hover:bg-white text-gray-600 hover:text-primary transition-colors shadow-sm">
           <Heart className="h-4 w-4" />
         </button>
         
         {/* Price Badge */}
-        <div className="absolute bottom-3 right-3 px-3 py-1.5 rounded-lg bg-white/10 backdrop-blur-md border border-white/20 text-white shadow-lg">
+        <div className="absolute bottom-3 right-3 px-3 py-1.5 rounded-md bg-white/90 backdrop-blur-sm text-gray-800 shadow-md">
           <div className="flex items-center">
-            <span className="text-lg font-bold font-space">{formatCurrency(price)}</span>
-            <span className="text-xs ml-1 opacity-80 font-outfit">/day</span>
+            <span className="text-lg font-bold">{formatCurrency(price)}</span>
+            <span className="text-xs ml-1 opacity-80">/day</span>
           </div>
         </div>
         

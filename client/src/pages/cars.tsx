@@ -53,11 +53,11 @@ const Cars = () => {
   });
 
   return (
-    <div className="bg-neutral-50 py-12">
+    <div className="bg-base-200 py-12">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-8">
           <h1 className="text-4xl font-bold text-primary font-heading">Our Car Collection</h1>
-          <p className="mt-2 text-neutral-600">Browse our selection of premium vehicles</p>
+          <p className="mt-2 text-neutral-700">Browse our selection of premium vehicles</p>
         </div>
         
         {/* Search and filters */}
@@ -83,7 +83,7 @@ const Cars = () => {
             <div className="flex flex-wrap justify-center gap-2">
               <button 
                 onClick={() => handleTypeChange("All Cars")}
-                className={`px-4 py-2 rounded-full ${activeType === "All Cars" ? "bg-accent text-white" : "bg-white text-neutral-600 hover:bg-neutral-100"} font-medium text-sm shadow-sm transition-all`}
+                className={`px-4 py-2 rounded-md ${activeType === "All Cars" ? "bg-primary text-white" : "bg-base-100 text-neutral-700 hover:bg-base-300"} font-medium text-sm shadow-sm transition-all`}
               >
                 All Cars
               </button>
@@ -92,7 +92,7 @@ const Cars = () => {
                 <button 
                   key={type}
                   onClick={() => handleTypeChange(type)}
-                  className={`px-4 py-2 rounded-full ${activeType === type ? "bg-accent text-white" : "bg-white text-neutral-600 hover:bg-neutral-100"} font-medium text-sm shadow-sm transition-all`}
+                  className={`px-4 py-2 rounded-md ${activeType === type ? "bg-primary text-white" : "bg-base-100 text-neutral-700 hover:bg-base-300"} font-medium text-sm shadow-sm transition-all`}
                 >
                   {type}
                 </button>
