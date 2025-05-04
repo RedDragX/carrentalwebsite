@@ -186,19 +186,19 @@ const Footer = () => {
                 <span className="text-purple-100">info@zorocars.com</span>
               </li>
               <li className="flex items-center">
-                <div className="min-w-[40px] h-10 rounded-full bg-white/10 flex items-center justify-center mr-3 text-accent">
+                <div className="min-w-[40px] h-10 rounded-full bg-purple-500/20 flex items-center justify-center mr-3 text-purple-300">
                   <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
                     <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 0 10-2 0v4a1 1 0 00.293.707l2.828 2.829a1 1 0 101.415-1.415L11 9.586V6z" clipRule="evenodd" />
                   </svg>
                 </div>
-                <span className="text-teal-100">Mon-Sun: 8AM - 8PM</span>
+                <span className="text-purple-100">Mon-Sun: 8AM - 8PM</span>
               </li>
             </ul>
           </div>
         </div>
 
         <div className="mt-8 pt-6 text-center">
-          <p className="text-teal-200/60 text-sm">© {new Date().getFullYear()} Zoro Cars. All rights reserved.</p>
+          <p className="text-purple-200/60 text-sm">© {new Date().getFullYear()} Zoro Cars. All rights reserved.</p>
         </div>
       </div>
     </footer>

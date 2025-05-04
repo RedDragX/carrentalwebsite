@@ -22,18 +22,25 @@ const FeaturedCars = () => {
   };
 
   return (
-    <section id="cars" className="py-12 bg-base-200">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-10">
-          <h2 className="text-3xl font-bold text-primary font-heading">Featured Luxury & Sport Cars</h2>
-          <p className="mt-2 text-neutral-600">Experience the thrill of driving our premium selection</p>
+    <section id="cars" className="py-16 relative" style={{ background: 'linear-gradient(to right, rgba(139, 92, 246, 0.1), rgba(167, 139, 250, 0.1))' }}>
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+        {/* Decorative elements */}
+        <div className="absolute top-20 right-10 w-48 h-48 bg-purple-500/10 rounded-full blur-3xl"></div>
+        <div className="absolute bottom-20 left-10 w-64 h-64 bg-violet-500/10 rounded-full blur-3xl"></div>
+        
+        <div className="text-center mb-14 relative">
+          <h2 className="text-3xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-purple-600 to-violet-600 font-heading">Featured Luxury & Sport Cars</h2>
+          <p className="mt-2 text-purple-900/70">Experience the thrill of driving our premium selection</p>
         </div>
 
         {/* Filters */}
-        <div className="flex flex-wrap justify-center gap-3 mb-8">
+        <div className="flex flex-wrap justify-center gap-3 mb-12">
           <button 
             onClick={() => handleTypeChange("All Cars")}
-            className={`px-4 py-2 rounded-md ${activeType === "All Cars" ? "bg-primary text-white" : "bg-base-100 text-neutral-700 hover:bg-base-300"} font-medium text-sm shadow-sm transition-all`}
+            className={`px-5 py-2 rounded-md ${activeType === "All Cars" 
+              ? "bg-gradient-to-r from-purple-600 to-violet-600 text-white shadow-md shadow-purple-500/20" 
+              : "bg-white text-purple-800 hover:bg-purple-50 border border-purple-100"} 
+              font-medium text-sm transition-all`}
           >
             All Cars
           </button>
@@ -42,7 +49,10 @@ const FeaturedCars = () => {
             <button 
               key={type}
               onClick={() => handleTypeChange(type)}
-              className={`px-4 py-2 rounded-md ${activeType === type ? "bg-primary text-white" : "bg-base-100 text-neutral-700 hover:bg-base-300"} font-medium text-sm shadow-sm transition-all`}
+              className={`px-5 py-2 rounded-md ${activeType === type 
+                ? "bg-gradient-to-r from-purple-600 to-violet-600 text-white shadow-md shadow-purple-500/20" 
+                : "bg-white text-purple-800 hover:bg-purple-50 border border-purple-100"} 
+                font-medium text-sm transition-all`}
             >
               {type}
             </button>
@@ -78,15 +88,18 @@ const FeaturedCars = () => {
           </div>
         )}
 
-        <div className="mt-10 text-center">
+        <div className="mt-16 text-center">
           <Link 
             href="/cars"
-            className="inline-flex items-center px-6 py-3 border border-primary text-primary bg-base-100 hover:bg-primary hover:text-white font-medium rounded-md transition-all shadow-sm"
+            className="relative overflow-hidden group inline-flex items-center px-8 py-4 bg-gradient-to-r from-purple-600 to-violet-600 text-white font-medium rounded-md transition-all shadow-lg shadow-purple-500/20 hover:shadow-xl hover:shadow-purple-500/30 hover:-translate-y-0.5"
           >
-            View All Cars
-            <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 ml-2" viewBox="0 0 20 20" fill="currentColor">
-              <path fillRule="evenodd" d="M10.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L12.586 11H5a1 1 0 110-2h7.586l-2.293-2.293a1 1 0 010-1.414z" clipRule="evenodd" />
-            </svg>
+            <span className="absolute inset-0 w-full h-full bg-gradient-to-r from-purple-500/0 via-white/20 to-purple-500/0 transform translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-700"></span>
+            <span className="relative flex items-center">
+              View All Cars
+              <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 ml-2 transform group-hover:translate-x-1 transition-transform duration-200" viewBox="0 0 20 20" fill="currentColor">
+                <path fillRule="evenodd" d="M10.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L12.586 11H5a1 1 0 110-2h7.586l-2.293-2.293a1 1 0 010-1.414z" clipRule="evenodd" />
+              </svg>
+            </span>
           </Link>
         </div>
       </div>
