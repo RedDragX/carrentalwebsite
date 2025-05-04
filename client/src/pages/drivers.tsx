@@ -33,11 +33,11 @@ const Drivers = () => {
   });
 
   return (
-    <div className="bg-neutral-50 py-12">
+    <div className="bg-base-200 py-12">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-8">
-          <h1 className="text-4xl font-bold text-primary font-heading">Our Professional Drivers</h1>
-          <p className="mt-2 text-neutral-600">Experienced chauffeurs for your ultimate comfort and safety</p>
+          <h1 className="text-4xl font-bold text-primary">Our Professional Drivers</h1>
+          <p className="mt-2 text-neutral-700">Experienced chauffeurs for your ultimate comfort and safety</p>
         </div>
         
         {/* Search */}
@@ -48,10 +48,10 @@ const Drivers = () => {
               placeholder="Search by name, specialty, or language..."
               value={searchQuery}
               onChange={handleSearchChange}
-              className="w-full px-4 py-2 pl-10 border border-neutral-300 rounded-md focus:outline-none focus:ring-2 focus:ring-accent"
+              className="w-full px-4 py-2 pl-10 border border-neutral-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary bg-base-100 shadow-sm"
             />
             <div className="absolute left-3 top-2.5">
-              <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-neutral-400" viewBox="0 0 20 20" fill="currentColor">
+              <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-primary/60" viewBox="0 0 20 20" fill="currentColor">
                 <path fillRule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z" clipRule="evenodd" />
               </svg>
             </div>
@@ -94,77 +94,67 @@ const Drivers = () => {
         {/* Additional Info */}
         <div className="mt-16 relative overflow-hidden">
           {/* Background gradient */}
-          <div className="absolute inset-0 bg-gradient-to-br from-gray-900 to-indigo-950 rounded-2xl"></div>
+          <div className="absolute inset-0 bg-primary rounded-xl"></div>
           
-          {/* Decorative elements */}
-          <div className="absolute top-0 right-0 w-64 h-64 bg-violet-600/10 rounded-full blur-3xl"></div>
-          <div className="absolute bottom-0 left-0 w-64 h-64 bg-blue-600/10 rounded-full blur-3xl"></div>
-          
-          <div className="relative glass-dark rounded-2xl shadow-xl overflow-hidden border border-violet-500/10 backdrop-blur-md p-10 text-center">
+          <div className="relative rounded-xl shadow-lg overflow-hidden border border-primary/10 p-10 text-center">
             {/* Top badge */}
-            <div className="inline-block px-4 py-1.5 rounded-full bg-gradient-to-r from-violet-600/20 to-purple-600/20 backdrop-blur-md border border-violet-500/20 text-white text-sm font-medium mb-6 shadow-lg">
-              <span className="inline-block mr-2 bg-violet-500 rounded-full h-2 w-2 animate-pulse"></span>
+            <div className="inline-block px-4 py-1.5 rounded-md bg-white/20 text-white text-sm font-medium mb-6 shadow-md">
+              <span className="inline-block mr-2 bg-white rounded-full h-2 w-2 animate-pulse"></span>
               Elite Drivers Team
             </div>
             
-            <h2 className="text-3xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-violet-400 to-purple-300 font-space mb-4">Why Choose Our Drivers</h2>
+            <h2 className="text-3xl font-bold text-white mb-4">Why Choose Our Drivers</h2>
             
-            <p className="text-gray-200 mb-8 max-w-3xl mx-auto font-outfit">
+            <p className="text-white/90 mb-8 max-w-3xl mx-auto">
               All our drivers are professionally trained and have extensive experience with luxury and sports vehicles.
               They undergo rigorous background checks and maintain the highest standards of service.
             </p>
             
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mt-10">
               {/* Feature 1 */}
-              <div className="group relative backdrop-blur-md bg-white/5 rounded-xl p-6 border border-white/10 hover:bg-white/10 transition-all duration-300 hover:-translate-y-1 hover:shadow-lg hover:shadow-violet-500/10">
+              <div className="group relative bg-white/10 rounded-lg p-6 border border-white/10 hover:bg-white/20 transition-all duration-300 hover:-translate-y-1 hover:shadow-md">
                 {/* Icon */}
-                <div className="mx-auto w-14 h-14 rounded-xl bg-gradient-to-br from-violet-600 to-purple-600 flex items-center justify-center mb-5 shadow-lg transform group-hover:scale-110 transition-transform duration-300">
-                  <svg xmlns="http://www.w3.org/2000/svg" className="h-7 w-7 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <div className="mx-auto w-14 h-14 rounded-md bg-white flex items-center justify-center mb-5 shadow-md transform group-hover:scale-105 transition-transform duration-300">
+                  <svg xmlns="http://www.w3.org/2000/svg" className="h-7 w-7 text-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
                   </svg>
                 </div>
                 
-                {/* Title with gradient text */}
-                <h3 className="text-xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-violet-400 to-indigo-300 font-space mb-3">Safety First</h3>
+                <h3 className="text-xl font-bold text-white mb-3">Safety First</h3>
                 
-                {/* Description */}
-                <p className="text-gray-300 font-outfit">
+                <p className="text-white/80">
                   Our drivers prioritize your safety with defensive driving techniques and thorough knowledge of all vehicle safety features.
                 </p>
               </div>
               
               {/* Feature 2 */}
-              <div className="group relative backdrop-blur-md bg-white/5 rounded-xl p-6 border border-white/10 hover:bg-white/10 transition-all duration-300 hover:-translate-y-1 hover:shadow-lg hover:shadow-violet-500/10">
+              <div className="group relative bg-white/10 rounded-lg p-6 border border-white/10 hover:bg-white/20 transition-all duration-300 hover:-translate-y-1 hover:shadow-md">
                 {/* Icon */}
-                <div className="mx-auto w-14 h-14 rounded-xl bg-gradient-to-br from-blue-500 to-indigo-600 flex items-center justify-center mb-5 shadow-lg transform group-hover:scale-110 transition-transform duration-300">
-                  <svg xmlns="http://www.w3.org/2000/svg" className="h-7 w-7 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <div className="mx-auto w-14 h-14 rounded-md bg-white flex items-center justify-center mb-5 shadow-md transform group-hover:scale-105 transition-transform duration-300">
+                  <svg xmlns="http://www.w3.org/2000/svg" className="h-7 w-7 text-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
                   </svg>
                 </div>
                 
-                {/* Title with gradient text */}
-                <h3 className="text-xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-indigo-300 font-space mb-3">Professional Service</h3>
+                <h3 className="text-xl font-bold text-white mb-3">Professional Service</h3>
                 
-                {/* Description */}
-                <p className="text-gray-300 font-outfit">
+                <p className="text-white/80">
                   Expect punctuality, courtesy, and discreet service from our professionally trained chauffeurs available 24/7.
                 </p>
               </div>
               
               {/* Feature 3 */}
-              <div className="group relative backdrop-blur-md bg-white/5 rounded-xl p-6 border border-white/10 hover:bg-white/10 transition-all duration-300 hover:-translate-y-1 hover:shadow-lg hover:shadow-violet-500/10">
+              <div className="group relative bg-white/10 rounded-lg p-6 border border-white/10 hover:bg-white/20 transition-all duration-300 hover:-translate-y-1 hover:shadow-md">
                 {/* Icon */}
-                <div className="mx-auto w-14 h-14 rounded-xl bg-gradient-to-br from-purple-500 to-pink-600 flex items-center justify-center mb-5 shadow-lg transform group-hover:scale-110 transition-transform duration-300">
-                  <svg xmlns="http://www.w3.org/2000/svg" className="h-7 w-7 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <div className="mx-auto w-14 h-14 rounded-md bg-white flex items-center justify-center mb-5 shadow-md transform group-hover:scale-105 transition-transform duration-300">
+                  <svg xmlns="http://www.w3.org/2000/svg" className="h-7 w-7 text-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7" />
                   </svg>
                 </div>
                 
-                {/* Title with gradient text */}
-                <h3 className="text-xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-pink-300 font-space mb-3">Local Expertise</h3>
+                <h3 className="text-xl font-bold text-white mb-3">Local Expertise</h3>
                 
-                {/* Description */}
-                <p className="text-gray-300 font-outfit">
+                <p className="text-white/80">
                   Benefit from our drivers' extensive knowledge of local routes, attractions, and premium establishments.
                 </p>
               </div>

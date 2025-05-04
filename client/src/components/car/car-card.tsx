@@ -88,23 +88,23 @@ const CarCard = ({ car }: CarCardProps) => {
         <div className="flex justify-between items-start mb-3">
           <div>
             <Link href={`/cars/${id}`}>
-              <h3 className="text-lg font-bold text-gray-900 dark:text-white font-space hover:text-violet-600 dark:hover:text-violet-400 transition-colors">
+              <h3 className="text-lg font-bold text-gray-900 hover:text-primary transition-colors">
                 {brand} {model}
               </h3>
             </Link>
-            <p className="text-sm text-gray-600 dark:text-gray-400 font-outfit">
+            <p className="text-sm text-gray-600">
               {name}
             </p>
           </div>
           
-          <div className="flex items-center px-2 py-1 bg-amber-50 dark:bg-amber-900/20 rounded-lg">
+          <div className="flex items-center px-2 py-1 bg-primary/5 rounded-md">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-4 h-4 text-amber-500">
               <path fillRule="evenodd" d="M10.788 3.21c.448-1.077 1.976-1.077 2.424 0l2.082 5.007 5.404.433c1.164.093 1.636 1.545.749 2.305l-4.117 3.527 1.257 5.273c.271 1.136-.964 2.033-1.96 1.425L12 18.354 7.373 21.18c-.996.608-2.231-.29-1.96-1.425l1.257-5.273-4.117-3.527c-.887-.76-.415-2.212.749-2.305l5.404-.433 2.082-5.006z" clipRule="evenodd" />
             </svg>
-            <span className="ml-1 text-amber-800 dark:text-amber-300 font-medium font-outfit">
+            <span className="ml-1 text-gray-800 font-medium">
               {displayRating.toFixed(1)}
             </span>
-            <span className="ml-1 text-gray-500 dark:text-gray-400 text-xs">
+            <span className="ml-1 text-gray-500 text-xs">
               ({reviewCount})
             </span>
           </div>
@@ -112,32 +112,32 @@ const CarCard = ({ car }: CarCardProps) => {
         
         {/* Features with modern icons */}
         <div className="grid grid-cols-2 gap-3 mb-4">
-          <div className="flex items-center text-gray-700 dark:text-gray-300 text-sm">
-            <div className="w-7 h-7 rounded-full bg-violet-100 dark:bg-violet-900/30 flex items-center justify-center mr-2 text-violet-600 dark:text-violet-400">
+          <div className="flex items-center text-gray-700 text-sm">
+            <div className="w-7 h-7 rounded-md bg-primary/10 flex items-center justify-center mr-2 text-primary">
               <Users className="h-3.5 w-3.5" />
             </div>
-            <span className="font-outfit">{seats} seats</span>
+            <span>{seats} seats</span>
           </div>
           
-          <div className="flex items-center text-gray-700 dark:text-gray-300 text-sm">
-            <div className="w-7 h-7 rounded-full bg-blue-100 dark:bg-blue-900/30 flex items-center justify-center mr-2 text-blue-600 dark:text-blue-400">
+          <div className="flex items-center text-gray-700 text-sm">
+            <div className="w-7 h-7 rounded-md bg-primary/10 flex items-center justify-center mr-2 text-primary">
               <Gauge className="h-3.5 w-3.5" />
             </div>
-            <span className="font-outfit">{topSpeed} km/h</span>
+            <span>{topSpeed} km/h</span>
           </div>
           
-          <div className="flex items-center text-gray-700 dark:text-gray-300 text-sm">
-            <div className="w-7 h-7 rounded-full bg-emerald-100 dark:bg-emerald-900/30 flex items-center justify-center mr-2 text-emerald-600 dark:text-emerald-400">
+          <div className="flex items-center text-gray-700 text-sm">
+            <div className="w-7 h-7 rounded-md bg-primary/10 flex items-center justify-center mr-2 text-primary">
               <Calendar className="h-3.5 w-3.5" />
             </div>
-            <span className="font-outfit">Free cancellation</span>
+            <span>Free cancellation</span>
           </div>
           
-          <div className="flex items-center text-gray-700 dark:text-gray-300 text-sm">
-            <div className="w-7 h-7 rounded-full bg-amber-100 dark:bg-amber-900/30 flex items-center justify-center mr-2 text-amber-600 dark:text-amber-400">
+          <div className="flex items-center text-gray-700 text-sm">
+            <div className="w-7 h-7 rounded-md bg-primary/10 flex items-center justify-center mr-2 text-primary">
               <Sparkles className="h-3.5 w-3.5" />
             </div>
-            <span className="font-outfit">Premium</span>
+            <span>Premium</span>
           </div>
         </div>
         
@@ -145,10 +145,10 @@ const CarCard = ({ car }: CarCardProps) => {
         <div className="flex items-center justify-center">
           <Link 
             href={`/cars/${id}`} 
-            className={`w-full py-2.5 px-4 rounded-lg font-medium text-white text-center transition-all duration-300 font-space text-sm shadow-md 
+            className={`w-full py-2.5 px-4 rounded-md font-medium text-white text-center transition-all duration-300 text-sm shadow-md 
               ${available 
-                ? 'bg-gradient-to-r from-violet-600 to-purple-600 hover:from-violet-700 hover:to-purple-700 hover:shadow-xl hover:shadow-violet-500/10' 
-                : 'bg-gray-600 opacity-75 cursor-not-allowed'
+                ? 'bg-primary hover:bg-primary/90 hover:shadow-lg' 
+                : 'bg-gray-500 opacity-75 cursor-not-allowed'
               }`}
           >
             {available ? "View Details" : "Unavailable"}
@@ -158,7 +158,7 @@ const CarCard = ({ car }: CarCardProps) => {
       
       {/* Premium Indicator */}
       {price > 1000 && (
-        <div className="absolute -right-10 top-5 w-40 transform rotate-45 bg-gradient-to-r from-amber-500 to-yellow-500 text-white text-xs font-bold py-1 text-center shadow-md">
+        <div className="absolute -right-10 top-5 w-40 transform rotate-45 bg-primary text-white text-xs font-bold py-1 text-center shadow-md">
           PREMIUM
         </div>
       )}
