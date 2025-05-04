@@ -39,8 +39,8 @@ const Navbar = () => {
   return (
     <header className={`sticky top-0 z-50 transition-all duration-300 ${
       scrolled 
-        ? 'backdrop-blur-xl bg-white/5 dark:bg-gray-900/60 shadow-lg border-b border-white/10' 
-        : 'bg-transparent backdrop-blur-sm bg-white/0 dark:bg-black/5'
+        ? 'backdrop-blur-xl bg-purple-950/30 shadow-lg border-b border-purple-800/20' 
+        : 'bg-transparent backdrop-blur-sm'
     }`}>
       <div className="container mx-auto px-4 py-4 w-full">
         <nav className="relative flex items-center justify-between">
@@ -64,12 +64,12 @@ const Navbar = () => {
                 <div className="fixed inset-0 bg-gray-900/80 backdrop-blur-md" onClick={() => setMobileMenuOpen(false)}></div>
                 
                 {/* Mobile menu panel */}
-                <div className="fixed inset-y-0 left-0 z-50 w-full overflow-y-auto bg-gradient-to-b from-gray-900 to-gray-950 px-6 py-6 sm:max-w-sm sm:ring-1 sm:ring-white/10">
+                <div className="fixed inset-y-0 left-0 z-50 w-full overflow-y-auto bg-gradient-to-b from-purple-950 to-gray-950 px-6 py-6 sm:max-w-sm sm:ring-1 sm:ring-purple-800/20">
                   <div className="flex items-center justify-between mb-8">
                     <Link href="/" className="flex items-center" onClick={() => setMobileMenuOpen(false)}>
                       <span className="logo-text text-2xl">
-                        <span className="bg-gradient-to-r from-primary to-violet-400 text-transparent bg-clip-text font-bold">ZORO</span>
-                        <span className="bg-gradient-to-r from-blue-400 to-indigo-300 text-transparent bg-clip-text font-bold">CARS</span>
+                        <span className="bg-gradient-to-r from-purple-400 to-violet-500 text-transparent bg-clip-text font-bold">ZORO</span>
+                        <span className="bg-gradient-to-r from-violet-400 to-fuchsia-400 text-transparent bg-clip-text font-bold">CARS</span>
                       </span>
                     </Link>
                     <button
@@ -97,10 +97,10 @@ const Navbar = () => {
                           key={item.label}
                           href={item.href}
                           onClick={() => setMobileMenuOpen(false)}
-                          className={`block rounded-xl px-4 py-3 text-base font-medium font-space ${
+                          className={`block rounded-xl px-4 py-3 text-base font-medium ${
                             isActive(item.href) 
-                            ? 'bg-gradient-to-r from-violet-600/20 to-indigo-600/10 text-violet-400 border border-violet-500/20' 
-                            : 'text-gray-200 hover:bg-white/5'
+                            ? 'bg-gradient-to-r from-purple-600/30 to-fuchsia-600/20 text-fuchsia-300 border border-purple-500/30' 
+                            : 'text-gray-200 hover:bg-purple-800/30'
                           }`}
                         >
                           {item.label}
@@ -161,14 +161,14 @@ const Navbar = () => {
                           <Link
                             href="/login"
                             onClick={() => setMobileMenuOpen(false)}
-                            className="block w-full text-center py-3.5 px-4 rounded-xl bg-white/5 text-gray-100 font-medium font-space border border-gray-800 hover:bg-white/10 transition-colors"
+                            className="block w-full text-center py-3.5 px-4 rounded-xl bg-purple-800/30 text-gray-100 font-medium border border-purple-700/30 hover:bg-purple-700/40 transition-all duration-300"
                           >
                             Sign In
                           </Link>
                           <Link
                             href="/register"
                             onClick={() => setMobileMenuOpen(false)}
-                            className="block w-full text-center py-3.5 px-4 rounded-xl font-medium font-space bg-gradient-to-r from-violet-600 to-indigo-600 text-white shadow-lg hover:shadow-violet-500/20"
+                            className="block w-full text-center py-3.5 px-4 rounded-xl font-medium bg-gradient-to-r from-purple-600 to-fuchsia-600 text-white shadow-lg hover:shadow-purple-500/30 transition-all duration-300"
                           >
                             Create Account
                           </Link>
@@ -185,8 +185,8 @@ const Navbar = () => {
           <div className="flex-shrink-0 flex items-center">
             <Link href="/" className="flex items-center">
               <span className="logo-text text-2xl lg:text-3xl font-bold">
-                <span className="bg-gradient-to-r from-violet-500 to-indigo-500 text-transparent bg-clip-text">ZORO</span>
-                <span className="bg-gradient-to-r from-indigo-400 to-violet-400 text-transparent bg-clip-text">CARS</span>
+                <span className="bg-gradient-to-r from-purple-400 to-violet-500 text-transparent bg-clip-text">ZORO</span>
+                <span className="bg-gradient-to-r from-violet-400 to-fuchsia-400 text-transparent bg-clip-text">CARS</span>
               </span>
             </Link>
           </div>
@@ -203,15 +203,15 @@ const Navbar = () => {
               <Link 
                 key={item.label}
                 href={item.href} 
-                className={`relative text-sm font-medium rounded-md px-4 py-2 transition-all duration-200 ${
+                className={`relative text-sm font-medium rounded-lg px-4 py-2.5 transition-all duration-300 ${
                   isActive(item.href) 
-                    ? 'text-white bg-primary shadow-sm' 
-                    : 'text-white hover:text-white hover:bg-base-300'
+                    ? 'text-white bg-purple-700/80 backdrop-blur-sm shadow-md shadow-purple-900/20' 
+                    : 'text-white hover:text-white hover:bg-purple-800/30 backdrop-blur-sm'
                 }`}
               >
                 {item.label}
                 {isActive(item.href) && (
-                  <span className="absolute bottom-0 left-1/2 transform -translate-x-1/2 w-1.5 h-1.5 bg-white rounded-full"></span>
+                  <span className="absolute bottom-0 left-1/2 transform -translate-x-1/2 w-8 h-0.5 bg-gradient-to-r from-fuchsia-400 to-purple-400 rounded-full"></span>
                 )}
               </Link>
             ))}
@@ -273,13 +273,13 @@ const Navbar = () => {
               <div className="flex items-center space-x-3">
                 <Link
                   href="/login"
-                  className="text-sm font-medium text-white px-4 py-2 rounded-md hover:bg-base-300 transition-colors"
+                  className="text-sm font-medium text-white px-4 py-2.5 rounded-lg hover:bg-purple-800/30 backdrop-blur-sm transition-all duration-300"
                 >
                   Sign in
                 </Link>
                 <Link
                   href="/register"
-                  className="rounded-md bg-primary px-4 py-2 text-sm font-medium text-white shadow-md hover:bg-primary/90 transition-all duration-300"
+                  className="rounded-lg bg-gradient-to-r from-purple-600 to-fuchsia-600 px-5 py-2.5 text-sm font-medium text-white shadow-md hover:shadow-lg hover:shadow-purple-500/20 transition-all duration-300"
                 >
                   Create Account
                 </Link>
