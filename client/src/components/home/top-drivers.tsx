@@ -21,7 +21,7 @@ interface DriversResponse {
 }
 
 const TopDrivers = () => {
-  const { data, isLoading, error } = useQuery({
+  const { data, isLoading, error } = useQuery<DriversResponse>({
     queryKey: ["/api/drivers"],
     staleTime: 60000, // 1 minute
   });
@@ -51,12 +51,24 @@ const TopDrivers = () => {
             ))}
           </div>
         ) : error ? (
-          <div className="text-center p-8 bg-red-50 rounded-xl shadow-md border border-red-100">
-            <p className="text-red-500 font-medium">Error loading drivers. Please try again later.</p>
+          <div className="text-center p-10 bg-red-50 rounded-xl shadow-md border border-red-100">
+            <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-red-100">
+              <svg xmlns="http://www.w3.org/2000/svg" className="h-8 w-8 text-red-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+              </svg>
+            </div>
+            <h3 className="mt-4 text-xl font-semibold text-red-600">Error Loading Drivers</h3>
+            <p className="mt-2 text-red-500/80 font-medium">Please try again later.</p>
+            <button 
+              onClick={() => window.location.reload()}
+              className="mt-4 px-4 py-2 bg-white text-red-500 border border-red-200 rounded-md hover:bg-red-50 transition-colors"
+            >
+              Retry
+            </button>
           </div>
         ) : (
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
-            {data?.drivers ? data.drivers.slice(0, 4).map((driver: any) => (
+            {data?.drivers ? data.drivers.slice(0, 4).map((driver: Driver) => (
               <DriverCard key={driver.id} driver={driver} />
             )) : null}
           </div>
