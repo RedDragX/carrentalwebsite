@@ -8,6 +8,9 @@ import { useEffect, useState } from "react";
 import Navbar from "./components/layout/navbar";
 import Footer from "./components/layout/footer";
 
+// Import background image
+import backgroundImage from "./assets/background.png";
+
 // Pages
 import Home from "./pages/home";
 import Cars from "./pages/cars";
@@ -79,9 +82,18 @@ function App() {
   return (
     <QueryClientProvider client={queryClient}>
       <UserContext.Provider value={{ user, setUser, isLoggedIn: !!user }}>
-        <div className="flex flex-col min-h-screen font-poppins bg-base-100" data-theme="zoroTheme">
+        <div 
+          className="flex flex-col min-h-screen font-sans"
+          style={{
+            backgroundImage: `url(${backgroundImage})`,
+            backgroundSize: 'cover',
+            backgroundPosition: 'center',
+            backgroundAttachment: 'fixed'
+          }}
+        >
+          <div className="absolute inset-0 bg-black/25 backdrop-blur-[2px] z-0"></div>
           <Navbar />
-          <main className="flex-grow">
+          <main className="flex-grow relative z-10">
             <Router />
           </main>
           <Footer />
