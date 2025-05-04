@@ -88,11 +88,11 @@ const CarCard = ({ car }: CarCardProps) => {
         <div className="flex justify-between items-start mb-3">
           <div>
             <Link href={`/cars/${id}`}>
-              <h3 className="text-lg font-bold text-gray-900 hover:text-primary transition-colors">
+              <h3 className="text-lg font-bold text-neutral-800 hover:text-primary transition-colors">
                 {brand} {model}
               </h3>
             </Link>
-            <p className="text-sm text-gray-600">
+            <p className="text-sm text-neutral-600 font-medium">
               {name}
             </p>
           </div>
@@ -101,10 +101,10 @@ const CarCard = ({ car }: CarCardProps) => {
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-4 h-4 text-amber-500">
               <path fillRule="evenodd" d="M10.788 3.21c.448-1.077 1.976-1.077 2.424 0l2.082 5.007 5.404.433c1.164.093 1.636 1.545.749 2.305l-4.117 3.527 1.257 5.273c.271 1.136-.964 2.033-1.96 1.425L12 18.354 7.373 21.18c-.996.608-2.231-.29-1.96-1.425l1.257-5.273-4.117-3.527c-.887-.76-.415-2.212.749-2.305l5.404-.433 2.082-5.006z" clipRule="evenodd" />
             </svg>
-            <span className="ml-1 text-gray-800 font-medium">
+            <span className="ml-1 text-neutral-800 font-semibold">
               {displayRating.toFixed(1)}
             </span>
-            <span className="ml-1 text-gray-500 text-xs">
+            <span className="ml-1 text-neutral-500 font-medium text-xs">
               ({reviewCount})
             </span>
           </div>
@@ -112,32 +112,32 @@ const CarCard = ({ car }: CarCardProps) => {
         
         {/* Features with modern icons */}
         <div className="grid grid-cols-2 gap-3 mb-4">
-          <div className="flex items-center text-gray-700 text-sm">
+          <div className="flex items-center text-neutral-700 text-sm">
             <div className="w-7 h-7 rounded-md bg-primary/10 flex items-center justify-center mr-2 text-primary">
               <Users className="h-3.5 w-3.5" />
             </div>
-            <span>{seats} seats</span>
+            <span className="font-medium">{seats} seats</span>
           </div>
           
-          <div className="flex items-center text-gray-700 text-sm">
+          <div className="flex items-center text-neutral-700 text-sm">
             <div className="w-7 h-7 rounded-md bg-primary/10 flex items-center justify-center mr-2 text-primary">
               <Gauge className="h-3.5 w-3.5" />
             </div>
-            <span>{topSpeed} km/h</span>
+            <span className="font-medium">{topSpeed} km/h</span>
           </div>
           
-          <div className="flex items-center text-gray-700 text-sm">
+          <div className="flex items-center text-neutral-700 text-sm">
             <div className="w-7 h-7 rounded-md bg-primary/10 flex items-center justify-center mr-2 text-primary">
               <Calendar className="h-3.5 w-3.5" />
             </div>
-            <span>Free cancellation</span>
+            <span className="font-medium">Free cancellation</span>
           </div>
           
-          <div className="flex items-center text-gray-700 text-sm">
+          <div className="flex items-center text-neutral-700 text-sm">
             <div className="w-7 h-7 rounded-md bg-primary/10 flex items-center justify-center mr-2 text-primary">
               <Sparkles className="h-3.5 w-3.5" />
             </div>
-            <span>Premium</span>
+            <span className="font-medium">Premium</span>
           </div>
         </div>
         

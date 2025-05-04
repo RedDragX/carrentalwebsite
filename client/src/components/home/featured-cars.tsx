@@ -53,18 +53,22 @@ const FeaturedCars = () => {
         {isLoading ? (
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
             {[...Array(6)].map((_, index) => (
-              <div key={index} className="bg-white rounded-lg overflow-hidden shadow-md h-72 animate-pulse">
-                <div className="h-48 w-full bg-gray-300"></div>
+              <div key={index} className="bg-base-100 rounded-lg overflow-hidden shadow-md h-72 animate-pulse">
+                <div className="h-48 w-full bg-base-300"></div>
                 <div className="p-4">
-                  <div className="h-4 bg-gray-300 rounded w-3/4 mb-2"></div>
-                  <div className="h-4 bg-gray-300 rounded w-1/2"></div>
+                  <div className="h-4 bg-base-300 rounded-md w-3/4 mb-2"></div>
+                  <div className="h-4 bg-base-300 rounded-md w-1/2"></div>
                 </div>
               </div>
             ))}
           </div>
         ) : error ? (
-          <div className="text-center p-8 bg-red-50 rounded-lg">
-            <p className="text-red-500">Error loading cars. Please try again later.</p>
+          <div className="text-center p-10 bg-red-50 rounded-lg shadow-md">
+            <svg xmlns="http://www.w3.org/2000/svg" className="h-12 w-12 mx-auto text-red-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+            </svg>
+            <h3 className="mt-4 text-xl font-semibold text-red-600">Error Loading Cars</h3>
+            <p className="mt-2 text-red-700 font-medium">Please try again later.</p>
           </div>
         ) : (
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">

@@ -56,8 +56,8 @@ const Cars = () => {
     <div className="bg-base-200 py-12">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-8">
-          <h1 className="text-4xl font-bold text-primary font-heading">Our Car Collection</h1>
-          <p className="mt-2 text-neutral-700">Browse our selection of premium vehicles</p>
+          <h1 className="text-4xl font-bold text-primary">Our Car Collection</h1>
+          <p className="mt-2 text-neutral-700 font-medium">Browse our selection of premium vehicles</p>
         </div>
         
         {/* Search and filters */}
@@ -105,26 +105,30 @@ const Cars = () => {
         {isLoading ? (
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
             {[...Array(6)].map((_, index) => (
-              <div key={index} className="bg-white rounded-lg overflow-hidden shadow-md h-72 animate-pulse">
-                <div className="h-48 w-full bg-gray-300"></div>
+              <div key={index} className="bg-base-100 rounded-lg overflow-hidden shadow-md h-72 animate-pulse">
+                <div className="h-48 w-full bg-base-300"></div>
                 <div className="p-4">
-                  <div className="h-4 bg-gray-300 rounded w-3/4 mb-2"></div>
-                  <div className="h-4 bg-gray-300 rounded w-1/2"></div>
+                  <div className="h-4 bg-base-300 rounded-md w-3/4 mb-2"></div>
+                  <div className="h-4 bg-base-300 rounded-md w-1/2"></div>
                 </div>
               </div>
             ))}
           </div>
         ) : error ? (
-          <div className="text-center p-8 bg-red-50 rounded-lg">
-            <p className="text-red-500">Error loading cars. Please try again later.</p>
+          <div className="text-center p-10 bg-red-50 rounded-lg shadow-md">
+            <svg xmlns="http://www.w3.org/2000/svg" className="h-12 w-12 mx-auto text-red-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+            </svg>
+            <h3 className="mt-4 text-xl font-semibold text-red-600">Error Loading Cars</h3>
+            <p className="mt-2 text-red-700 font-medium">Please try again later.</p>
           </div>
         ) : filteredCars?.length === 0 ? (
-          <div className="text-center p-12 bg-white rounded-lg shadow">
-            <svg xmlns="http://www.w3.org/2000/svg" className="h-12 w-12 mx-auto text-neutral-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <div className="text-center p-12 bg-base-100 rounded-lg shadow-md">
+            <svg xmlns="http://www.w3.org/2000/svg" className="h-12 w-12 mx-auto text-primary/60" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
             </svg>
-            <h3 className="mt-4 text-xl font-medium text-primary">No cars found</h3>
-            <p className="mt-2 text-neutral-600">Try adjusting your search or filter criteria.</p>
+            <h3 className="mt-4 text-xl font-semibold text-primary">No cars found</h3>
+            <p className="mt-2 text-neutral-600 font-medium">Try adjusting your search or filter criteria.</p>
           </div>
         ) : (
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
