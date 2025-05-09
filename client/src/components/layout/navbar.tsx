@@ -123,31 +123,15 @@ const Navbar = () => {
                           </div>
                           
                           {/* User actions */}
-                          <div className="space-y-2">
-                            <a className="block px-4 py-3 rounded-xl text-gray-200 hover:bg-white/5 font-medium font-space">
-                              <span className="flex items-center">
-                                <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-3 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
-                                </svg>
-                                My Profile
-                              </span>
-                            </a>
-                            <a className="block px-4 py-3 rounded-xl text-gray-200 hover:bg-white/5 font-medium font-space">
-                              <span className="flex items-center">
-                                <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-3 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
-                                </svg>
-                                My Bookings
-                              </span>
-                            </a>
+                          <div className="space-y-4 pt-2">
                             <button 
                               onClick={() => {
                                 handleLogout();
                                 setMobileMenuOpen(false);
                               }}
-                              className="w-full px-4 py-3 rounded-xl text-left text-rose-400 hover:bg-rose-500/10 font-medium font-space"
+                              className="w-full px-4 py-3.5 rounded-xl bg-gradient-to-r from-rose-600 to-red-600 hover:from-rose-700 hover:to-red-700 text-white font-medium shadow-lg"
                             >
-                              <span className="flex items-center">
+                              <span className="flex items-center justify-center">
                                 <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
                                 </svg>
@@ -220,53 +204,21 @@ const Navbar = () => {
           {/* User account section */}
           <div className="hidden lg:flex lg:items-center">
             {isLoggedIn ? (
-              <div className="relative group">
+              <div className="flex items-center gap-x-2">
                 <button 
-                  type="button" 
-                  className="flex items-center gap-x-2 py-2 px-4 rounded-xl bg-white/5 hover:bg-white/10 transition-colors text-sm font-space leading-6 text-gray-200"
+                  onClick={handleLogout}
+                  className="flex items-center gap-x-2 py-2 px-4 rounded-xl bg-gradient-to-r from-rose-600 to-red-600 hover:from-rose-700 hover:to-red-700 transition-colors text-sm font-medium leading-6 text-white shadow-md"
                 >
+                  <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
+                  </svg>
+                  Log Out
+                </button>
+                <div className="flex items-center gap-x-2 py-2 px-4 rounded-xl bg-white/5 text-sm font-space leading-6 text-gray-200">
                   <div className="w-8 h-8 rounded-full bg-gradient-to-br from-violet-600 to-indigo-600 flex items-center justify-center text-white font-bold text-base shadow-sm">
                     {user?.username.charAt(0).toUpperCase()}
                   </div>
                   <span className="text-gray-300 max-w-[100px] truncate">{user?.username}</span>
-                  <svg className="h-5 w-5 text-gray-400" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
-                    <path fillRule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 11.168l3.71-3.938a.75.75 0 111.08 1.04l-4.25 4.5a.75.75 0 01-1.08 0l-4.25-4.5a.75.75 0 01.02-1.06z" clipRule="evenodd" />
-                  </svg>
-                </button>
-                
-                {/* Dropdown menu */}
-                <div className="fixed right-4 z-50 mt-2 w-64 origin-top-right rounded-xl bg-gradient-to-b from-purple-950 to-gray-900 py-2 shadow-xl border border-purple-500/20 backdrop-blur-xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 translate-y-1 group-hover:translate-y-0" style={{ top: "calc(100% + 5px)" }}>
-                  <div className="px-4 py-3 border-b border-gray-800">
-                    <p className="text-sm text-gray-400 font-outfit">Signed in as</p>
-                    <p className="text-sm font-medium text-white truncate font-space">{user?.email}</p>
-                  </div>
-                  
-                  <div className="py-2 px-1">
-                    <a className="flex items-center px-3 py-2.5 text-sm text-gray-300 hover:text-white hover:bg-white/5 rounded-lg font-outfit">
-                      <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-3 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
-                      </svg>
-                      My Profile
-                    </a>
-                    <a className="flex items-center px-3 py-2.5 text-sm text-gray-300 hover:text-white hover:bg-white/5 rounded-lg font-outfit">
-                      <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-3 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
-                      </svg>
-                      My Bookings
-                    </a>
-                  </div>
-                  
-                  <div className="py-1 border-t border-gray-800 px-1 mt-1">
-                    <button 
-                      onClick={handleLogout}
-                      className="flex w-full items-center px-3 py-2.5 text-sm font-outfit text-rose-400 hover:text-rose-300 hover:bg-rose-900/10 rounded-lg"
-                    >
-                      <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
-                      </svg>
-                      Sign out
-                    </button>
-                  </div>
                 </div>
               </div>
             ) : (
