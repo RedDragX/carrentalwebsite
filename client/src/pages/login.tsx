@@ -92,78 +92,84 @@ const Login = () => {
   };
   
   return (
-    <div className="bg-neutral-50 py-12">
-      <div className="max-w-md mx-auto bg-white p-8 rounded-lg shadow-md">
-        <h1 className="text-2xl font-bold text-primary font-heading text-center mb-6">Sign In to Your Account</h1>
-        
-        {errors.auth && (
-          <div className="mb-4 p-3 bg-red-50 text-red-700 rounded-md text-sm">
-            {errors.auth}
-          </div>
-        )}
-        
-        <form onSubmit={handleSubmit} className="space-y-4">
-          <div>
-            <label htmlFor="username" className="block text-sm font-medium text-neutral-700 mb-1">
-              Username
-            </label>
-            <input
-              id="username"
-              name="username"
-              type="text"
-              value={formData.username}
-              onChange={handleChange}
-              className={`w-full px-3 py-2 border rounded-md ${errors.username ? 'border-red-500' : 'border-neutral-300'} focus:outline-none focus:ring-2 focus:ring-accent`}
-            />
-            {errors.username && (
-              <p className="mt-1 text-sm text-red-500">{errors.username}</p>
-            )}
-          </div>
+    <div className="bg-neutral-50 py-12 bg-gradient-to-br from-blue-50 to-indigo-50">
+      <div className="max-w-md mx-auto backdrop-blur-md bg-white/70 p-8 rounded-xl shadow-xl border border-white/30 relative overflow-hidden transition-all hover:shadow-2xl">
+        <div className="absolute inset-0 bg-gradient-to-br from-blue-500/5 to-indigo-500/10 z-0"></div>
+        <div className="relative z-10">
+          <h1 className="text-2xl font-bold text-primary font-heading text-center mb-6 tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-indigo-700">Sign In to Your Account</h1>
           
-          <div>
-            <label htmlFor="password" className="block text-sm font-medium text-neutral-700 mb-1">
-              Password
-            </label>
-            <input
-              id="password"
-              name="password"
-              type="password"
-              value={formData.password}
-              onChange={handleChange}
-              className={`w-full px-3 py-2 border rounded-md ${errors.password ? 'border-red-500' : 'border-neutral-300'} focus:outline-none focus:ring-2 focus:ring-accent`}
-            />
-            {errors.password && (
-              <p className="mt-1 text-sm text-red-500">{errors.password}</p>
-            )}
-          </div>
+          {errors.auth && (
+            <div className="mb-4 p-3 bg-red-50/90 text-red-700 rounded-md text-sm font-medium border border-red-100">
+              {errors.auth}
+            </div>
+          )}
           
-          <div className="pt-2">
-            <button
-              type="submit"
-              disabled={isSubmitting}
-              className={`w-full bg-accent hover:bg-accent-dark text-white py-2 px-4 rounded-md transition-all ${isSubmitting ? 'opacity-70 cursor-not-allowed' : ''}`}
-            >
-              {isSubmitting ? "Signing In..." : "Sign In"}
-            </button>
-          </div>
-        </form>
-        
-        <p className="mt-6 text-center text-sm text-neutral-600">
-          Don't have an account?{" "}
-          <Link href="/register" className="text-accent hover:text-accent-dark font-medium">
-            Create an account
-          </Link>
-        </p>
+          <form onSubmit={handleSubmit} className="space-y-5">
+            <div>
+              <label htmlFor="username" className="block text-sm font-bold text-indigo-800 mb-1.5">
+                Username
+              </label>
+              <input
+                id="username"
+                name="username"
+                type="text"
+                value={formData.username}
+                onChange={handleChange}
+                className={`w-full px-4 py-2.5 bg-white/70 backdrop-blur-sm border-2 rounded-lg ${errors.username ? 'border-red-400' : 'border-indigo-100'} focus:outline-none focus:ring-2 focus:ring-indigo-400 transition-all`}
+              />
+              {errors.username && (
+                <p className="mt-1.5 text-sm font-medium text-red-500">{errors.username}</p>
+              )}
+            </div>
+            
+            <div>
+              <label htmlFor="password" className="block text-sm font-bold text-indigo-800 mb-1.5">
+                Password
+              </label>
+              <input
+                id="password"
+                name="password"
+                type="password"
+                value={formData.password}
+                onChange={handleChange}
+                className={`w-full px-4 py-2.5 bg-white/70 backdrop-blur-sm border-2 rounded-lg ${errors.password ? 'border-red-400' : 'border-indigo-100'} focus:outline-none focus:ring-2 focus:ring-indigo-400 transition-all`}
+              />
+              {errors.password && (
+                <p className="mt-1.5 text-sm font-medium text-red-500">{errors.password}</p>
+              )}
+            </div>
+            
+            <div className="pt-2">
+              <button
+                type="submit"
+                disabled={isSubmitting}
+                className={`w-full bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white py-3 px-5 rounded-lg font-bold transition-all shadow-md hover:shadow-lg ${isSubmitting ? 'opacity-70 cursor-not-allowed' : ''}`}
+              >
+                {isSubmitting ? "Signing In..." : "Sign In"}
+              </button>
+            </div>
+          </form>
+          
+          <p className="mt-6 text-center text-sm font-medium text-indigo-800">
+            Don't have an account?{" "}
+            <Link href="/register" className="text-blue-600 hover:text-blue-800 font-bold underline-offset-2 hover:underline transition-colors">
+              Create an account
+            </Link>
+          </p>
+        </div>
       </div>
       
-      <div className="mt-8 max-w-md mx-auto p-4 bg-white rounded-lg shadow-md">
-        <h2 className="text-lg font-semibold text-primary mb-2">Demo Account</h2>
-        <p className="text-sm text-neutral-600 mb-4">
-          For testing purposes, you can use these credentials:
-        </p>
-        <div className="border-l-4 border-accent pl-3 py-2">
-          <p><strong>Username:</strong> admin</p>
-          <p><strong>Password:</strong> admin123</p>
+      <div className="mt-8 max-w-md mx-auto backdrop-blur-md bg-white/70 p-6 rounded-xl shadow-lg border border-white/30 relative overflow-hidden transition-all">
+        <div className="absolute inset-0 bg-gradient-to-br from-blue-500/5 to-indigo-500/10 z-0"></div>
+        <div className="relative z-10">
+          <h2 className="text-lg font-bold text-primary mb-2 text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-indigo-700">Demo Account</h2>
+          <p className="text-sm font-medium text-indigo-800 mb-4">
+            For testing purposes, you can use these credentials:
+          </p>
+          <div className="border-l-4 border-indigo-500 pl-4 py-2 bg-indigo-50/70 rounded-r-lg">
+            <p className="font-medium text-indigo-900"><strong>Username:</strong> admin</p>
+            <p className="font-medium text-indigo-900"><strong>Password:</strong> admin123</p>
+          </div>
         </div>
       </div>
     </div>

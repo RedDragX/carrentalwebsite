@@ -117,127 +117,130 @@ const Register = () => {
   };
   
   return (
-    <div className="bg-neutral-50 py-12">
-      <div className="max-w-md mx-auto bg-white p-8 rounded-lg shadow-md">
-        <h1 className="text-2xl font-bold text-primary font-heading text-center mb-6">Create an Account</h1>
-        
-        <form onSubmit={handleSubmit} className="space-y-4">
-          <div>
-            <label htmlFor="username" className="block text-sm font-medium text-neutral-700 mb-1">
-              Username
-            </label>
-            <input
-              id="username"
-              name="username"
-              type="text"
-              value={formData.username}
-              onChange={handleChange}
-              className={`w-full px-3 py-2 border rounded-md ${errors.username ? 'border-red-500' : 'border-neutral-300'} focus:outline-none focus:ring-2 focus:ring-accent`}
-            />
-            {errors.username && (
-              <p className="mt-1 text-sm text-red-500">{errors.username}</p>
-            )}
-          </div>
+    <div className="bg-neutral-50 py-12 bg-gradient-to-br from-blue-50 to-indigo-50">
+      <div className="max-w-md mx-auto backdrop-blur-md bg-white/70 p-8 rounded-xl shadow-xl border border-white/30 relative overflow-hidden transition-all hover:shadow-2xl">
+        <div className="absolute inset-0 bg-gradient-to-br from-blue-500/5 to-indigo-500/10 z-0"></div>
+        <div className="relative z-10">
+          <h1 className="text-2xl font-bold text-primary font-heading text-center mb-6 tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-indigo-700">Create an Account</h1>
           
-          <div>
-            <label htmlFor="email" className="block text-sm font-medium text-neutral-700 mb-1">
-              Email
-            </label>
-            <input
-              id="email"
-              name="email"
-              type="email"
-              value={formData.email}
-              onChange={handleChange}
-              className={`w-full px-3 py-2 border rounded-md ${errors.email ? 'border-red-500' : 'border-neutral-300'} focus:outline-none focus:ring-2 focus:ring-accent`}
-            />
-            {errors.email && (
-              <p className="mt-1 text-sm text-red-500">{errors.email}</p>
-            )}
-          </div>
+          <form onSubmit={handleSubmit} className="space-y-5">
+            <div>
+              <label htmlFor="username" className="block text-sm font-bold text-indigo-800 mb-1.5">
+                Username
+              </label>
+              <input
+                id="username"
+                name="username"
+                type="text"
+                value={formData.username}
+                onChange={handleChange}
+                className={`w-full px-4 py-2.5 bg-white/70 backdrop-blur-sm border-2 rounded-lg ${errors.username ? 'border-red-400' : 'border-indigo-100'} focus:outline-none focus:ring-2 focus:ring-indigo-400 transition-all`}
+              />
+              {errors.username && (
+                <p className="mt-1.5 text-sm font-medium text-red-500">{errors.username}</p>
+              )}
+            </div>
+            
+            <div>
+              <label htmlFor="email" className="block text-sm font-bold text-indigo-800 mb-1.5">
+                Email
+              </label>
+              <input
+                id="email"
+                name="email"
+                type="email"
+                value={formData.email}
+                onChange={handleChange}
+                className={`w-full px-4 py-2.5 bg-white/70 backdrop-blur-sm border-2 rounded-lg ${errors.email ? 'border-red-400' : 'border-indigo-100'} focus:outline-none focus:ring-2 focus:ring-indigo-400 transition-all`}
+              />
+              {errors.email && (
+                <p className="mt-1.5 text-sm font-medium text-red-500">{errors.email}</p>
+              )}
+            </div>
+            
+            <div>
+              <label htmlFor="fullName" className="block text-sm font-bold text-indigo-800 mb-1.5">
+                Full Name
+              </label>
+              <input
+                id="fullName"
+                name="fullName"
+                type="text"
+                value={formData.fullName}
+                onChange={handleChange}
+                className={`w-full px-4 py-2.5 bg-white/70 backdrop-blur-sm border-2 rounded-lg ${errors.fullName ? 'border-red-400' : 'border-indigo-100'} focus:outline-none focus:ring-2 focus:ring-indigo-400 transition-all`}
+              />
+              {errors.fullName && (
+                <p className="mt-1.5 text-sm font-medium text-red-500">{errors.fullName}</p>
+              )}
+            </div>
+            
+            <div>
+              <label htmlFor="phone" className="block text-sm font-bold text-indigo-800 mb-1.5">
+                Phone Number (optional)
+              </label>
+              <input
+                id="phone"
+                name="phone"
+                type="tel"
+                value={formData.phone}
+                onChange={handleChange}
+                className="w-full px-4 py-2.5 bg-white/70 backdrop-blur-sm border-2 border-indigo-100 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-400 transition-all"
+              />
+            </div>
+            
+            <div>
+              <label htmlFor="password" className="block text-sm font-bold text-indigo-800 mb-1.5">
+                Password
+              </label>
+              <input
+                id="password"
+                name="password"
+                type="password"
+                value={formData.password}
+                onChange={handleChange}
+                className={`w-full px-4 py-2.5 bg-white/70 backdrop-blur-sm border-2 rounded-lg ${errors.password ? 'border-red-400' : 'border-indigo-100'} focus:outline-none focus:ring-2 focus:ring-indigo-400 transition-all`}
+              />
+              {errors.password && (
+                <p className="mt-1.5 text-sm font-medium text-red-500">{errors.password}</p>
+              )}
+            </div>
+            
+            <div>
+              <label htmlFor="confirmPassword" className="block text-sm font-bold text-indigo-800 mb-1.5">
+                Confirm Password
+              </label>
+              <input
+                id="confirmPassword"
+                name="confirmPassword"
+                type="password"
+                value={formData.confirmPassword}
+                onChange={handleChange}
+                className={`w-full px-4 py-2.5 bg-white/70 backdrop-blur-sm border-2 rounded-lg ${errors.confirmPassword ? 'border-red-400' : 'border-indigo-100'} focus:outline-none focus:ring-2 focus:ring-indigo-400 transition-all`}
+              />
+              {errors.confirmPassword && (
+                <p className="mt-1.5 text-sm font-medium text-red-500">{errors.confirmPassword}</p>
+              )}
+            </div>
+            
+            <div className="pt-2">
+              <button
+                type="submit"
+                disabled={isSubmitting}
+                className={`w-full bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white py-3 px-5 rounded-lg font-bold transition-all shadow-md hover:shadow-lg ${isSubmitting ? 'opacity-70 cursor-not-allowed' : ''}`}
+              >
+                {isSubmitting ? "Creating Account..." : "Register"}
+              </button>
+            </div>
+          </form>
           
-          <div>
-            <label htmlFor="fullName" className="block text-sm font-medium text-neutral-700 mb-1">
-              Full Name
-            </label>
-            <input
-              id="fullName"
-              name="fullName"
-              type="text"
-              value={formData.fullName}
-              onChange={handleChange}
-              className={`w-full px-3 py-2 border rounded-md ${errors.fullName ? 'border-red-500' : 'border-neutral-300'} focus:outline-none focus:ring-2 focus:ring-accent`}
-            />
-            {errors.fullName && (
-              <p className="mt-1 text-sm text-red-500">{errors.fullName}</p>
-            )}
-          </div>
-          
-          <div>
-            <label htmlFor="phone" className="block text-sm font-medium text-neutral-700 mb-1">
-              Phone Number (optional)
-            </label>
-            <input
-              id="phone"
-              name="phone"
-              type="tel"
-              value={formData.phone}
-              onChange={handleChange}
-              className="w-full px-3 py-2 border border-neutral-300 rounded-md focus:outline-none focus:ring-2 focus:ring-accent"
-            />
-          </div>
-          
-          <div>
-            <label htmlFor="password" className="block text-sm font-medium text-neutral-700 mb-1">
-              Password
-            </label>
-            <input
-              id="password"
-              name="password"
-              type="password"
-              value={formData.password}
-              onChange={handleChange}
-              className={`w-full px-3 py-2 border rounded-md ${errors.password ? 'border-red-500' : 'border-neutral-300'} focus:outline-none focus:ring-2 focus:ring-accent`}
-            />
-            {errors.password && (
-              <p className="mt-1 text-sm text-red-500">{errors.password}</p>
-            )}
-          </div>
-          
-          <div>
-            <label htmlFor="confirmPassword" className="block text-sm font-medium text-neutral-700 mb-1">
-              Confirm Password
-            </label>
-            <input
-              id="confirmPassword"
-              name="confirmPassword"
-              type="password"
-              value={formData.confirmPassword}
-              onChange={handleChange}
-              className={`w-full px-3 py-2 border rounded-md ${errors.confirmPassword ? 'border-red-500' : 'border-neutral-300'} focus:outline-none focus:ring-2 focus:ring-accent`}
-            />
-            {errors.confirmPassword && (
-              <p className="mt-1 text-sm text-red-500">{errors.confirmPassword}</p>
-            )}
-          </div>
-          
-          <div className="pt-2">
-            <button
-              type="submit"
-              disabled={isSubmitting}
-              className={`w-full bg-accent hover:bg-accent-dark text-white py-2 px-4 rounded-md transition-all ${isSubmitting ? 'opacity-70 cursor-not-allowed' : ''}`}
-            >
-              {isSubmitting ? "Creating Account..." : "Register"}
-            </button>
-          </div>
-        </form>
-        
-        <p className="mt-6 text-center text-sm text-neutral-600">
-          Already have an account?{" "}
-          <Link href="/login" className="text-accent hover:text-accent-dark font-medium">
-            Sign in
-          </Link>
-        </p>
+          <p className="mt-6 text-center text-sm font-medium text-indigo-800">
+            Already have an account?{" "}
+            <Link href="/login" className="text-blue-600 hover:text-blue-800 font-bold underline-offset-2 hover:underline transition-colors">
+              Sign in
+            </Link>
+          </p>
+        </div>
       </div>
     </div>
   );
