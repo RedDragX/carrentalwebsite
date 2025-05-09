@@ -235,7 +235,7 @@ const Navbar = () => {
                 </button>
                 
                 {/* Dropdown menu */}
-                <div className="absolute right-0 z-10 mt-2 w-64 origin-top-right rounded-xl bg-gradient-to-b from-gray-900 to-gray-950 py-2 shadow-2xl ring-1 ring-white/10 backdrop-blur-xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 translate-y-1 group-hover:translate-y-0">
+                <div className="fixed right-4 z-50 mt-2 w-64 origin-top-right rounded-xl bg-gradient-to-b from-purple-950 to-gray-900 py-2 shadow-xl border border-purple-500/20 backdrop-blur-xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 translate-y-1 group-hover:translate-y-0" style={{ top: "calc(100% + 5px)" }}>
                   <div className="px-4 py-3 border-b border-gray-800">
                     <p className="text-sm text-gray-400 font-outfit">Signed in as</p>
                     <p className="text-sm font-medium text-white truncate font-space">{user?.email}</p>
