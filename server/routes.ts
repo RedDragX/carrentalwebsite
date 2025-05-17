@@ -14,6 +14,7 @@ import {
   type NLPResult,
   type SkillAnalysis
 } from "./openai-service";
+import { generateChatbotResponse } from "./openai-chatbot";
 
 export async function registerRoutes(app: Express): Promise<Server> {
   // Car routes
