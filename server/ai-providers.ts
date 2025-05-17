@@ -110,6 +110,8 @@ async function getGeminiResponse(messages: ChatMessage[]): Promise<string | null
     // Use Gemini Pro model (with null check)
     const model = gemini?.getGenerativeModel({ model: "gemini-1.5-pro" });
     
+    if (!model) return null;
+    
     const result = await model.generateContent(geminiPrompt);
     const response = result.response;
     return response.text();
