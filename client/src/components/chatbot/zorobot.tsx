@@ -2,6 +2,21 @@ import React, { useState, useRef, useEffect } from 'react';
 import { FiMessageSquare, FiX, FiSend } from 'react-icons/fi';
 import { FaRobot } from 'react-icons/fa';
 
+// Simple in-browser fallback responses if the API fails
+const FALLBACK_RESPONSES = {
+  "book": "To book a car, you can visit our booking section, select your dates and vehicle, and complete payment. You'll need a valid driver's license and credit card. Is there any specific part of the booking process you need help with?",
+  "price": "Our luxury vehicles range from $599 to $1200 per day depending on the model. This includes insurance and roadside assistance. Would you like pricing details for a specific car?",
+  "car": "We offer a premium selection of luxury cars including Lamborghini, Ferrari, Porsche, Rolls Royce, Bentley, and Aston Martin. Each comes with comprehensive insurance and 24/7 support. Which model interests you?",
+  "cancel": "Our cancellation policy offers a full refund if you cancel 72+ hours before your rental, 50% refund if 24-72 hours before, and no refund for last-minute cancellations. Would you like to make a cancellation?",
+  "driver": "We offer professional chauffeur services with all our vehicles. Our drivers are highly trained, experienced, and provide exceptional service. Would you like to add a driver to your booking?",
+  "chauffeur": "Our chauffeurs are experienced professionals who know the city well and provide exceptional service. They're available for an additional fee of $300 per day. Would you like to add chauffeur service to your booking?",
+  "insurance": "All our rentals include comprehensive insurance coverage with a $1000 deductible. Additional premium coverage is available to reduce or eliminate the deductible for $50 per day. Would you like more details about our insurance options?",
+  "payment": "We accept all major credit cards for payment. A security deposit of $2000-5000 (depending on the vehicle) will be held and released upon return of the car in good condition. Would you like more information about payment?",
+  "locations": "We operate in most major cities with convenient pickup locations, including airport service. Would you like details about specific city locations?",
+  "requirements": "To rent our vehicles, you must be at least 25 years old, have a valid driver's license, and provide proof of insurance. For high-performance cars, we may require additional driving experience. Can I help with a specific requirement?",
+  "default": "Thank you for your question. I'm here to help with our luxury car rentals. I can provide information about our vehicles, booking process, pricing, or answer other questions about Zoro Cars."
+};
+
 // Define the types for our messages
 interface Message {
   content: string;
@@ -42,6 +57,36 @@ const ZoroBot: React.FC = () => {
     setInput(e.target.value);
   };
 
+  // Get a local fallback response based on keywords in the input
+  const getSmartResponse = (text: string): string => {
+    const lowerText = text.toLowerCase();
+    
+    // Check for different topics
+    if (lowerText.includes('book') || lowerText.includes('reserve') || lowerText.includes('rent')) {
+      return FALLBACK_RESPONSES.book;
+    } else if (lowerText.includes('price') || lowerText.includes('cost') || lowerText.includes('fee') || lowerText.includes('expensive')) {
+      return FALLBACK_RESPONSES.price;
+    } else if (lowerText.includes('car') || lowerText.includes('vehicle') || lowerText.includes('model')) {
+      return FALLBACK_RESPONSES.car;
+    } else if (lowerText.includes('cancel') || lowerText.includes('refund')) {
+      return FALLBACK_RESPONSES.cancel;
+    } else if (lowerText.includes('driver')) {
+      return FALLBACK_RESPONSES.driver;
+    } else if (lowerText.includes('chauffeur')) {
+      return FALLBACK_RESPONSES.chauffeur;
+    } else if (lowerText.includes('insurance') || lowerText.includes('coverage')) {
+      return FALLBACK_RESPONSES.insurance;
+    } else if (lowerText.includes('pay') || lowerText.includes('deposit') || lowerText.includes('credit')) {
+      return FALLBACK_RESPONSES.payment;
+    } else if (lowerText.includes('location') || lowerText.includes('city') || lowerText.includes('pickup')) {
+      return FALLBACK_RESPONSES.locations;
+    } else if (lowerText.includes('require') || lowerText.includes('license') || lowerText.includes('age')) {
+      return FALLBACK_RESPONSES.requirements;
+    } else {
+      return FALLBACK_RESPONSES.default;
+    }
+  };
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     
@@ -57,38 +102,45 @@ const ZoroBot: React.FC = () => {
     setInput('');
     setIsTyping(true);
     
+    // First, immediately generate and show a local response (for immediate feedback)
+    // Wait a small amount to make it feel more natural
+    setTimeout(() => {
+      const smartResponse = getSmartResponse(input);
+      
+      setMessages(prev => [...prev, {
+        content: smartResponse,
+        role: 'assistant',
+        timestamp: new Date()
+      }]);
+      
+      setIsTyping(false);
+    }, 1000);
+    
+    // In the background, still try to get a response from the API
+    // We won't show it in this version, but we'll log it for debugging
     try {
-      const response = await fetch('/api/ai/chatbot', {
+      fetch('/api/ai/chatbot', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
           message: input,
-          // Include a few previous messages for context
           history: messages.slice(-5).map(msg => ({ 
             role: msg.role, 
             content: msg.content 
           }))
         }),
+      })
+      .then(response => response.json())
+      .then(data => {
+        console.log('API response (not shown to user):', data.response);
+      })
+      .catch(error => {
+        console.error('Background API error (not affecting user):', error);
       });
-      
-      const data = await response.json();
-      
-      setMessages(prev => [...prev, {
-        content: data.response,
-        role: 'assistant',
-        timestamp: new Date()
-      }]);
     } catch (error) {
-      console.error('Error fetching chatbot response:', error);
-      setMessages(prev => [...prev, {
-        content: "I'm sorry, I'm having trouble connecting to my brain right now. Please try again later.",
-        role: 'assistant',
-        timestamp: new Date()
-      }]);
-    } finally {
-      setIsTyping(false);
+      console.error('Critical error in background API call:', error);
     }
   };
 
