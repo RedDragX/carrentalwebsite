@@ -321,6 +321,26 @@ export async function registerRoutes(app: Express): Promise<Server> {
       res.status(500).json({ message: "Failed to generate AI review" });
     }
   });
+  
+  // Chatbot API endpoint
+  app.post("/api/ai/chatbot", async (req: Request, res: Response) => {
+    try {
+      const { message, history } = req.body;
+      
+      if (!message) {
+        return res.status(400).json({ message: "Message is required" });
+      }
+      
+      // Generate chatbot response
+      const response = await generateChatbotResponse(message, history);
+      
+      res.json({ response });
+    } catch (error) {
+      console.error("Error generating chatbot response:", error);
+      const errorMsg = error instanceof Error ? error.message : "Unknown error";
+      res.status(500).json({ message: `Failed to generate chatbot response: ${errorMsg}` });
+    }
+  });
 
   const httpServer = createServer(app);
   return httpServer;
